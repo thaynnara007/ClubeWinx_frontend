@@ -29,13 +29,14 @@ module.exports = {
     'import/prefer-default-export': 'off',
 
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
     'react/no-unescaped-entities': 'off',
     'react/jsx-curly-newline': 'off',
     'no-irregular-whitespace': 'off',
     'react/jsx-props-no-spreading': 'off',
     'react/destructuring-assignment': 'off',
     'react/jsx-one-expression-per-line': 'off',
-    'react/jsx-filename-extension': ['warn', { extensions: ['.jsx', '.js'] }],
+    'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.js'] }],
 
     'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/control-has-associated-label': 'off',
