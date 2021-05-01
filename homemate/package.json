@@ -30,11 +30,13 @@
     }
   },
   "lint-staged": {
-    "*.js": [
-      "eslint --fix",
+    "*.{js, jsx}": [
       "npm run prettier",
       "npm run lint",
       "git add"
+    ],
+    "*.json": [
+      "prettier --write"
     ]
   },
   "browserslist": {
