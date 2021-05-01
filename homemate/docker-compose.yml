@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+
+  frontend:
+    image: homemate-front
+    container_name: 'homemate-front'
+    build:
+      dockerfile: ./Dockerfile
+      context: .
+    restart: unless-stopped
+    env_file: 
+      - .env
+    volumes:
+      - /app/node_modules
+    ports: 
+      - 8080:8080
+    environment:
+      PORT: 8080
+      REACT_APP_API_URL: "localhost:3000"
+
+volumes:
+  node_modules:
