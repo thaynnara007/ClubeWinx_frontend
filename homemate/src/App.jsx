@@ -1,25 +1,28 @@
-import logo from './logo.svg'
-import './App.css'
+import { useState } from 'react';
+import Navbar from './components/navbar';
+import Register from './components/form/register'
+import Login from './components/form/login'
 
 function App() {
+  const [ choosed, setChoosed ] = useState('LOGIN')
+
+  const action1 = () => {
+    setChoosed('LOGIN')
+  }
+
+  const action2 = () => {
+    setChoosed('CADASTRO')
+  }
+
+  const actions = [action1, action2]
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Navbar choosed={choosed} actions={actions}>{['LOGIN', 'CADASTRO']}</Navbar>
+      <Register/>
     </div>
   )
+
 }
 
-export default App
+export default App;
