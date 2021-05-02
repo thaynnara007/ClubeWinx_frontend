@@ -7,8 +7,8 @@ function Login() {
     <div style={{ marginTop: '150px' }}>
       <BasicForm>
         <OneLineInput name="Email" />
-        <OneLineInput name="Senha" />
-        <BaseButton>LOGIN</BaseButton>
+        <OneLineInput type="password" name="Senha" />
+        <BaseButton>ENTRAR</BaseButton>
       </BasicForm>
     </div>
   );
