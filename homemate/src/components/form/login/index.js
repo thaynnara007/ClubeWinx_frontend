@@ -1,16 +1,17 @@
-import BasicForm from '../BasicForm'
-import OneLineInput from '../../input/oneLineInput'
+import BasicForm from '../BasicForm';
+import OneLineInput from '../../input/oneLineInput';
+import BaseButton from '../../button/baseButton';
 
-function Login (props) {
-  
+function Login() {
   return (
-    <div style={{marginTop: '150px'}}>
+    <div style={{ marginTop: '150px' }}>
       <BasicForm>
-        <OneLineInput name="Email"/>
-        <OneLineInput name="Senha"/>
+        <OneLineInput name="Email" />
+        <OneLineInput name="Senha" />
+        <BaseButton>LOGIN</BaseButton>
       </BasicForm>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
