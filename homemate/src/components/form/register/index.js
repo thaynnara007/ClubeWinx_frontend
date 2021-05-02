@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import moment from 'moment';
+import { toast } from 'react-toastify';
 
+import api from '../../../api';
 import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
@@ -36,94 +38,122 @@ function Register() {
   const validateName = () => {
     const validation = name === '' || name === null;
     setProblemName(validation);
-
-    return validation;
+    return !validation;
   };
   const validateLastname = () => {
     const validation = lastname === '' || lastname === null;
     setProblemLastname(validation);
 
-    return validation;
+    return !validation;
   };
   const validateEmail = () => {
     const validation = email === '' || email === null;
     setProblemEmail(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateBirthday = () => {
-    const validation = birthday === '' || birthday === null || !moment(birthday, DATE_FORMAT).isValid();
+    const validation =
+      birthday === '' || birthday === null || !moment(birthday, DATE_FORMAT).isValid();
 
     setProblemBirthday(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validatePassword = () => {
     const validation = password === '' || password === null;
     setProblemPassword(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateStreet = () => {
     const validation = street === '' || street === null;
     setProblemStreet(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateNumber = () => {
     const validation = number === '' || number === null;
     setProblemNumber(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateDistrict = () => {
     const validation = district === '' || district === null;
     setProblemDistrict(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateZipCode = () => {
     const validation = zipCode === '' || street === null;
     setProblemZipCode(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateCity = () => {
     const validation = city === '' || city === null;
     setProblemCity(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateState = () => {
     const validation = state === '' || state === null;
     setProblemState(validation);
 
-    return validation;
+    return !validation;
   };
 
   const validateInfo = () =>
-    validateName() 
-    && validateLastname()
-    && validateEmail() 
-    && validatePassword() 
-    && validateStreet() 
-    && validateNumber() 
-    && validateDistrict() 
-    && validateZipCode() 
-    && validateCity() 
-    && validateState() 
-    && validateBirthday();
+    validateName() &&
+    validateLastname() &&
+    validateEmail() &&
+    validatePassword() &&
+    validateBirthday() &&
+    validateStreet() &&
+    validateNumber() &&
+    validateDistrict() &&
+    validateZipCode() &&
+    validateCity() &&
+    validateState();
 
   const register = () => {
-    validateInfo();
+    const validated = validateInfo();
+
+    if (validated) {
+      const body = {
+        name,
+        lastname,
+        email,
+        phoneNumber,
+        birthday,
+        gender,
+        password,
+        street,
+        number,
+        district,
+        complement,
+        zipCode,
+        city,
+        state,
+      };
+
+      api
+        .post('/user', body)
+        .then(() => {
+          toast('cadastro realizado com sucesso!');
+        })
+        .catch((error) => {
+          toast.error(error.response.data.error);
+        });
+    }
   };
 
   return (
@@ -148,6 +178,13 @@ function Register() {
           onChange={(value) => setEmail(value)}
         />
         <OneLineInput
+          problem={problemPassword}
+          type="password"
+          name="Senha"
+          value={password}
+          onChange={(value) => setPassword(value)}
+        />
+        <OneLineInput
           name="Número de celular. ex: 83987565821"
           value={phoneNumber}
           onChange={(value) => setPhoneNumber(value)}
@@ -158,13 +195,6 @@ function Register() {
           name="Data de nascimento. ex: 06/03/1990"
           value={birthday}
           onChange={(value) => setBirthday(value)}
-        />
-        <OneLineInput
-          problem={problemPassword}
-          type="password"
-          name="Senha"
-          value={password}
-          onChange={(value) => setPassword(value)}
         />
         <OneLineInput
           problem={problemStreet}
