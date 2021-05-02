@@ -1,25 +1,22 @@
-import logo from './logo.svg'
-import './App.css'
+import EnterPage from './pages/enter';
+import Page404 from './pages/404'
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 
+toast.configure()
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact={true} component={EnterPage}></Route>
+          <Route path="*" component={Page404}></Route>
+        </Switch>
+      </BrowserRouter>
+      <ToastContainer/>
+    </>
   )
 }
 
-export default App
+export default App;

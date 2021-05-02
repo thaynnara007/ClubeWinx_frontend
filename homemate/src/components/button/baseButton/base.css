@@ -1,0 +1,41 @@
+.component-button-base-button {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu';
+  font-size: 20px;
+  cursor: pointer;
+  margin: 30px 0px;
+  padding: 10px 25px;
+  background-color: #f4f4f4;
+  color: black;
+  border: 2px solid #6983aa;
+  border-radius: 10px;
+  transition: all 0.5s;
+  min-width: 200px;
+  box-shadow: 0px 3px 7px #8566aa;
+}
+
+.component-button-base-button::after {
+  font-weight: 400;
+  position: absolute;
+  left: 80%;
+  top: 54%;
+  right: 0;
+  bottom: 0;
+  opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+.component-button-base-button:hover {
+  background: #8ec6c5;
+  transition: all 0.5s;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 0px 6px 15px #6983aa;
+  padding: 10px 25px;
+  color: #f4f4f4;
+}
+
+.component-button-base-button:hover::after {
+  opacity: 1;
+  transition: all 0.5s;
+  color: #f4f4f4;
+}

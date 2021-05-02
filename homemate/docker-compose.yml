@@ -17,7 +17,8 @@ services:
       - 8080:8080
     environment:
       PORT: 8080
-      REACT_APP_API_URL: "localhost:3000"
+      ESLINT_NO_DEV_ERRORS: true
+      REACT_APP_API_URL: ${REACT_APP_API_URL}
 
 volumes:
   node_modules:
