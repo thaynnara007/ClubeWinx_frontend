@@ -1,10 +1,10 @@
 import EnterPage from './pages/enter';
-import Page404 from './pages/404'
-import { ToastContainer, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import Page404 from './pages/404';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-toast.configure()
+toast.configure();
 function App() {
   return (
     <>
@@ -14,9 +14,9 @@ function App() {
           <Route path="*" component={Page404}></Route>
         </Switch>
       </BrowserRouter>
-      <ToastContainer/>
+      <ToastContainer />
     </>
-  )
+  );
 }
 
 export default App;
