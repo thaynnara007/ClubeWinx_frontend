@@ -55,7 +55,9 @@ function Register() {
 
   const validateBirthday = () => {
     const validation =
-      birthday === '' || birthday === null || !moment(birthday, DATE_FORMAT).isValid();
+      birthday === '' ||
+      birthday === null ||
+      !(moment(birthday, DATE_FORMAT).format(DATE_FORMAT) === birthday);
 
     setProblemBirthday(validation);
 
