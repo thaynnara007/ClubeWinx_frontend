@@ -44,7 +44,11 @@ function Login() {
           toast(`Bem-vindo de volta ${user.name}!`);
         })
         .catch((error) => {
-          toast.error(error.response.data.error);
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
         });
     }
   };

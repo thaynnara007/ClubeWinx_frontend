@@ -10,14 +10,14 @@ services:
       context: .
     restart: unless-stopped
     env_file: 
-      - .env
+      - .env.local
     volumes:
       - /app/node_modules
     ports: 
       - 8080:8080
     environment:
       PORT: 8080
-      ESLINT_NO_DEV_ERRORS: true
+      ESLINT_NO_DEV_ERRORS: 'true'
       REACT_APP_API_URL: ${REACT_APP_API_URL}
 
 volumes:
