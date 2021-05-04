@@ -17,7 +17,7 @@ function EnterPage() {
   };
 
   const contentForm = clickedOption === ENTER_PAGE_LOGIN ? <Login /> : <Register />;
-  console.log('aqui');
+
   return (
     <>
       <Navbar choosed={clickedOption} actions={[onChangeLogin, onChangeRegister]}>
