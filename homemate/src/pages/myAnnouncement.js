@@ -37,7 +37,7 @@ function MyAnnouncemente() {
 
   return <div style={{ marginTop: '150px' }}>
     <BasicForm>
-      {response && <BaseButton onClick={handleClick}>Inserir Anúncio</BaseButton>}
+      {response && <BaseButton onClick={handleClick}>INSERIR</BaseButton>}
     </BasicForm>
   </div>;
   
