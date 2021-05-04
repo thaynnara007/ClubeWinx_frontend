@@ -13,8 +13,7 @@ function EditRegister (){
     const [problemName, setProblemName] = useState(false);
     const [lastname, setLastname] = useState('');
     const [problemLastname, setProblemLastname] = useState(false);
-    const [email, setEmail] = useState('');
-    const [problemEmail, setProblemEmail] = useState(false);
+
     const [phoneNumber, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -43,12 +42,6 @@ function EditRegister (){
     const validateLastname = () => {
       const validation = lastname === '' || lastname === null;
       setProblemLastname(validation);
-  
-      return !validation;
-    };
-    const validateEmail = () => {
-      const validation = email === '' || email === null;
-      setProblemEmail(validation);
   
       return !validation;
     };
@@ -116,7 +109,6 @@ function EditRegister (){
     const validateInfo = () =>
       validateName() &&
       validateLastname() &&
-      validateEmail() &&
       validatePassword() &&
       validateBirthday() &&
       validateStreet() &&
@@ -133,7 +125,6 @@ function EditRegister (){
         const body = {
           name,
           lastname,
-          email,
           phoneNumber,
           birthday,
           gender,
@@ -162,7 +153,7 @@ function EditRegister (){
     
     );
 
-    
+
 
     return (
         <div style={{ marginTop: '150px' }}>
@@ -178,12 +169,6 @@ function EditRegister (){
           name="Sobrenome"
           value={lastname}
           onChange={(value) => setLastname(value)}
-        />
-        <OneLineInput
-          problem={problemEmail}
-          name="Email"
-          value={email}
-          onChange={(value) => setEmail(value)}
         />
         <OneLineInput
           problem={problemPassword}
