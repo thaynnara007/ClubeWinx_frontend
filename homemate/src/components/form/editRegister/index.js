@@ -137,7 +137,6 @@ function EditRegister (){
           phoneNumber,
           birthday,
           gender,
-          password,
           street,
           number,
           district,
@@ -162,6 +161,8 @@ function EditRegister (){
         } 
     
     );
+
+    
 
     return (
         <div style={{ marginTop: '150px' }}>
