@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import Navbar from '../components/navbar';
 import Login from '../components/form/login';
 import Register from '../components/form/register';
-import { ENTER_PAGE_LOGIN, ENTRER_PAGE_REGISTER } from '../utils/constants';
+import { ENTER_PAGE_LOGIN, ENTER_PAGE_REGISTER } from '../utils/constants';
 
 function EnterPage() {
-  const options = [ENTER_PAGE_LOGIN, ENTRER_PAGE_REGISTER];
+  const options = [ENTER_PAGE_LOGIN, ENTER_PAGE_REGISTER];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_LOGIN);
 
   const onChangeLogin = () => {
@@ -13,7 +13,7 @@ function EnterPage() {
   };
 
   const onChangeRegister = () => {
-    setClickedOption(ENTRER_PAGE_REGISTER);
+    setClickedOption(ENTER_PAGE_REGISTER);
   };
 
   const contentForm = clickedOption === ENTER_PAGE_LOGIN ? <Login /> : <Register />;
