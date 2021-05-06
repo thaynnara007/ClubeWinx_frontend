@@ -1,50 +1,31 @@
-import BaseButton from '../components/button/baseButton';
-  
-import { useHistory } from "react-router";
-import BasicForm from '../components/form/BasicForm';
-import Announcementent from '../components/form/announcement';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import api from '../api';
+import AnnouncementDisplay from '../components/show/announcement';
 
-function MyAnnouncemente() {
-  const history = useHistory();
-  const response = true;
+function MyAnnouncement() {
+  const [announcement, setAnnouncement] = useState(null);
 
-
-  const handleClick = () => {
-      history.push('/newAnnouncement');
-  }
-
-  const existAnnouncement = () => {
-   
-    /*
+  const getAnnouncement = () => {
     api
-        .post('/user/poster/my', body)
-        .then((response) => {
-          const { token, user } = response.data;
+      .get('/user/poster/my')
+      .then((response) => {
+        setAnnouncement(response.data);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
 
-          localStorage.setItem('homemate_access_token', token);
-          toast(`Bem-vindo de volta ${user.name}!`);
-        })
-        .catch((error) => {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
+        toast.error(msg);
+      });
+  };
 
-          toast.error(msg);
-        });
-        */
-      
-  }
+  useEffect(() => {
+    getAnnouncement();
+  }, [announcement]);
 
-  return <div style={{ marginTop: '150px' }}>
-    <BasicForm>
-      {response && <BaseButton onClick={handleClick}>INSERIR</BaseButton>}
-    </BasicForm>
-  </div>;
-  
+  return <div>{announcement && <AnnouncementDisplay announcement={announcement} />}</div>;
 }
 
-
-
-
-
-export default MyAnnouncemente;
+export default MyAnnouncement;
