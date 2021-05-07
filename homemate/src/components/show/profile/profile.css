@@ -9,7 +9,7 @@
 }
 .component-show-profile{
   position: absolute;
-  top: 70%;
+  top: 60%;
   left: 50%;
   transform: translate(-50%,-50%);
   width: 550px;
@@ -17,7 +17,7 @@
   box-shadow: 0 1px 20px 0 rgba(69,90,100,.08);
 }
 .component-show-profile-left{
-  width: 40%;
+  width: 35%;
   background: linear-gradient(to right,#8ec6c5,#52c4a3);
   padding: 30px 25px;
   border-radius: 5px;
@@ -34,10 +34,16 @@
   margin-top: 10px;
 }
 .component-show-profile-right{
-  width: 65%;
+  width: 70%;
   padding: 30px 25px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+.component-show-profile-right-tags span{
+  margin-right: 10px;
+}
+.component-show-profile-right-tags span:hover{
+  color: #6983aa;
 }
 .component-show-profile-info{
   margin-bottom: 25px;
@@ -55,7 +61,7 @@
   justify-content: space-between;
 }
 .component-show-profile-data{
-  width: 45%;
+  width: 40%;
 }
 .component-show-profile-data h4{
   color: #8566aa;
@@ -63,6 +69,4 @@
 }
 .component-show-profile-data span{
   font-size: 12px;
-  margin-bottom: 10px;
-  color: #919aa3
 }

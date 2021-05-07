@@ -8,9 +8,26 @@ function ProfileDisplay({ profile }) {
         <h4>{`${profile.name} ${profile.lastname}`}</h4>
         <h5>{profile.address.city}</h5>
         <h5>{profile.address.state}</h5>
-        <p>{profile.description}</p>
       </div>
       <div className="component-show-profile-right">
+        <div className="component-show-profile-info">
+          <h3>Informações</h3>
+
+          <div className="component-show-profile-info-data">
+            <div className="component-show-profile-data">
+              <h4>Descrição</h4>
+              <span>{profile.description}</span>
+            </div>
+            <div className="component-show-profile-data">
+              <h4>Tags</h4>
+              <span className="component-show-profile-right-tags">
+                {profile.tags.map((tag) => (
+                  <span>{`<${tag.name}>`}</span>
+                ))}
+              </span>
+            </div>
+          </div>
+        </div>
         <div className="component-show-profile-info">
           <h3>Contato</h3>
 

@@ -2,6 +2,8 @@ import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import api from '../api';
 import AnnouncementDisplay from '../components/show/announcement';
+import BaseButton from '../components/button/baseButton';
+import BasicForm from '../components/form/BasicForm';
 
 function MyAnnouncement() {
   const [announcement, setAnnouncement] = useState(null);
@@ -25,7 +27,17 @@ function MyAnnouncement() {
     getAnnouncement();
   }, [announcement]);
 
-  return <div>{announcement && <AnnouncementDisplay announcement={announcement} />}</div>;
+  return (
+    <div>
+      {announcement ? (
+        <AnnouncementDisplay announcement={announcement} />
+      ) : (
+        <BasicForm>
+          <BaseButton>INSERIR</BaseButton>
+        </BasicForm>
+      )}
+    </div>
+  );
 }
 
 export default MyAnnouncement;
