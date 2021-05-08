@@ -17,7 +17,7 @@
 }
 
 .component-button-base-button-danger {
-  border: 2px solid #DB7047;
+  border: 2px solid #db7047;
 }
 
 .component-button-base-button::after {
@@ -39,13 +39,13 @@
   color: #f4f4f4;
 }
 
-.component-button-base-button-color:hover{
+.component-button-base-button-color:hover {
   background: #8ec6c5;
   box-shadow: 0px 6px 15px #6983aa;
 }
 
-.component-button-base-button-danger:hover{
-  background: #F77847;
+.component-button-base-button-danger:hover {
+  background: #f77847;
   box-shadow: 0px 6px 15px #6983aa;
 }
 

@@ -114,6 +114,7 @@ function Announcement({ announcementExists }) {
   };
 
   useEffect(() => {
+    console.log('EM ANNOUNCEMENT')
     if (announcementExists) {
       getAnnouncement();
     } else {
