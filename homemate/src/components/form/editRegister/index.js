@@ -13,7 +13,7 @@ function EditRegister (){
     const [problemName, setProblemName] = useState(false);
     const [lastname, setLastname] = useState('');
     const [problemLastname, setProblemLastname] = useState(false);
-
+    const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [gender, setGender] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -138,7 +138,7 @@ function EditRegister (){
         };
       };
     };
-    api
+  /*  api
         .put(`/user/${userId}`, body)
         .then(() => {
           toast('cadastro editado com sucesso!');
@@ -151,7 +151,7 @@ function EditRegister (){
           toast.error(msg);
         } 
     
-    );
+    );*/
 
 
 
@@ -169,6 +169,12 @@ function EditRegister (){
           name="Sobrenome"
           value={lastname}
           onChange={(value) => setLastname(value)}
+        />
+        <OneLineInput
+          //problem={problemEmail}
+          name="Email"
+          value={email}
+          onChange={(value) => {}}
         />
         <OneLineInput
           problem={problemPassword}
@@ -230,7 +236,7 @@ function EditRegister (){
           value={state}
           onChange={(value) => setState(value)}
         />
-        <BaseButton onClick={register}>SALVAR</BaseButton>
+        <BaseButton onClick={editRegister}>SALVAR</BaseButton>
       </BasicForm>
     </div>
     )
