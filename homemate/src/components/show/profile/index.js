@@ -1,4 +1,6 @@
 import './profile.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 
 function ProfileDisplay({ profile }) {
   return (
@@ -8,6 +10,25 @@ function ProfileDisplay({ profile }) {
         <h4>{`${profile.name} ${profile.lastname}`}</h4>
         <h5>{profile.address.city}</h5>
         <h5>{profile.address.state}</h5>
+        <div className="component-show-profile-left-social-media">
+          <ul>
+            <li>
+              <a href="#">
+                <FontAwesomeIcon icon={faFacebook} />
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <FontAwesomeIcon icon={faTwitter} />
+              </a>
+            </li>
+            <li>
+              <a href={profile.socialMedia} target="_blank" rel="noreferrer">
+                <FontAwesomeIcon icon={faInstagram} />
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
       <div className="component-show-profile-right">
         <div className="component-show-profile-info">
