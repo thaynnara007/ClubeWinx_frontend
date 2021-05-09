@@ -70,19 +70,19 @@
 .component-show-profile-data span {
   font-size: 12px;
 }
-.component-show-profile-left-social-media ul{
+.component-show-profile-left-social-media ul {
   display: flex;
 }
-.component-show-profile-left-social-media ul li{
+.component-show-profile-left-social-media ul li {
   width: 35px;
   height: 35px;
-  background: linear-gradient(to right,#8566aa,#01dbdf);
+  background: linear-gradient(to right, #8566aa, #01dbdf);
   margin-left: 10px;
   margin-top: 45px;
   border-radius: 5px;
   line-height: 35px;
-} 
-.component-show-profile-left-social-media ul li a{
+}
+.component-show-profile-left-social-media ul li a {
   display: block;
   color: #fff;
   font-size: 18px;
