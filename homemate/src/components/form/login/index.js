@@ -56,6 +56,10 @@ function Login() {
     }
   };
 
+  const passwordRecovery = () => {
+    history.push('/passwordRecovery');
+  };
+
   return (
     <div style={{ marginTop: '150px' }}>
       <BasicForm>
@@ -73,6 +77,7 @@ function Login() {
           onChange={(value) => setPassword(value)}
         />
         <BaseButton onClick={login}>ENTRAR</BaseButton>
+        <BaseButton onClick={passwordRecovery}>Esqueci Minha senha</BaseButton>
       </BasicForm>
     </div>
   );
