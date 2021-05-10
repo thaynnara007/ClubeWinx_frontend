@@ -70,3 +70,32 @@
 .component-show-profile-data span {
   font-size: 12px;
 }
+.component-show-profile-left-social-media ul {
+  display: flex;
+}
+.component-show-profile-left-social-media ul li {
+  width: 35px;
+  height: 35px;
+  background: linear-gradient(to right, #8566aa, #01dbdf);
+  margin-left: 10px;
+  margin-top: 45px;
+  border-radius: 5px;
+  line-height: 35px;
+}
+.component-show-profile-left-social-media ul li a {
+  display: block;
+  color: #fff;
+  font-size: 18px;
+}
+.component-show-profile-right button {
+  margin-top: 20px;
+  margin-left: 100px;
+  width: 40%;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  box-shadow: 0px 1px 5px #6983aa;
+}
+.component-show-profile-right button:hover{
+  background-color: #6983aa;
+  color: #fff;
+}
