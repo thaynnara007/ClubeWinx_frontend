@@ -1,12 +1,12 @@
 import './announcement.css';
 
-function AnnouncementDisplay({ announcement }) {
+function AnnouncementDisplay({ announcement, onClick }) {
   return (
     <div className="component-show-announcement">
       <div className="component-show-announcement-left">
-        <img src={announcement.posterPictures[2].pictureUrl} alt="Foto Anuncio" width="400" />
+        <img src={announcement.posterPictures[0].pictureUrl} alt="Foto Anuncio" width="300" height="300" />
         <p>{announcement.description}</p>
-        <button type="button">Editar Anúncio</button>
+        <button type="button" onClick={onClick}>Editar Anúncio</button>
       </div>
 
       <div className="component-show-announcement-right">
