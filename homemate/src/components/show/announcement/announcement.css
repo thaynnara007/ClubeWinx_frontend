@@ -66,5 +66,9 @@
   width: 40%;
   border-radius: 5px;
   background-color: #f4f4f4;
-  box-shadow: 0px 3px 7px #8566aa;
+  box-shadow: 0px 1px 5px #6983aa;
+}
+.component-show-announcement button:hover{
+  background-color: #6983aa;
+  color: #fff;
 }
