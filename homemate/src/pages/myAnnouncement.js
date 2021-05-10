@@ -5,8 +5,10 @@ import AnnouncementDisplay from '../components/show/announcement';
 import Announcement from '../components/announcement'
 import BaseButton from '../components/button/baseButton';
 import BasicForm from '../components/form/BasicForm';
+import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_ADDANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT, ENTER_PAGE_NEWANNOUNCEMENT } from '../utils/constants';
 
 function MyAnnouncement() {
+  const options = [ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_ADDANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT, ENTER_PAGE_NEWANNOUNCEMENT];
   const [announcement, setAnnouncement] = useState(null);
   const [ state, setState ] = useState('')
   let contentForm = null;
@@ -16,13 +18,13 @@ function MyAnnouncement() {
       .get('/user/poster/my')
       .then((response) => {
         setAnnouncement(response.data);
-        setState('INSERIR_ANUNCIO')
+        setState(ENTER_PAGE_MYANNOUNCEMENTT)
       })
       .catch((error) => {
 
         const { status } = error.response
 
-        if (status === 404) setState('MEU_ANUNCIO')
+        if (status === 404) setState(ENTER_PAGE_ADDANNOUNCEMENT)
         else {
           let msg = '';
           if (error.response) msg = error.response.data.error;
@@ -34,44 +36,42 @@ function MyAnnouncement() {
   };
 
   const onClickInserir = () => {
-    setState( (previos) => 'CRIAR_ANUNCIO')
+    setState( (previos) => ENTER_PAGE_NEWANNOUNCEMENT)
   }
 
   const onClickEdit = () => {
-    setState('EDITAR_ANUNCIO')
+    setState(ENTER_PAGE_EDITANNOUNCEMENT)
   }
 
   useEffect(() => {
     getAnnouncement();
-  }, [announcement]);
+  }, []);
 
   switch (state) {
-    case 'MEU_ANUNCIO':
-      contentForm = (<AnnouncementDisplay announcement={announcement} onClick={onClickEdit}/>);
+    case ENTER_PAGE_MYANNOUNCEMENTT:
+      contentForm = (<AnnouncementDisplay announcement={announcement} onClick={onClickEdit} />);
       break;
-    case 'INSERIR_ANUNCIO':
+    case ENTER_PAGE_ADDANNOUNCEMENT:
       contentForm = ( <BasicForm>
                         <div style={{ marginTop: '150px' }}>
                           <BaseButton onClick={onClickInserir}>INSERIR</BaseButton>
                         </div>
                       </BasicForm> )
       break;
-    case 'CRIAR_ANUNCIO':
-      contentForm = (<Announcement announcementExists={false} />);
+    case ENTER_PAGE_NEWANNOUNCEMENT:
+      contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState}/>);
       break;
-    case 'EDITAR_ANUNCIO':
-      contentForm = (<Announcement announcementExists={true} />);
+    case ENTER_PAGE_EDITANNOUNCEMENT:
+      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState}/>);
       break;
     default:
       break;
   }
 
   return (
-    
     <div>
       {contentForm}
     </div>
-    
   );
 }
 
