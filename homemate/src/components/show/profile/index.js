@@ -63,6 +63,7 @@ function ProfileDisplay({ profile }) {
             </div>
           </div>
         </div>
+        <button type="button">Editar Anúncio</button>
       </div>
     </div>
   );
