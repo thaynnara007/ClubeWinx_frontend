@@ -30,7 +30,7 @@ const [file, setFile] = useState(null)
       }
 
       api
-      .put('/user/poster/me/picture', formData, config)
+      .post('/user/poster/me/picture', formData, config)
       .then( res => {
         console.log(res)
         toast('Imagem adicionada com sucesso');

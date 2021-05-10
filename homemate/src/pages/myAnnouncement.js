@@ -11,6 +11,7 @@ function MyAnnouncement() {
   const options = [ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_ADDANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT, ENTER_PAGE_NEWANNOUNCEMENT];
   const [announcement, setAnnouncement] = useState(null);
   const [ state, setState ] = useState('')
+  const [flag, setFlag] = useState(false)
   let contentForm = null;
 
   const getAnnouncement = () => {
@@ -45,7 +46,7 @@ function MyAnnouncement() {
 
   useEffect(() => {
     getAnnouncement();
-  }, []);
+  }, [flag]);
 
   switch (state) {
     case ENTER_PAGE_MYANNOUNCEMENTT:
@@ -62,7 +63,7 @@ function MyAnnouncement() {
       contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState}/>);
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
-      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState}/>);
+      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag={setFlag}/>);
       break;
     default:
       break;
