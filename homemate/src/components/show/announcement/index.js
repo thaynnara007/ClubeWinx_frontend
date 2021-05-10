@@ -4,7 +4,8 @@ function AnnouncementDisplay({ announcement, onClick }) {
   return (
     <div className="component-show-announcement">
       <div className="component-show-announcement-left">
-        <img src={announcement.posterPictures[0].pictureUrl} alt="Foto Anuncio" width="300" height="300" />
+        <img src={!announcement.posterPictures.length == 0 ?
+          announcement.posterPictures[0].pictureUrl : ""} alt="Foto Anuncio" width="300" height="300"/>
         <p>{announcement.description}</p>
         <button type="button" onClick={onClick}>Editar Anúncio</button>
       </div>

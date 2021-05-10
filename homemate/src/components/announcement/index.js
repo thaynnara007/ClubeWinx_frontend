@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { Switch, useHistory } from 'react-router';
+import { useHistory } from 'react-router';
 import api from '../../api/index';
 import BasicForm from '../form/BasicForm/index';
 import OneLineInput from '../input/oneLineInput/index';
@@ -9,7 +9,7 @@ import FileImage from '../image';
 import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
 
 
-function Announcement({ announcementExists, typeButton, setStateAnnouncement }) {
+function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag }) {
   const history = useHistory();
   let contentButton = null;
   let contentImage = null;
@@ -103,6 +103,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement }) 
         .put('/user/poster/my', body)
         .then(() => {
           toast('Anúncio editado com sucesso');
+          setFlag(true);
           setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
         })
         .catch((error) => {

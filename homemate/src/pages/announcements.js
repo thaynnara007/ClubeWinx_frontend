@@ -29,19 +29,20 @@ function Announcements() {
 
   return (
     <>
-      <div style={{ marginTop: '150px' }} />
+     <div style={{ marginTop: '150px' }} />
       <BasicForm>
         {announcements &&
           announcements.map((announcement) => (
             <ListDisplay
-              title={announcement.title}
-              imageUrl={announcement.posterPictures[0].pictureUrl}
+              title={announcement.expense}
+              imageUrl={!announcement.posterPictures.length == 0 ? 
+                announcement.posterPictures[0].pictureUrl : "https://observatoriodocinema.uol.com.br/wp-content/uploads/2020/11/at.jpg"}
               city={announcement.owner.address.city}
               state={announcement.owner.address.state}
               tags={announcement.tags}
               use={localContext}
             />
-          ))}
+    ))}
       </BasicForm>
     </>
   );
@@ -96,3 +97,19 @@ export default Announcements;
 //   </BasicForm>
 //   </div>
 //   }
+
+/*
+<div style={{ marginTop: '150px' }} />
+<BasicForm>
+  {announcements &&
+    announcements.map((announcement) => (
+      <ListDisplay
+        title={announcement.expense}
+        imageUrl={announcement.posterPictures[0].pictureUrl}
+        city={announcement.owner.address.city}
+        state={announcement.owner.address.state}
+        tags={announcement.tags}
+        use={localContext}
+      />
+    ))}
+</BasicForm>*/
