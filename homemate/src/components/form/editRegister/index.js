@@ -136,9 +136,7 @@ function EditRegister (){
           city,
           state,
         };
-      };
-    };
-  /*  api
+        api
         .put(`/user/${userId}`, body)
         .then(() => {
           toast('cadastro editado com sucesso!');
@@ -151,7 +149,10 @@ function EditRegister (){
           toast.error(msg);
         } 
     
-    );*/
+    );
+      };
+    };
+  /*  */
 
 
 

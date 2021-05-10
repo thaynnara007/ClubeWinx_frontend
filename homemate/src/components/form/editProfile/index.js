@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 
@@ -19,7 +19,7 @@ function EditProfile (){
       setProblemDescription(validation);
       return !validation;
     };
-    const validateConnection = () => {
+    const validateSocialMedia = () => {
       const validation = socialMedia === '' || socialMedia === null;
       setProblemSocialMedia(validation);
   
@@ -29,7 +29,7 @@ function EditProfile (){
   
     const validateInfo = () =>
       validateDescription() &&
-      validateConnection();
+      validateSocialMedia();
      
   
     const editRegister = () => {
@@ -38,15 +38,19 @@ function EditProfile (){
       if (validated) {
         const body = {
           description,
-          privateConnection: socialMedia,
+          socialMedia,
         };
-      };
-    };
+        
+        const[editProfile, setEditProfile] = useState(null);
 
-    /*api
+      const putProfile = () => {
+        api
         .put(`/profile/me`, body)
-        .then(() => {
-          toast('perfi editado com sucesso!');
+        .then((response) => {
+          const { token } = response.data;
+          localStorage.setItem('homemate_access_token', token);
+          setState(PASSWORD_RECOVERY_PAGE_CHANGE);
+          console.log(response);
         })
         .catch((error) => {
           let msg = '';
@@ -54,19 +58,20 @@ function EditProfile (){
           else msg = 'Network failed';
 
           toast.error(msg);
-        } 
-    
-    );*/
+        });
+      }
+      useEffect(() => {
+        putProfile()
+      }, [editProfile]);
 
-
-
-    return (
+      };
+      return (
         <div style={{ marginTop: '150px' }}>
         <BasicForm>
         <OneLineInput
           problem={problemDescription}
           name = "Description"
-          value={name}
+          value={description}
           onChange={(value) => setDescription(value)}
         />
         <OneLineInput
@@ -79,6 +84,9 @@ function EditProfile (){
       </BasicForm>
     </div>
     )
+
+    };
+    
 }
 
 export default EditProfile;
