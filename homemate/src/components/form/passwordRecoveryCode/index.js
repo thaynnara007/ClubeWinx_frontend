@@ -8,8 +8,7 @@ import BaseButton from '../../button/baseButton';
 import { PASSWORD_RECOVERY_PAGE_CHANGE } from '../../../utils/constants';
 
 function passwordRecoveryCode(props) {
-  const { setState } = props;
-  const email = 'gabriel.valentino@hotmail.com';
+  const { email, setState } = props;
   const [code, setCode] = useState('');
   const [problemCode, setProblemCode] = useState(false);
 
@@ -19,24 +18,22 @@ function passwordRecoveryCode(props) {
     return !validation;
   };
 
-
   const passwordRecoveryCode = () => {
     if (validateCode()) {
       const body = {
         code,
-        email
+        email,
       };
-      
+
       api
         .post('/auth/verify/code', body)
         .then((response) => {
           const { token } = response.data;
           localStorage.setItem('homemate_access_token', token);
-          setState(PASSWORD_RECOVERY_PAGE_CHANGE)
+          setState(PASSWORD_RECOVERY_PAGE_CHANGE);
           console.log(response);
         })
         .catch((error) => {
-          console.log(error);
           let msg = '';
           if (error.response) msg = error.response.data.error;
           else msg = 'Codigo invalido';
@@ -44,7 +41,6 @@ function passwordRecoveryCode(props) {
         });
     }
   };
-
 
   return (
     <div style={{ marginTop: '150px' }}>
