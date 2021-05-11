@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import api from '../api';
 import ListDisplay from '../components/show/my';
 import BasicForm from '../components/form/BasicForm';
+import Filter from '../components/filter/index.js';
 
 function Announcements() {
   const [announcements, setAnnouncements] = useState(null);
   const localContext = 'Aluguel';
+
+  let contentFilter = <Filter />;
 
   const getAnnouncements = () => {
     api
@@ -25,24 +28,27 @@ function Announcements() {
 
   useEffect(() => {
     getAnnouncements();
-  }, [announcements]);
+  }, []);
 
   return (
     <>
-     <div style={{ marginTop: '150px' }} />
+      <Filter></Filter>
+      <div style={{ marginTop: '150px' }} />
       <BasicForm>
-        {announcements &&
-          announcements.map((announcement) => (
-            <ListDisplay
-              title={announcement.expense}
-              imageUrl={!announcement.posterPictures.length == 0 ? 
-                announcement.posterPictures[0].pictureUrl : "https://observatoriodocinema.uol.com.br/wp-content/uploads/2020/11/at.jpg"}
-              city={announcement.owner.address.city}
-              state={announcement.owner.address.state}
-              tags={announcement.tags}
-              use={localContext}
-            />
-    ))}
+        {announcements && announcements.map((announcement) => (
+              <ListDisplay
+                title={announcement.expense}
+                imageUrl={
+                  !announcement.posterPictures.length == 0
+                    ? announcement.posterPictures[0].pictureUrl
+                    : 'https://observatoriodocinema.uol.com.br/wp-content/uploads/2020/11/at.jpg'
+                }
+                city={announcement.owner.address.city}
+                state={announcement.owner.address.state}
+                tags={announcement.tags}
+                use={localContext}
+              />
+            ))}
       </BasicForm>
     </>
   );
