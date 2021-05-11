@@ -1,5 +1,10 @@
+import ListDisplay from '../components/show/my';
+
 function Explore() {
-  return <div>Explore</div>;
+  return (
+    <div>
+    </div>
+  );
 }
 
 export default Explore;

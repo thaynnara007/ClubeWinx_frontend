@@ -18,7 +18,7 @@ function passwordRecoveryCode(props) {
     return !validation;
   };
 
-  const passwordRecoveryCode = () => {
+  const recoveryCode = () => {
     if (validateCode()) {
       const body = {
         code,
@@ -37,7 +37,7 @@ function passwordRecoveryCode(props) {
           let msg = '';
           if (error.response) msg = error.response.data.error;
           else msg = 'Codigo invalido';
-          
+
           toast.error(msg);
         });
     }
@@ -52,7 +52,7 @@ function passwordRecoveryCode(props) {
           problem={problemCode}
           onChange={(value) => setCode(value)}
         />
-        <BaseButton onClick={passwordRecoveryCode}>VERIFICAR</BaseButton>
+        <BaseButton onClick={recoveryCode}>VERIFICAR</BaseButton>
       </BasicForm>
     </div>
   );

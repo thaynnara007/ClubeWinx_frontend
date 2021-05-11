@@ -5,9 +5,14 @@ import api from '../../api/index';
 import BasicForm from '../form/BasicForm/index';
 import OneLineInput from '../input/oneLineInput/index';
 import BaseButton from '../button/baseButton/index';
+import FileImage from '../image';
+import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
 
-function Announcement({ announcementExists }) {
+
+function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag }) {
   const history = useHistory();
+  let contentButton = null;
+  let contentImage = null;
 
   const [expense, setExpense] = useState('');
   const [problemExpense, setProblemExpense] = useState(false);
@@ -71,6 +76,35 @@ function Announcement({ announcementExists }) {
         .post('/user/poster', body)
         .then(() => {
           toast('Anúncio criado com sucesso');
+          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+    }
+  };
+
+  const edit = () => {
+    const validated = validateInfo();
+
+    if (validated) {
+      const body = {
+        expense,
+        description,
+        residents,
+        vacancies,
+      };
+
+      api
+        .put('/user/poster/my', body)
+        .then(() => {
+          toast('Anúncio editado com sucesso');
+          setFlag(true);
+          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
         })
         .catch((error) => {
           let msg = '';
@@ -83,7 +117,7 @@ function Announcement({ announcementExists }) {
   };
 
   const cancel = () => {
-    history.push('/homepage');
+    setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);
   };
 
   const getAddress = () => {
@@ -121,9 +155,23 @@ function Announcement({ announcementExists }) {
     }
   }, []);
 
+  switch (typeButton) {
+    case ENTER_PAGE_NEWANNOUNCEMENT:
+      contentButton = (<BaseButton onClick={create}>CRIAR</BaseButton>);
+      contentImage = ("");
+      break;
+    case ENTER_PAGE_EDITANNOUNCEMENT:
+      contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
+      contentImage = (<FileImage></FileImage>);
+      break;
+    default:
+      break;
+  }
+
   return (
     <div style={{ marginTop: '150px' }}>
       <BasicForm>
+        {contentImage}
         <OneLineInput
           problem={problemExpense}
           name="Valor: 286.89"
@@ -169,7 +217,7 @@ function Announcement({ announcementExists }) {
           <tr>
             <td>
               <div>
-                <BaseButton onClick={create}>SALVAR</BaseButton>
+                {contentButton}
               </div>
             </td>
             <td>

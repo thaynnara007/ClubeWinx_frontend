@@ -64,6 +64,7 @@ function HomePage() {
         {options}
       </Navbar>
       {contentForm}
+     
     </>
   );
 }
