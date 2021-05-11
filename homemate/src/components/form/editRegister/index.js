@@ -8,30 +8,29 @@ import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
 import { DATE_FORMAT } from '../../../utils/constants';
 
-function EditRegister (){
-    const [name, setName] = useState('');
+function EditRegister ({ userInfo, addressInfo }){
+
+    const [name, setName] = useState(userInfo.name);
     const [problemName, setProblemName] = useState(false);
-    const [lastname, setLastname] = useState('');
+    const [lastname, setLastname] = useState(userInfo.lastname);
     const [problemLastname, setProblemLastname] = useState(false);
-    const [email, setEmail] = useState('');
-    const [phoneNumber, setPhoneNumber] = useState('');
-    const [gender, setGender] = useState('');
-    const [birthday, setBirthday] = useState('');
+    const [ email ] = useState(userInfo.email);
+    const [phoneNumber, setPhoneNumber] = useState(userInfo.phoneNumber);
+    const [gender, setGender] = useState(userInfo.gender);
+    const [birthday, setBirthday] = useState(userInfo.birthday);
     const [problemBirthday, setProblemBirthday] = useState(false);
-    const [password, setPassword] = useState('');
-    const [problemPassword, setProblemPassword] = useState(false);
-    const [street, setStreet] = useState('');
+    const [street, setStreet] = useState(addressInfo.street);
     const [problemStreet, setProblemStreet] = useState(false);
-    const [number, setNumber] = useState('');
+    const [number, setNumber] = useState(addressInfo.number);
     const [problemNumber, setProblemNumber] = useState(false);
-    const [district, setDistrict] = useState('');
+    const [district, setDistrict] = useState(addressInfo.district);
     const [problemDistrict, setProblemDistrict] = useState(false);
-    const [complement, setComplement] = useState('');
-    const [zipCode, setZipCode] = useState('');
+    const [complement, setComplement] = useState(userInfo.complement);
+    const [zipCode, setZipCode] = useState(addressInfo.zipCode);
     const [problemZipCode, setProblemZipCode] = useState(false);
-    const [city, setCity] = useState('');
+    const [city, setCity] = useState(addressInfo.city);
     const [problemCity, setProblemCity] = useState(false);
-    const [state, setState] = useState('');
+    const [state, setState] = useState(addressInfo.state);
     const [problemState, setProblemState] = useState(false);
   
     const validateName = () => {
@@ -53,13 +52,6 @@ function EditRegister (){
         !(moment(birthday, DATE_FORMAT).format(DATE_FORMAT) === birthday);
   
       setProblemBirthday(validation);
-  
-      return !validation;
-    };
-  
-    const validatePassword = () => {
-      const validation = password === '' || password === null;
-      setProblemPassword(validation);
   
       return !validation;
     };
@@ -109,7 +101,6 @@ function EditRegister (){
     const validateInfo = () =>
       validateName() &&
       validateLastname() &&
-      validatePassword() &&
       validateBirthday() &&
       validateStreet() &&
       validateNumber() &&
@@ -136,10 +127,13 @@ function EditRegister (){
           city,
           state,
         };
+
         api
-        .put(`/user/${userId}`, body)
+        .put(`/user/${userInfo.userId}`, body)
         .then(() => {
           toast('cadastro editado com sucesso!');
+
+          
         })
         .catch((error) => {
           let msg = '';
@@ -147,14 +141,9 @@ function EditRegister (){
           else msg = 'Network failed';
 
           toast.error(msg);
-        } 
-    
-    );
+        });
       };
     };
-  /*  */
-
-
 
     return (
         <div style={{ marginTop: '150px' }}>
@@ -172,17 +161,9 @@ function EditRegister (){
           onChange={(value) => setLastname(value)}
         />
         <OneLineInput
-          //problem={problemEmail}
           name="Email"
           value={email}
-          onChange={(value) => {}}
-        />
-        <OneLineInput
-          problem={problemPassword}
-          type="password"
-          name="Senha"
-          value={password}
-          onChange={(value) => setPassword(value)}
+          onChange={() => {}}
         />
         <OneLineInput
           name="Número de celular. ex: 83987565821"

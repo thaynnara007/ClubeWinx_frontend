@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import moment from 'moment';
+import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../../../api';
@@ -8,66 +7,54 @@ import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
 
 
-function EditProfile (){
-    const [description, setDescription] = useState('');
-    const [problemDescription, setProblemDescription] = useState(false);
-    const [socialMedia, setSocialMedia] = useState('');
-    const [problemSocialMedia, setProblemSocialMedia] = useState(false);
+function EditProfile ({ profileInfo }){
+  const [description, setDescription] = useState(profileInfo.description);
+  const [problemDescription, setProblemDescription] = useState(false);
+  const [socialMedia, setSocialMedia] = useState(profileInfo.socialMedia);
+  const [problemSocialMedia, setProblemSocialMedia] = useState(false);
 
-    const validateDescription = () => {
-      const validation = description === '' || description === null;
-      setProblemDescription(validation);
-      return !validation;
-    };
-    const validateSocialMedia = () => {
-      const validation = socialMedia === '' || socialMedia === null;
-      setProblemSocialMedia(validation);
-  
-      return !validation;
-    };
-  
-  
-    const validateInfo = () =>
-      validateDescription() &&
-      validateSocialMedia();
-     
-  
-    const editRegister = () => {
-      const validated = validateInfo();
-  
-      if (validated) {
-        const body = {
-          description,
-          socialMedia,
-        };
-        
-        const[editProfile, setEditProfile] = useState(null);
+  const validateDescription = () => {
+    const validation = description === '' || description === null;
+    setProblemDescription(validation);
+    return !validation;
+  };
+  const validateSocialMedia = () => {
+    const validation = socialMedia === '' || socialMedia === null;
+    setProblemSocialMedia(validation);
 
-      const putProfile = () => {
-        api
-        .put(`/profile/me`, body)
-        .then((response) => {
-          const { token } = response.data;
-          localStorage.setItem('homemate_access_token', token);
-          setState(PASSWORD_RECOVERY_PAGE_CHANGE);
-          console.log(response);
-        })
-        .catch((error) => {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
+    return !validation;
+  };
 
-          toast.error(msg);
-        });
-      }
-      useEffect(() => {
-        putProfile()
-      }, [editProfile]);
+  const validateInfo = () =>
+    validateDescription() &&
+    validateSocialMedia();
 
+  const editProfile = () => {
+    const validated = validateInfo();
+
+    if (validated) {
+      const body = {
+        description,
+        socialMedia,
       };
-      return (
-        <div style={{ marginTop: '150px' }}>
-        <BasicForm>
+      api
+      .put(`/profile/me`, body)
+      .then(() => {
+        toast('Informações atualizadas com sucesso')
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
+    };
+  }
+
+  return (
+    <div style={{ marginTop: '150px' }}>
+      <BasicForm>
         <OneLineInput
           problem={problemDescription}
           name = "Description"
@@ -80,14 +67,13 @@ function EditProfile (){
           value={socialMedia}
           onChange={(value) => setSocialMedia(value)}
         />
-        <BaseButton onClick={EditProfile}>SALVAR</BaseButton>
+        <BaseButton onClick={editProfile}>SALVAR</BaseButton>
       </BasicForm>
     </div>
-    )
+  )
+};
+  
 
-    };
-    
-}
 
 export default EditProfile;
   
