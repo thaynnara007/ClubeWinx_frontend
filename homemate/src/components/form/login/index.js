@@ -1,16 +1,20 @@
 import { toast } from 'react-toastify';
 
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import api from '../../../api';
 import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
+
+import './login.css'
 
 function Login() {
   const [email, setEmail] = useState('');
   const [problemEmail, setProblemEmail] = useState(false);
   const [problemPassword, setProblemPassword] = useState(false);
   const [password, setPassword] = useState('');
+  const history = useHistory();
 
   const validateEmail = () => {
     const validation = email === '' || email === null;
@@ -42,6 +46,7 @@ function Login() {
 
           localStorage.setItem('homemate_access_token', token);
           toast(`Bem-vindo de volta ${user.name}!`);
+          history.push('/homepage');
         })
         .catch((error) => {
           let msg = '';
@@ -51,6 +56,10 @@ function Login() {
           toast.error(msg);
         });
     }
+  };
+
+  const passwordRecovery = () => {
+    history.push('/passwordRecovery');
   };
 
   return (
@@ -69,6 +78,7 @@ function Login() {
           problem={problemPassword}
           onChange={(value) => setPassword(value)}
         />
+        <a className="components-form-login-forget-password" onClick={passwordRecovery}>Esqueceu a senha?</a>
         <BaseButton onClick={login}>ENTRAR</BaseButton>
       </BasicForm>
     </div>

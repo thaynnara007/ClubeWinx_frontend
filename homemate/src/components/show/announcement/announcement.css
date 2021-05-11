@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  list-style: none;
+  font-family: 'Quicksand', sans-serif;
+}
+.component-show-announcement {
+  position: absolute;
+  top: 60%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+}
+.component-show-announcement-left p {
+  margin-top: 20px;
+}
+.component-show-announcement-right {
+  width: 100%;
+  background: linear-gradient(to right, #8ec6c5, #52c4a3);
+  padding: 30px 25px;
+  border-radius: 5px;
+  text-align: center;
+  color: #fff;
+}
+.component-show-announcement-left {
+  width: 100%;
+  padding: 30px 25px;
+  border-radius: 5px;
+}
+.component-show-announcement-info {
+  margin-bottom: 25px;
+}
+.component-show-announcement-info h3 {
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+  text-transform: uppercase;
+  letter-spacing: 5px;
+}
+.component-show-announcement-info-data {
+  display: flex;
+  justify-content: space-between;
+}
+.component-show-announcement-data {
+  width: 45%;
+}
+.component-show-announcement-data div {
+  margin-bottom: 25px;
+}
+.component-show-announcement-right-tags span {
+  margin-right: 10px;
+}
+.component-show-announcement-right-tags span:hover {
+  color: #6983aa;
+}
+.component-show-announcement button {
+  margin-top: 20px;
+  margin-left: 130px;
+  width: 40%;
+  border-radius: 5px;
+  background-color: #f4f4f4;
+  box-shadow: 0px 1px 5px #6983aa;
+}
+.component-show-announcement button:hover{
+  background-color: #6983aa;
+  color: #fff;
+}

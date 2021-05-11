@@ -8,7 +8,7 @@ import {
 } from '../utils/constants';
 import Announcements from './announcements';
 import MyAnnouncemente from './myAnnouncement';
-import Profile from './profile';
+import MyProfile from './myProfile';
 import Explore from './explore';
 
 function HomePage() {
@@ -46,7 +46,7 @@ function HomePage() {
       contentForm = <MyAnnouncemente />;
       break;
     case ENTER_PAGE_MYPROFILE:
-      contentForm = <Profile />;
+      contentForm = <MyProfile />;
       break;
     case ENTER_PAGE_EXPLORE:
       contentForm = <Explore />;
@@ -64,6 +64,7 @@ function HomePage() {
         {options}
       </Navbar>
       {contentForm}
+     
     </>
   );
 }

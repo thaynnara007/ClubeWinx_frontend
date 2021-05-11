@@ -4,13 +4,20 @@
   cursor: pointer;
   margin: 30px 0px;
   padding: 10px 25px;
-  background-color: #f4f4f4;
   color: black;
-  border: 2px solid #6983aa;
+  background-color: #f4f4f4;
+  box-shadow: 0px 3px 7px #8566aa;
   border-radius: 10px;
   transition: all 0.5s;
   min-width: 200px;
-  box-shadow: 0px 3px 7px #8566aa;
+}
+
+.component-button-base-button-color {
+  border: 2px solid #6983aa;
+}
+
+.component-button-base-button-danger {
+  border: 2px solid #db7047;
 }
 
 .component-button-base-button::after {
@@ -25,13 +32,21 @@
 }
 
 .component-button-base-button:hover {
-  background: #8ec6c5;
   transition: all 0.5s;
   border-radius: 10px;
   border: none;
-  box-shadow: 0px 6px 15px #6983aa;
   padding: 10px 25px;
   color: #f4f4f4;
+}
+
+.component-button-base-button-color:hover {
+  background: #8ec6c5;
+  box-shadow: 0px 6px 15px #6983aa;
+}
+
+.component-button-base-button-danger:hover {
+  background: #f77847;
+  box-shadow: 0px 6px 15px #6983aa;
 }
 
 .component-button-base-button:hover::after {
