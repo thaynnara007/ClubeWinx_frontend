@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Navbar from '../components/navbar';
 import PasswordRecoveryCode from '../components/form/passwordRecoveryCode';
 import PasswordRecoveryEmail from '../components/form/passwordRecoveryEmail';
-import Register from '../components/form/register';
+import PasswordRecoveryChange from '../components/form/passwordRecoveryChange';
 import {
   PASSWORD_RECOVERY_PAGE_CODE,
   PASSWORD_RECOVERY_PAGE_EMAIL,
@@ -24,7 +24,7 @@ function PasswordRecovery() {
       contentForm = <PasswordRecoveryEmail setState={setState} setEmail={setEmail} email={email} />;
       break;
     case PASSWORD_RECOVERY_PAGE_CHANGE:
-      contentForm = <Register />;
+      contentForm = <PasswordRecoveryChange />;
       break;
     default:
       break;
