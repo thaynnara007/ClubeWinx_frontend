@@ -4,12 +4,17 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/navbar';
 import EditRegister from '../components/form/editRegister';
 import EditProfile from '../components/form/editProfile';
-import { ENTER_PAGE_EDIT_PROFILE, ENTER_PAGE_EDIT_REGISTER } from '../utils/constants'; 
+import PasswordRecoveryChange from '../components/form/passwordRecoveryChange'
+import { 
+  ENTER_PAGE_EDIT_PROFILE, 
+  ENTER_PAGE_EDIT_REGISTER,
+  ENTER_PAGE_EDIT_PASSWORD 
+} from '../utils/constants'; 
 import api from '../api';
 
 function EditProfilePage() {
-  const options = ['MUDAR SENHA',ENTER_PAGE_EDIT_PROFILE, ENTER_PAGE_EDIT_REGISTER];
-  const [clickedOption, setClickedOption] = useState('MUDAR SENHA');
+  const options = [ENTER_PAGE_EDIT_PASSWORD ,ENTER_PAGE_EDIT_PROFILE, ENTER_PAGE_EDIT_REGISTER];
+  const [clickedOption, setClickedOption] = useState(ENTER_PAGE_EDIT_PASSWORD);
   const [ userInfo, setUserInfo ] = useState({})
   const [ addressInfo, setAddressInfo ] = useState({})
   const [ profileInfo, setProfileInfo ] = useState({})
@@ -77,7 +82,7 @@ function EditProfilePage() {
   }
   
   const onChangePassword = () => {
-    setClickedOption('MUDAR SENHA')
+    setClickedOption(ENTER_PAGE_EDIT_PASSWORD )
   }
   
   let contentForm = clickedOption
@@ -89,8 +94,8 @@ function EditProfilePage() {
     case ENTER_PAGE_EDIT_REGISTER:
       contentForm = <EditRegister userInfo={userInfo} addressInfo={addressInfo}/>;
       break;
-    case 'MUDAR SENHA':
-      contentForm = <h3>mudar senha</h3>;
+    case ENTER_PAGE_EDIT_PASSWORD :
+      contentForm = <PasswordRecoveryChange />;
       break;
     default:
       break;
