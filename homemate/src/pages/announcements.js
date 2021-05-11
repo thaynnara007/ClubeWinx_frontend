@@ -6,16 +6,20 @@ import BasicForm from '../components/form/BasicForm';
 import Filter from '../components/filter/index.js';
 
 function Announcements() {
-  const [announcements, setAnnouncements] = useState(null);
+  const [filterList, setFilterList] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
+  let page = 1;
+  let pageSize = 2;
+
   const localContext = 'Aluguel';
 
-  let contentFilter = <Filter />;
 
   const getAnnouncements = () => {
     api
       .get('/user/poster')
       .then((response) => {
         setAnnouncements(response.data);
+        console.log(announcements)
       })
       .catch((error) => {
         let msg = '';
@@ -30,12 +34,40 @@ function Announcements() {
     getAnnouncements();
   }, []);
 
+  const filter = () => {
+    let param = filterList.length > 0 || page || pageSize ? "?" : "";
+    if(page) { param= param + "page=" + page };
+    if(pageSize) { page  ?param = param + "&pageSize=" + pageSize : param = param + "pageSize=" + pageSize };
+    if(filterList.length > 0) {
+      filterList.forEach(tagId => {
+        param = param + "&tags[]=" + tagId;
+      });
+    };
+    console.log(param);
+    console.log(filterList);
+    api
+    .get('/user/poster'+ param)
+    .then((response) => {
+      setAnnouncements(response.data.rows);
+      console.log(response.data.rows)
+    })
+    .catch((error) => {
+      let msg = '';
+      if (error.response) msg = error.response.data.error;
+      else msg = 'Network failed';
+
+      toast.error(msg);
+    });
+  }
+
   return (
     <>
-      <Filter></Filter>
+
       <div style={{ marginTop: '150px' }} />
       <BasicForm>
-        {announcements && announcements.map((announcement) => (
+        <button type="button" onClick={() => filter()}>"filtrar"</button>
+        <Filter filterList={filterList} setFilterList={setFilterList}></Filter>
+        {announcements && announcements.length > 0 && announcements.map((announcement) => (
               <ListDisplay
                 title={announcement.expense}
                 imageUrl={

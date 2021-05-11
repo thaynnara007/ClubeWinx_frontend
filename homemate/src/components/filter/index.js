@@ -1,17 +1,21 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
 import './filter.css';
 import api from '../../api';
+import BasicForm from '../form/BasicForm';
+import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
-function Filter() {
-  const [tags, setTags] = useState(null);
+function Filter(props) {
+  const {filterList, setFilterList} = props;
+  const [categories, setCategories] = useState([]);
+  const [focusCategory, setFocusCategory] = useState("Animais");
 
-  const getProfile = () => {
+
+  const getCategories = () => {
     api
       .get('/category/')
       .then((response) => {
-        setTags(response.data);
+        setCategories(response.data);
       })
       .catch((error) => {
         let msg = '';
@@ -21,15 +25,31 @@ function Filter() {
       });
   };
 
+  const setFocus = (category) => {
+        console.log(category)
+        setFocusCategory(category);
+  }
+
+  
+  const addFilter = (tag) => {
+    const newList = filterList.concat(tag.id);
+    setFilterList(newList);
+  }
+  
   useEffect(() => {
-      getProfile();
+      getCategories();
     }, []);
 
   return (
     <>
-      <div style={{ marginTop: '150px' }}>
-        {tags && tags.map((tag) => <span>{`<${tag.name}>`}</span>)}
-      </div>
+
+        <div>
+            {categories && categories.map((category) => <button type="button" onClick={() => setFocus(category.name)}>{`${category.name}`}</button> )}
+        </div>
+        <div>
+            {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <button type="button" onClick={() => addFilter(tag)}>{`${tag.name}`}</button>) )}
+        </div>
+
     </>
   );
 }
