@@ -6,8 +6,11 @@ import BasicForm from '../form/BasicForm/index';
 import OneLineInput from '../input/oneLineInput/index';
 import BaseButton from '../button/baseButton/index';
 import FileImage from '../image';
-import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
-
+import {
+  ENTER_PAGE_MYANNOUNCEMENTT,
+  ENTER_PAGE_NEWANNOUNCEMENT,
+  ENTER_PAGE_EDITANNOUNCEMENT,
+} from '../../utils/constants';
 
 function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag }) {
   const history = useHistory();
@@ -76,7 +79,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         .post('/user/poster', body)
         .then(() => {
           toast('Anúncio criado com sucesso');
-          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);
         })
         .catch((error) => {
           let msg = '';
@@ -104,7 +107,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         .then(() => {
           toast('Anúncio editado com sucesso');
           setFlag(true);
-          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);
         })
         .catch((error) => {
           let msg = '';
@@ -157,12 +160,12 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
 
   switch (typeButton) {
     case ENTER_PAGE_NEWANNOUNCEMENT:
-      contentButton = (<BaseButton onClick={create}>CRIAR</BaseButton>);
-      contentImage = ("");
+      contentButton = <BaseButton onClick={create}>CRIAR</BaseButton>;
+      contentImage = '';
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
-      contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
-      contentImage = (<FileImage></FileImage>);
+      contentButton = <BaseButton onClick={edit}>EDITAR</BaseButton>;
+      contentImage = <FileImage></FileImage>;
       break;
     default:
       break;
@@ -216,9 +219,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         <table>
           <tr>
             <td>
-              <div>
-                {contentButton}
-              </div>
+              <div>{contentButton}</div>
             </td>
             <td>
               <div>
