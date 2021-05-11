@@ -29,14 +29,15 @@ function passwordRecoveryCode(props) {
         .post('/auth/verify/code', body)
         .then((response) => {
           const { token } = response.data;
+
           localStorage.setItem('homemate_access_token', token);
           setState(PASSWORD_RECOVERY_PAGE_CHANGE);
-          console.log(response);
         })
         .catch((error) => {
           let msg = '';
           if (error.response) msg = error.response.data.error;
           else msg = 'Codigo invalido';
+          
           toast.error(msg);
         });
     }
@@ -51,7 +52,7 @@ function passwordRecoveryCode(props) {
           problem={problemCode}
           onChange={(value) => setCode(value)}
         />
-        <BaseButton onClick={passwordRecoveryCode}>verificar</BaseButton>
+        <BaseButton onClick={passwordRecoveryCode}>VERIFICAR</BaseButton>
       </BasicForm>
     </div>
   );
