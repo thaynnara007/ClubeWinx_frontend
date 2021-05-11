@@ -10,10 +10,9 @@ const [file, setFile] = useState(null)
  const editFile = (event) => {
   
     if(event.target.files[0]) {
-     const f = event.target.files[0]
+      const f = event.target.files[0]
 
       setFile(f)
-
     }
   }
 
@@ -32,7 +31,6 @@ const [file, setFile] = useState(null)
       api
       .post('/user/poster/me/picture', formData, config)
       .then( res => {
-        console.log(res)
         toast('Imagem adicionada com sucesso');
       })
       .catch( error => {

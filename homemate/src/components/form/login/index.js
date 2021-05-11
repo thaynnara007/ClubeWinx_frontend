@@ -7,6 +7,8 @@ import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
 
+import './login.css'
+
 function Login() {
   const [email, setEmail] = useState('');
   const [problemEmail, setProblemEmail] = useState(false);
@@ -56,6 +58,10 @@ function Login() {
     }
   };
 
+  const passwordRecovery = () => {
+    history.push('/passwordRecovery');
+  };
+
   return (
     <div style={{ marginTop: '150px' }}>
       <BasicForm>
@@ -72,6 +78,7 @@ function Login() {
           problem={problemPassword}
           onChange={(value) => setPassword(value)}
         />
+        <a className="components-form-login-forget-password" onClick={passwordRecovery}>Esqueceu a senha?</a>
         <BaseButton onClick={login}>ENTRAR</BaseButton>
       </BasicForm>
     </div>
