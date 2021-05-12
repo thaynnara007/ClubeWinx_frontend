@@ -1,15 +1,23 @@
 import './profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { useHistory } from 'react-router';
+
 
 function ProfileDisplay({ profile }) {
+  const history = useHistory();
+
+  const edit = () => {
+    history.push('/profile/edit');
+  }
+
   return (
     <div className="component-show-profile">
       <div className="component-show-profile-left">
-        <img src={profile.picture} alt="Foto Perfil" width="150" />
-        <h4>{`${profile.name} ${profile.lastname}`}</h4>
-        <h5>{profile.address.city}</h5>
-        <h5>{profile.address.state}</h5>
+        <img src={profile.picture.pictureUrl} alt="Foto Perfil" width="150" />
+        <h4>{`${profile.user.name} ${profile.user.lastname}`}</h4>
+        <h5>{profile.user.address.city}</h5>
+        <h5>{profile.user.address.state}</h5>
         <div className="component-show-profile-left-social-media">
           <ul>
             <li>
@@ -63,7 +71,7 @@ function ProfileDisplay({ profile }) {
             </div>
           </div>
         </div>
-        <button type="button">Editar Perfil</button>
+        <button type="button" onClick={edit}>Editar Perfil</button>
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ function MyAnnouncement() {
       contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState} setFlag={setFlag} />);
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
-      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag2={setFlag2} />);
+      contentForm = (<Announcement announcement={announcement} announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag2={setFlag2} />);
       break;
     default:
       break;

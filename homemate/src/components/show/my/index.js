@@ -11,7 +11,7 @@ function ListDisplay({ title, imageUrl, city, state, tags, use, id, onClickedAnn
           <div className="components-show-my-right-info">
             <div className="components-show-my-right-info-data">
               <h4>{use}</h4>
-              <span>{`R$${title}`}</span>
+              <span>{title}</span>
             </div>
             <div className="components-show-my-right-info-data">
               <h4>Localização</h4>
