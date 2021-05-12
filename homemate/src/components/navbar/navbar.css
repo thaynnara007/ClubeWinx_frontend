@@ -24,10 +24,15 @@
 
 .component-navbar-option:hover {
   border-bottom: 5px solid #6983aa;
+  cursor: pointer;
 }
 
 .component-navbar-selected {
   border-bottom: 5px solid #6983aa;
+}
+
+.component-navbar-selected:hover {
+  cursor: default;
 }
 
 .component-navbar-selected::before,
