@@ -2,9 +2,11 @@ import React from 'react';
 import './base.css';
 
 function BaseButton(props) {
-  const { danger = false, onClick, children } = props;
+  const { danger = false, filter = false, onClick, children } = props;
 
-  let className = 'component-button-base-button';
+  let className = filter 
+    ? 'component-button-base-tag'
+    : 'component-button-base-button';
 
   className += danger
     ? ' component-button-base-button-danger'

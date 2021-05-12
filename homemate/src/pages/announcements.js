@@ -3,19 +3,22 @@ import { useEffect, useState } from 'react';
 import api from '../api';
 import ListDisplay from '../components/show/my';
 import BasicForm from '../components/form/BasicForm';
+import Filter from '../components/filter/index.js';
 import { ENTER_PAGE_ANNOUNCEMENT, ENTER_PAGE_ANNOUNCEMENTLIST } from '../utils/constants';
 import AnnouncementDisplay from '../components/show/announcement';
 
 
 function Announcements() {
-  const [announcements, setAnnouncements] = useState(null);
+  //const [announcements, setAnnouncements] = useState(null);
   const options = [ENTER_PAGE_ANNOUNCEMENT, ENTER_PAGE_ANNOUNCEMENTLIST];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_ANNOUNCEMENTLIST);
   const [clickedAnnouncementId, setClickedAnnouncementId] = useState(null);
+  const [filterList, setFilterList] = useState([]);
+  const [announcements, setAnnouncements] = useState([]);
 
+  let page = 1;
+  let pageSize = 2;
   let contentForm = null;
-  
-
   const localContext = 'Aluguel';
 
   const getAnnouncements = () => {
@@ -23,6 +26,7 @@ function Announcements() {
       .get('/user/poster')
       .then((response) => {
         setAnnouncements(response.data);
+        console.log(announcements)
       })
       .catch((error) => {
         let msg = '';
@@ -59,28 +63,52 @@ function Announcements() {
     getAnnouncements();
   }, []);
 
+  const filterAnnuncements = () => {
+    let param = filterList.length > 0 || page || pageSize ? "?" : "";
+    if(page) { param= param + "page=" + page };
+    if(pageSize) { page  ?param = param + "&pageSize=" + pageSize : param = param + "pageSize=" + pageSize };
+    if(filterList.length > 0) {
+
+      filterList.forEach(tagId => {
+        param = param + "&tags[]=" + tagId;
+      });
+    };
+
+    api
+    .get('/user/poster'+ param)
+    .then((response) => setAnnouncements(response.data.rows))
+    .catch((error) => {
+      let msg = '';
+      if (error.response) msg = error.response.data.error;
+      else msg = 'Network failed';
+
+      toast.error(msg);
+    });
+  }
+
   switch(clickedOption) {
     case ENTER_PAGE_ANNOUNCEMENTLIST:
       contentForm = ( 
       <>
         <div style={{ marginTop: '150px' }} />
         <BasicForm>
-        {announcements &&
-          announcements.map((announcement) => (
-            <ListDisplay
-              key={announcement.id}
-              title={announcement.expense}
-              imageUrl={!announcement.posterPictures.length == 0 ? 
-                announcement.posterPictures[0].pictureUrl : "https://media.discordapp.net/attachments/823680071885389904/841046406331629578/257492.jpg"}
-              city={announcement.owner.address.city}
-              state={announcement.owner.address.state}
-              tags={announcement.tags}
-              use={localContext}
-              id={announcement.id}
-              onClickedAnnouncement={onClickedAnnouncement}
-              
-            />
-        ))}
+          <Filter filterList={filterList} clickFilter={filterAnnuncements} setFilterList={setFilterList}></Filter>
+          {announcements && announcements.length > 0 &&
+            announcements.map((announcement) => (
+              <ListDisplay
+                key={announcement.id}
+                title={announcement.expense}
+                imageUrl={!announcement.posterPictures.length == 0 ? 
+                  announcement.posterPictures[0].pictureUrl : "https://media.discordapp.net/attachments/823680071885389904/841046406331629578/257492.jpg"}
+                city={announcement.owner.address.city}
+                state={announcement.owner.address.state}
+                tags={announcement.tags}
+                use={localContext}
+                id={announcement.id}
+                onClickedAnnouncement={onClickedAnnouncement}
+                
+              />
+          ))}
         </BasicForm>
       </> )
       break;

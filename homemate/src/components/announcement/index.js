@@ -7,8 +7,11 @@ import OneLineInput from '../input/oneLineInput/index';
 import TagInput from '../input/tagInput/index';
 import BaseButton from '../button/baseButton/index';
 import FileImage from '../image';
-import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
-
+import {
+  ENTER_PAGE_MYANNOUNCEMENTT,
+  ENTER_PAGE_NEWANNOUNCEMENT,
+  ENTER_PAGE_EDITANNOUNCEMENT,
+} from '../../utils/constants';
 
 function Announcement({ announcement, announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2 }) {
   const history = useHistory();
@@ -250,8 +253,8 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
 
   switch (typeButton) {
     case ENTER_PAGE_NEWANNOUNCEMENT:
-      contentButton = (<BaseButton onClick={create}>CRIAR</BaseButton>);
-      contentImage = ("");
+      contentButton = <BaseButton onClick={create}>CRIAR</BaseButton>;
+      contentImage = '';
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
@@ -315,9 +318,7 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
         <table>
           <tr>
             <td>
-              <div>
-                {contentButton}
-              </div>
+              <div>{contentButton}</div>
             </td>
             <td>
               <div>
