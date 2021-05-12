@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 function Filter(props) {
   const {filterList, setFilterList} = props;
   const [categories, setCategories] = useState([]);
+  const [filterTags, setFilterTags] = useState([]);
   const [focusCategory, setFocusCategory] = useState("Animais");
 
 
@@ -33,7 +34,20 @@ function Filter(props) {
   
   const addFilter = (tag) => {
     const newList = filterList.concat(tag.id);
+    const newTagList = filterTags.concat(tag);
     setFilterList(newList);
+    setFilterTags(newTagList);
+  }
+
+  const removeFilter = (tag) => {
+    console.log(tag.id)
+    console.log(tag)
+    const newList = filterList.filter(id => tag.id != id);
+    const newTagList = filterTags.filter(t => tag.id != t.id);
+    console.log(newList);
+    console.log(newTagList);
+    setFilterList(newList);
+    setFilterTags(newTagList);
   }
   
   useEffect(() => {
@@ -42,7 +56,9 @@ function Filter(props) {
 
   return (
     <>
-
+        <div>
+            {filterTags && filterTags.map((tag) => <button type="button" onClick={() => removeFilter(tag)}>{`${tag.name}`}</button> )}
+        </div>
         <div>
             {categories && categories.map((category) => <button type="button" onClick={() => setFocus(category.name)}>{`${category.name}`}</button> )}
         </div>
