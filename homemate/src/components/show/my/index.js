@@ -1,7 +1,6 @@
 import './list.css';
 
 function ListDisplay({ title, imageUrl, city, state, tags, use, id, onClickedAnnouncement }) {
-  console.log(id)
   return (
       <div className="components-show-my">
         <div className="components-show-my-left">

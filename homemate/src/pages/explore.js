@@ -70,7 +70,7 @@ function Explore() {
           {profiles &&
             profiles.map((profile) => (
               profile.id == clickedProfileId ? 
-              <ProfileDisplay profile={profile} /> : <> </>
+              <ProfileDisplay key={profile.id} id={profile.id} my={false}/> : <> </>
             ))
           }
         </>

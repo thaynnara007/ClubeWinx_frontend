@@ -226,7 +226,7 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
       }
 
       api
-      .put('/user/poster/me/picture', formData, config)
+      .post('/user/poster/me/picture', formData, config)
       .then( () => {
         toast('Imagem atualizada com sucesso');
       })
