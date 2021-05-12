@@ -53,7 +53,8 @@ function EditProfilePage() {
       const profileData = {
         profileId: data.id,
         socialMedia: data.socialMedia,
-        description: data.description
+        description: data.description,
+        pictureUrl: data.picture
       }
 
       setUserInfo(userData)

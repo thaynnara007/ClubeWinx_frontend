@@ -1,0 +1,27 @@
+.component-image-cover {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.component-image-cover input[type=file]{
+  font-size: 100px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+}
+
+.component-image-button {
+  border-radius: 10px;
+  border: 2px solid #6983aa;
+  background-color: #f4f4f4;
+  color: gray;
+  font-size: 20px;
+  margin: 30px 0px;
+  padding: 10px 25px;
+}
+
+.component-image-button:hover {
+  cursor: pointer;
+}

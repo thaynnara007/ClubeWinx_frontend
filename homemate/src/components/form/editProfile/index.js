@@ -5,6 +5,7 @@ import api from '../../../api';
 import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
+import FileImage from '../../image'
 
 
 function EditProfile ({ profileInfo }){
@@ -52,9 +53,36 @@ function EditProfile ({ profileInfo }){
     };
   }
 
+  const upload = (file) => {
+    if (file) {
+
+      const formData = new FormData()
+      formData.append('file', file)
+      const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+      }
+
+      api
+      .put('/profile/me/picture', formData, config)
+      .then( () => {
+        toast('Imagem atualizada com sucesso');
+      })
+      .catch( error => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      })
+    }
+  }
+
   return (
     <div style={{ marginTop: '150px' }}>
       <BasicForm>
+        <FileImage fileUrl={profileInfo.pictureUrl} upload={upload}/>
         <OneLineInput
           problem={problemDescription}
           name = "Description"
