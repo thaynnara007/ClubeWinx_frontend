@@ -16,9 +16,6 @@ function App() {
         <Switch>
           <Route path="/" exact={true} component={EnterPage}></Route>
           <Route path="/homepage" component={HomePage}></Route>
-          <Route path="/myannouncement" component={MyAnnouncemente}></Route>
-          <Route path="/myprofile" component={MyProfile}></Route>
-          <Route path="/explore" component={Explore}></Route>
           <Route path="*" component={Page404}></Route>
         </Switch>
       </BrowserRouter>

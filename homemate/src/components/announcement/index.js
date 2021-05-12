@@ -10,7 +10,7 @@ import FileImage from '../image';
 import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
 
 
-function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag }) {
+function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2 }) {
   const history = useHistory();
   let contentButton = null;
   let contentImage = null;
@@ -83,6 +83,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         .then(() => {
           toast('Anúncio criado com sucesso');
           toast('Edite seu anúncio: adicione tags!');
+          setFlag(true);
           setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
         })
         .catch((error) => {
@@ -110,8 +111,8 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         .put('/user/poster/my', body)
         .then(() => {
           toast('Anúncio editado com sucesso');
-          setFlag(true);
-          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+          setFlag2(true);
+          setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);
         })
         .catch((error) => {
           let msg = '';

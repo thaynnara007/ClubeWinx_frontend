@@ -12,6 +12,7 @@ function MyAnnouncement() {
   const [announcement, setAnnouncement] = useState(null);
   const [ state, setState ] = useState('')
   const [flag, setFlag] = useState(false)
+  const [flag2, setFlag2] = useState(false)
   const [id, setId] = useState('')
   const [owner, setOwner] = useState('')
   let contentForm = null;
@@ -51,6 +52,10 @@ function MyAnnouncement() {
     getAnnouncement();
   }, [flag]);
 
+  useEffect(() => {
+    getAnnouncement();
+  }, [flag2]);
+
   switch (state) {
     case ENTER_PAGE_MYANNOUNCEMENTT:
       contentForm = (<AnnouncementDisplay announcement={announcement} onClick={onClickEdit} />);
@@ -63,10 +68,10 @@ function MyAnnouncement() {
                       </BasicForm> )
       break;
     case ENTER_PAGE_NEWANNOUNCEMENT:
-      contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState} />);
+      contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState} setFlag={setFlag} />);
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
-      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag={setFlag}/>);
+      contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag2={setFlag2} />);
       break;
     default:
       break;
