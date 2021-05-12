@@ -44,6 +44,7 @@ return (
       <tbody>
           <tr>
             <td>
+
               <div className="component-image-cover">
                 <button className="component-image-button">Escolha uma foto</button>
                 <input className= '.component-image-input' type="file" placeholder="Upload" encType="multipart/form-data" name="image" onChange={(event) => editFile(event)} />
