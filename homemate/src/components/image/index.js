@@ -51,7 +51,7 @@ return (
           <tr>
             <td>
               <div>
-                <input className= '.component-image-input' type="file" placeholder="Upload" enctype="multipart/form-data" name="image" onChange={(event) => editFile(event)} />
+                <input type="file" placeholder="Upload" enctype="multipart/form-data" name="image" onChange={(event) => editFile(event)} />
               </div>
             </td>
             <td>

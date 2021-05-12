@@ -47,6 +47,7 @@
 }
 .components-show-my-right-tags{
   margin-top: 10px;
+  margin-bottom: 15px;
 }
 .components-show-my-right-tags span{
   margin-right: 5px;
@@ -55,7 +56,4 @@
 .components-show-my-right-tags span:hover{
   color: #8ec6c5;
 }
-
-
-
 

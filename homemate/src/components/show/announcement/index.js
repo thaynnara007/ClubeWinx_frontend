@@ -5,7 +5,7 @@ function AnnouncementDisplay({ announcement, onClick }) {
     <div className="component-show-announcement">
       <div className="component-show-announcement-left">
         <img src={!announcement.posterPictures.length == 0 ?
-          announcement.posterPictures[0].pictureUrl : ""} alt="Foto Anuncio" width="300" height="300"/>
+          announcement.posterPictures[0].pictureUrl : "https://media.discordapp.net/attachments/823680071885389904/841046406331629578/257492.jpg"} alt="Foto Anuncio" width="300" height="300"/>
         <p>{announcement.description}</p>
         <button type="button" onClick={onClick}>Editar Anúncio</button>
       </div>

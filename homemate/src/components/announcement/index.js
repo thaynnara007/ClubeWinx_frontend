@@ -4,6 +4,7 @@ import { useHistory } from 'react-router';
 import api from '../../api/index';
 import BasicForm from '../form/BasicForm/index';
 import OneLineInput from '../input/oneLineInput/index';
+import TagInput from '../input/tagInput/index';
 import BaseButton from '../button/baseButton/index';
 import FileImage from '../image';
 import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
@@ -13,6 +14,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
   const history = useHistory();
   let contentButton = null;
   let contentImage = null;
+  let contentTag = null;
 
   const [expense, setExpense] = useState('');
   const [problemExpense, setProblemExpense] = useState(false);
@@ -30,6 +32,10 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
   const [zipCode, setZipCode] = useState('');
   const [city, setCity] = useState('');
   const [state, setState] = useState('');
+
+  const [tags, setTags] = useState('');
+
+  const [imageUrl, setImageUrl] = useState('https://media.discordapp.net/attachments/823680071885389904/841046406331629578/257492.jpg');
 
   const validateExpense = () => {
     const validation = expense === '' || expense === null;
@@ -76,6 +82,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         .post('/user/poster', body)
         .then(() => {
           toast('Anúncio criado com sucesso');
+          toast('Edite seu anúncio: adicione tags!');
           setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
         })
         .catch((error) => {
@@ -113,8 +120,57 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
 
           toast.error(msg);
         });
+
+        if(tags.length == 0){
+          createTags();
+        } else{
+          editTags();
+        }
     }
   };
+
+  const editTags = () => {
+
+      const body = {
+        tags
+      };
+
+      api
+        .put('/user/poster/me/remove/tags/', body)
+        .then(() => {
+          toast('Tag(s) editada(s) com sucesso');
+          
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+
+  }
+
+  const createTags = () => {
+
+      const body = {
+        tags
+      };
+        api
+        .post('/user/poster/me/add/tags', body)
+        .then(() => {
+          toast('Tag(s) adicionada(s) com sucesso');
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+
+  }
+
 
   const cancel = () => {
     setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);
@@ -144,6 +200,8 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
       setZipCode(response.data.owner.address.zipCode);
       setCity(response.data.owner.address.city);
       setState(response.data.owner.address.state);
+
+      setTags(response.data.tags)
     });
   };
 
@@ -163,6 +221,11 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
       contentImage = (<FileImage></FileImage>);
+      contentTag = (
+        <TagInput    
+              value={tags}
+              onChange={(e) => setTags(tags)}>
+        </TagInput>);
       break;
     default:
       break;
@@ -213,6 +276,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         <OneLineInput problem={problemResidents} name="CEP" value={zipCode} onChange={() => {}} />
         <OneLineInput problem={problemResidents} name="Cidade" value={city} onChange={() => {}} />
         <OneLineInput problem={problemResidents} name="Estado" value={state} onChange={() => {}} />
+        {contentTag}
         <table>
           <tr>
             <td>

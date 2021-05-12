@@ -12,6 +12,8 @@ function MyAnnouncement() {
   const [announcement, setAnnouncement] = useState(null);
   const [ state, setState ] = useState('')
   const [flag, setFlag] = useState(false)
+  const [id, setId] = useState('')
+  const [owner, setOwner] = useState('')
   let contentForm = null;
 
   const getAnnouncement = () => {
@@ -19,7 +21,7 @@ function MyAnnouncement() {
       .get('/user/poster/my')
       .then((response) => {
         setAnnouncement(response.data);
-        setState(ENTER_PAGE_MYANNOUNCEMENTT)
+        setState(ENTER_PAGE_MYANNOUNCEMENTT);
       })
       .catch((error) => {
 
@@ -34,6 +36,7 @@ function MyAnnouncement() {
           toast.error(msg);
         }
       });
+      
   };
 
   const onClickInserir = () => {
@@ -60,7 +63,7 @@ function MyAnnouncement() {
                       </BasicForm> )
       break;
     case ENTER_PAGE_NEWANNOUNCEMENT:
-      contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState}/>);
+      contentForm = (<Announcement announcementExists={false} typeButton={ENTER_PAGE_NEWANNOUNCEMENT} setStateAnnouncement={setState} />);
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentForm = (<Announcement announcementExists={true} typeButton={ENTER_PAGE_EDITANNOUNCEMENT} setStateAnnouncement={setState} setFlag={setFlag}/>);
