@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import api from '../api';
 import ListDisplay from '../components/show/my';
 import BasicForm from '../components/form/BasicForm';
+import BaseButton from '../components/button/baseButton/index';
 import Filter from '../components/filter/index.js';
 
 function Announcements() {
@@ -65,7 +66,7 @@ function Announcements() {
 
       <div style={{ marginTop: '150px' }} />
       <BasicForm>
-        <button type="button" onClick={() => filter()}>"filtrar"</button>
+        <BaseButton type="button" onClick={() => filter()}>filtrar</BaseButton>
         <Filter filterList={filterList} setFilterList={setFilterList}></Filter>
         {announcements && announcements.length > 0 && announcements.map((announcement) => (
               <ListDisplay

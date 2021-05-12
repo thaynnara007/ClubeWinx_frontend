@@ -1,9 +1,9 @@
 import React from 'react';
 import './filter.css';
 import api from '../../api';
-import BasicForm from '../form/BasicForm';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import BaseButton from '../button/baseButton/index';
 
 function Filter(props) {
   const {filterList, setFilterList} = props;
@@ -56,16 +56,17 @@ function Filter(props) {
 
   return (
     <>
-        <div>
-            {filterTags && filterTags.map((tag) => <button type="button" onClick={() => removeFilter(tag)}>{`${tag.name}`}</button> )}
+        <div className="component-filter-base-box">
+            <div>
+                {filterTags && filterTags.map((tag) => <BaseButton tag danger onClick={() => removeFilter(tag)}>{`${tag.name}`}</BaseButton> )}
+            </div>
+            <div>   
+                {categories && categories.map((category) => <BaseButton tag onClick={() => setFocus(category.name)}>{`${category.name}`}</BaseButton> )}
+            </div>
+            <div>
+                {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <BaseButton tag onClick={() => addFilter(tag)}>{`${tag.name}`}</BaseButton>) )}
+            </div>
         </div>
-        <div>
-            {categories && categories.map((category) => <button type="button" onClick={() => setFocus(category.name)}>{`${category.name}`}</button> )}
-        </div>
-        <div>
-            {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <button type="button" onClick={() => addFilter(tag)}>{`${tag.name}`}</button>) )}
-        </div>
-
     </>
   );
 }
