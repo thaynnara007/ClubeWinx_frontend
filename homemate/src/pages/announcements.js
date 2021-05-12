@@ -35,7 +35,7 @@ function Announcements() {
     getAnnouncements();
   }, []);
 
-  const filter = () => {
+  const filterAnnuncements = () => {
     let param = filterList.length > 0 || page || pageSize ? "?" : "";
     if(page) { param= param + "page=" + page };
     if(pageSize) { page  ?param = param + "&pageSize=" + pageSize : param = param + "pageSize=" + pageSize };
@@ -66,8 +66,7 @@ function Announcements() {
 
       <div style={{ marginTop: '150px' }} />
       <BasicForm>
-        <BaseButton type="button" onClick={() => filter()}>filtrar</BaseButton>
-        <Filter filterList={filterList} setFilterList={setFilterList}></Filter>
+        <Filter filterList={filterList} clickFilter={filterAnnuncements} setFilterList={setFilterList}></Filter>
         {announcements && announcements.length > 0 && announcements.map((announcement) => (
               <ListDisplay
                 title={announcement.expense}

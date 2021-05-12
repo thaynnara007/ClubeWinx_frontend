@@ -1,26 +1,25 @@
-.component-button-base-button {
+.component-button-TagButton-category {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu';
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
-  margin: 30px 0px;
-  padding: 10px 25px;
+  margin: 5px 5px;
+  padding: 25 25x;
   color: black;
-  background-color: #f4f4f4;
-  box-shadow: 0px 3px 7px #8566aa;
-  border-radius: 10px;
+  background-color: #6983aa;
+  box-shadow: 0px 5px 5px #8566aa;
   transition: all 0.5s;
-  min-width: 200px;
+  min-width: 25px;
 }
 
-.component-button-base-button-color {
+.component-button-TagButton-button-color {
   border: 2px solid #6983aa;
 }
 
-.component-button-base-button-danger {
+.component-button-TagButton-button-danger {
   border: 2px solid #db7047;
 }
 
-.component-button-base-button::after {
+.component-button-TagButton-category::after {
   font-weight: 400;
   position: absolute;
   left: 80%;
@@ -31,7 +30,7 @@
   transform: translate(-50%, -50%);
 }
 
-.component-button-base-button:hover {
+.component-button-TagButton-category:hover {
   transition: all 0.5s;
   border-radius: 10px;
   border: none;
@@ -39,17 +38,17 @@
   color: #f4f4f4;
 }
 
-.component-button-base-button-color:hover {
+.component-button-TagButton-category-color:hover {
   background: #8ec6c5;
   box-shadow: 0px 6px 15px #6983aa;
 }
 
-.component-button-base-button-danger:hover {
+.component-button-TagButton-category-danger:hover {
   background: #f77847;
   box-shadow: 0px 6px 15px #6983aa;
 }
 
-.component-button-base-button:hover::after {
+.component-button-TagButton-category:hover::after {
   opacity: 1;
   transition: all 0.5s;
   color: #f4f4f4;
@@ -58,21 +57,21 @@
 
 
 
-.component-button-base-tag {
+.component-button-TagButton-tag {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu';
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
-  margin: 10px 0px;
-  padding: 10px 25px;
+  margin: 5px 2px;
+  padding: 10px 25x;
   color: black;
   background-color: #f4f4f4;
-  box-shadow: 0px 3px 7px #8566aa;
+  box-shadow: 0px 5px 5px #8566aa;
   border-radius: 10px;
   transition: all 0.5s;
-  min-width: 80%;
+  min-width: 10px;
 }
 
-.component-button-base-tag::after {
+.component-button-TagButton-tag::after {
   font-weight: 100;
   position: absolute;
   left: 80%;
@@ -83,7 +82,7 @@
   transform: translate(-50%, -50%);
 }
 
-.component-button-base-tag:hover {
+.component-button-TagButton-tag:hover {
   transition: all 0.5s;
   border-radius: 10px;
   border: none;
@@ -91,17 +90,17 @@
   color: #f4f4f4;
 }
 
-.component-button-base-tag-color:hover {
+.component-button-TagButton-tag-color:hover {
   background: #8ec6c5;
   box-shadow: 0px 6px 15px #6983aa;
 }
 
-.component-button-base-tag-danger:hover {
+.component-button-TagButton-tag-danger:hover {
   background: #f77847;
   box-shadow: 0px 6px 15px #6983aa;
 }
 
-.component-button-base-tag:hover::after {
+.component-button-TagButton-tag:hover::after {
   opacity: 1;
   transition: all 0.5s;
   color: #f4f4f4;

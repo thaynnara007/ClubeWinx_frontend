@@ -3,10 +3,11 @@ import './filter.css';
 import api from '../../api';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import TagButton from '../button/tagButton/index';
 import BaseButton from '../button/baseButton/index';
 
 function Filter(props) {
-  const {filterList, setFilterList} = props;
+  const {filterList, setFilterList, clickFilter} = props;
   const [categories, setCategories] = useState([]);
   const [filterTags, setFilterTags] = useState([]);
   const [focusCategory, setFocusCategory] = useState("Animais");
@@ -57,14 +58,15 @@ function Filter(props) {
   return (
     <>
         <div className="component-filter-base-box">
-            <div>
-                {filterTags && filterTags.map((tag) => <BaseButton tag danger onClick={() => removeFilter(tag)}>{`${tag.name}`}</BaseButton> )}
-            </div>
             <div>   
-                {categories && categories.map((category) => <BaseButton tag onClick={() => setFocus(category.name)}>{`${category.name}`}</BaseButton> )}
+                {categories && categories.map((category) => <TagButton onClick={() => setFocus(category.name)}>{`${category.name}`}</TagButton> )}
             </div>
             <div>
-                {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <BaseButton tag onClick={() => addFilter(tag)}>{`${tag.name}`}</BaseButton>) )}
+                {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <TagButton tag onClick={() => addFilter(tag)}>{`${tag.name}`}</TagButton>) )}
+            </div>
+            <BaseButton filter onClick={() => clickFilter()}>filtrar</BaseButton>
+            <div>
+                {filterTags && filterTags.map((tag) => <TagButton tag danger onClick={() => removeFilter(tag)}>{`${tag.name}`}</TagButton> )}
             </div>
         </div>
     </>
