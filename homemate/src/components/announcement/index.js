@@ -10,7 +10,7 @@ import FileImage from '../image';
 import { ENTER_PAGE_MYANNOUNCEMENTT, ENTER_PAGE_NEWANNOUNCEMENT, ENTER_PAGE_EDITANNOUNCEMENT } from '../../utils/constants';
 
 
-function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2 }) {
+function Announcement({ announcement, announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2 }) {
   const history = useHistory();
   let contentButton = null;
   let contentImage = null;
@@ -35,7 +35,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
 
   const [tags, setTags] = useState('');
 
-  const [imageUrl, setImageUrl] = useState('https://media.discordapp.net/attachments/823680071885389904/841046406331629578/257492.jpg');
+  const [imageUrl, setImageUrl] = useState('');
 
   const validateExpense = () => {
     const validation = expense === '' || expense === null;
@@ -160,7 +160,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         api
         .post('/user/poster/me/add/tags', body)
         .then(() => {
-          toast('Tag(s) adicionada(s) com sucesso');
+          //toast('Tag(s) adicionada(s) com sucesso');
         })
         .catch((error) => {
           let msg = '';
@@ -202,9 +202,43 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
       setCity(response.data.owner.address.city);
       setState(response.data.owner.address.state);
 
-      setTags(response.data.tags)
+      setImageUrl(
+        response.data.posterPictures &&
+          response.data.posterPictures.map((picture) => (
+            picture.pictureUrl != null ? setImageUrl(picture.pictureUrl) : <></>
+          ))
+       
+      );
+
+      setTags(response.data.tags);
     });
   };
+
+  const upload = (file) => {
+    if (file) {
+
+      const formData = new FormData()
+      formData.append('file', file)
+      const config = {
+        headers: {
+            'content-type': 'multipart/form-data'
+        }
+      }
+
+      api
+      .put('/user/poster/me/picture', formData, config)
+      .then( () => {
+        toast('Imagem atualizada com sucesso');
+      })
+      .catch( error => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      })
+    }
+  }
 
   useEffect(() => {
     if (announcementExists) {
@@ -221,7 +255,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
-      contentImage = (<FileImage></FileImage>);
+      contentImage = (<FileImage upload={upload}></FileImage>);
       contentTag = (
         <TagInput    
               value={tags}
