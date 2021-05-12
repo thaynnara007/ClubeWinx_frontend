@@ -1,0 +1,8 @@
+.components-form-login-forget-password {
+  color: gray;
+}
+
+.components-form-login-forget-password:hover {
+  color: #8566aa;
+  cursor: pointer;
+}

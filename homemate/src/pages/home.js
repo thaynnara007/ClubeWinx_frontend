@@ -11,6 +11,7 @@ import MyAnnouncemente from './myAnnouncement';
 import MyProfile from './myProfile';
 import Explore from './explore';
 
+
 function HomePage() {
   const options = [
     ENTER_PAGE_ANNOUNCEMENTS,

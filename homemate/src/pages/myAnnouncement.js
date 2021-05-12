@@ -20,8 +20,12 @@ function MyAnnouncement() {
     ENTER_PAGE_NEWANNOUNCEMENT,
   ];
   const [announcement, setAnnouncement] = useState(null);
-  const [state, setState] = useState('');
-  const [flag, setFlag] = useState(false);
+  const [ state, setState ] = useState('')
+  const [flag, setFlag] = useState(false)
+  const [flag2, setFlag2] = useState(false)
+  const [id, setId] = useState('')
+  const [owner, setOwner] = useState('')
+
   let contentForm = null;
 
   const getAnnouncement = () => {
@@ -43,6 +47,7 @@ function MyAnnouncement() {
           toast.error(msg);
         }
       });
+      
   };
 
   const onClickInserir = () => {
@@ -56,6 +61,10 @@ function MyAnnouncement() {
   useEffect(() => {
     getAnnouncement();
   }, [flag]);
+
+  useEffect(() => {
+    getAnnouncement();
+  }, [flag2]);
 
   switch (state) {
     case ENTER_PAGE_MYANNOUNCEMENTT:
@@ -72,22 +81,22 @@ function MyAnnouncement() {
       break;
     case ENTER_PAGE_NEWANNOUNCEMENT:
       contentForm = (
-        <Announcement
-          announcementExists={false}
-          typeButton={ENTER_PAGE_NEWANNOUNCEMENT}
-          setStateAnnouncement={setState}
-        />
-      );
+        <Announcement 
+          announcementExists={false} 
+          typeButton={ENTER_PAGE_NEWANNOUNCEMENT} 
+          setStateAnnouncement={setState} 
+          setFlag={setFlag} 
+        />);
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentForm = (
-        <Announcement
-          announcementExists={true}
-          typeButton={ENTER_PAGE_EDITANNOUNCEMENT}
-          setStateAnnouncement={setState}
-          setFlag={setFlag}
-        />
-      );
+        <Announcement 
+          announcement={announcement} 
+          announcementExists={true} 
+          typeButton={ENTER_PAGE_EDITANNOUNCEMENT} 
+          setStateAnnouncement={setState} 
+          setFlag2={setFlag2} 
+        />);
       break;
     default:
       break;

@@ -1,66 +1,63 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import BaseButton from '../button/baseButton/index';
-import api from '../../api/index';
-import { toast } from 'react-toastify';
 
-function FileImage() {
+import './image.css'
+import image from '../../img/no_image.jpg'
 
-const [file, setFile] = useState(null)
+function FileImage(props) {
 
- const editFile = (event) => {
+  const [file, setFile] = useState(null)
+  const [fileUrl, setFileUrl] = useState(props.fileUrl)
+  const { imageStyle, upload } = props 
+
+  const editFile = (event) => {
   
     if(event.target.files[0]) {
-     const f = event.target.files[0]
+      const f = event.target.files[0]
+      const url = URL.createObjectURL(f)
 
       setFile(f)
-
+      setFileUrl(url)
     }
   }
 
-  const upload = () => {
-
-    if (file) {
-
-      const formData = new FormData()
-      formData.append('file', file)
-      const config = {
-        headers: {
-            'content-type': 'multipart/form-data'
-        }
-      }
-
-      api
-      .post('/user/poster/me/picture', formData, config)
-      .then( res => {
-        console.log(res)
-        toast('Imagem adicionada com sucesso');
-      })
-      .catch( error => {
-        let msg = '';
-        if (error.response) msg = error.response.data.error;
-        else msg = 'Network failed';
-
-        toast.error(msg);
-      })
-    }
+  const handleUpload = () => {
+    if (file) 
+      upload(file)
   }
 
 return (
   <>
+    <img 
+    alt="foto de perfil"
+    style={ imageStyle ? imageStyle : {
+      width: 400,
+      height: 340,
+      borderRadius: 20 
+    }}
+    src={ 
+      fileUrl ? 
+      fileUrl : 
+      image}> 
+    </img>
     <table>
+      <tbody>
           <tr>
             <td>
-              <div>
-                <input className= '.component-image-input' type="file" placeholder="Upload" enctype="multipart/form-data" name="image" onChange={(event) => editFile(event)} />
+
+              <div className="component-image-cover">
+                <button className="component-image-button">Escolha uma foto</button>
+                <input className= '.component-image-input' type="file" placeholder="Upload" encType="multipart/form-data" name="image" onChange={(event) => editFile(event)} />
               </div>
             </td>
             <td>
               <div>
-                <BaseButton onClick={upload}>ENVIAR</BaseButton>
+                <BaseButton onClick={() => handleUpload()}>ENVIAR</BaseButton>
               </div>
             </td>
           </tr>
-        </table>     
+        </tbody>
+    </table>     
   </>
 )
 }

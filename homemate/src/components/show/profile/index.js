@@ -1,15 +1,66 @@
 import './profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import { useHistory } from 'react-router';
+import { useEffect, useState } from 'react';
+import api from '../../../api';
 
-function ProfileDisplay({ profile }) {
+function ProfileDisplay({ my = true, id }) {
+  const history = useHistory();
+
+  const [ name, setName ] = useState('')
+  const [ lastname, setLastname ] = useState('')
+  const [ city, setCity ] = useState('')
+  const [ state, setState ] = useState('')
+  const [ picture, setPicture ] = useState('')
+  const [ socialMedia, setSocialMedia ] = useState('')
+  const [ phoneNumber, setPhoneNumber ] = useState('')
+  const [ email, setEmail ] = useState('')
+  const [ description, setDescription ] = useState('')
+  const [ tags, setTags ] = useState([])
+
+  const edit = () => {
+    history.push('/profile/edit');
+  }
+
+  useEffect( () => {
+    let url = '/profile/me'
+
+    if (!my) 
+      url = `/profile/${id}`
+
+    api.get(url)
+    .then( response => {
+      const { data } = response
+
+      setName(data.name)
+      setLastname(data.lastname)
+      setCity(data.address.city)
+      setState(data.address.state)
+      setPicture(data.picture)
+      setSocialMedia(data.socialMedia)
+      setPhoneNumber(data.phoneNumber)
+      setEmail(data.email)
+      setDescription(data.description)
+      setTags(data.tags) 
+      
+    })
+    .catch( error => {
+      let msg = '';
+      if (error.response) msg = error.response.data.error;
+      else msg = 'Network failed';
+
+      toast.error(msg);
+    })
+  }, [])
+
   return (
     <div className="component-show-profile">
       <div className="component-show-profile-left">
-        <img src={profile.picture} alt="Foto Perfil" width="150" />
-        <h4>{`${profile.name} ${profile.lastname}`}</h4>
-        <h5>{profile.address.city}</h5>
-        <h5>{profile.address.state}</h5>
+        <img src={picture} alt="Foto Perfil" width="150" />
+        <h4>{`${name} ${lastname}`}</h4>
+        <h5>{city}</h5>
+        <h5>{state}</h5>
         <div className="component-show-profile-left-social-media">
           <ul>
             <li>
@@ -23,7 +74,7 @@ function ProfileDisplay({ profile }) {
               </a>
             </li>
             <li>
-              <a href={profile.socialMedia} target="_blank" rel="noreferrer">
+              <a href={socialMedia} target="_blank" rel="noreferrer">
                 <FontAwesomeIcon icon={faInstagram} />
               </a>
             </li>
@@ -37,12 +88,12 @@ function ProfileDisplay({ profile }) {
           <div className="component-show-profile-info-data">
             <div className="component-show-profile-data">
               <h4>Descrição</h4>
-              <span>{profile.description}</span>
+              <span>{description}</span>
             </div>
             <div className="component-show-profile-data">
               <h4>Tags</h4>
               <span className="component-show-profile-right-tags">
-                {profile.tags.map((tag) => (
+                {tags.map((tag) => (
                   <span>{`<${tag.name}>`}</span>
                 ))}
               </span>
@@ -55,15 +106,15 @@ function ProfileDisplay({ profile }) {
           <div className="component-show-profile-info-data">
             <div className="component-show-profile-data">
               <h4>Email</h4>
-              <span>{profile.email}</span>
+              <span>{email}</span>
             </div>
             <div className="component-show-profile-data">
               <h4>Telefone</h4>
-              <span>{profile.phoneNumber}</span>
+              <span>{phoneNumber}</span>
             </div>
           </div>
         </div>
-        <button type="button">Editar Perfil</button>
+        <button type="button" onClick={edit}>Editar Perfil</button>
       </div>
     </div>
   );

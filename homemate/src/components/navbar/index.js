@@ -14,7 +14,7 @@ function Navbar(props) {
 
           return (
             <>
-              <a className={aClassName} onClick={actions[index]}>
+              <a key={index} className={aClassName} onClick={actions[index]}>
                 {option}
               </a>
             </>

@@ -69,7 +69,7 @@
   box-shadow: 0px 3px 7px #8566aa;
   border-radius: 10px;
   transition: all 0.5s;
-  min-width: 80%;
+  min-width: 50%;
 }
 
 .component-button-base-tag::after {

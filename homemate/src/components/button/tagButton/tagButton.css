@@ -2,13 +2,16 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu';
   font-size: 15px;
   cursor: pointer;
-  margin: 5px 5px;
-  padding: 25 25x;
-  color: black;
+  border-radius: 10px;
+  padding: 10px 10px;
+  color: #f4f4f4;
+  font-weight: bold;
   background-color: #6983aa;
   box-shadow: 0px 5px 5px #8566aa;
   transition: all 0.5s;
   min-width: 25px;
+  margin: 1px;
+  margin-bottom: 15px;
 }
 
 .component-button-TagButton-button-color {
@@ -29,15 +32,15 @@
   opacity: 0;
   transform: translate(-50%, -50%);
 }
-
+/*
 .component-button-TagButton-category:hover {
   transition: all 0.5s;
   border-radius: 10px;
   border: none;
   padding: 10px 25px;
-  color: #f4f4f4;
+  color: black;
 }
-
+*/
 .component-button-TagButton-category-color:hover {
   background: #8ec6c5;
   box-shadow: 0px 6px 15px #6983aa;
@@ -51,7 +54,7 @@
 .component-button-TagButton-category:hover::after {
   opacity: 1;
   transition: all 0.5s;
-  color: #f4f4f4;
+  color: black;
 }
 
 
@@ -62,13 +65,13 @@
   font-size: 15px;
   cursor: pointer;
   margin: 5px 2px;
-  padding: 10px 25x;
   color: black;
   background-color: #f4f4f4;
-  box-shadow: 0px 5px 5px #8566aa;
+  box-shadow: 0px 2px 2px #8566aa;
   border-radius: 10px;
   transition: all 0.5s;
   min-width: 10px;
+  padding: 3px 3px;
 }
 
 .component-button-TagButton-tag::after {
@@ -87,7 +90,7 @@
   border-radius: 10px;
   border: none;
   padding: 10px 25px;
-  color: #f4f4f4;
+  color: black;
 }
 
 .component-button-TagButton-tag-color:hover {
@@ -103,5 +106,5 @@
 .component-button-TagButton-tag:hover::after {
   opacity: 1;
   transition: all 0.5s;
-  color: #f4f4f4;
+  color: black;
 }
