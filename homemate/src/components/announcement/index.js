@@ -255,7 +255,7 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
       break;
     case ENTER_PAGE_EDITANNOUNCEMENT:
       contentButton = (<BaseButton onClick={edit}>EDITAR</BaseButton>);
-      contentImage = (<FileImage fileUrl={imageUrl} upload={upload}></FileImage>);
+      contentImage = (<FileImage upload={upload}></FileImage>);
       contentTag = (
         <TagInput    
               value={tags}
