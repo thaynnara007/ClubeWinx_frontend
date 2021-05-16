@@ -99,6 +99,50 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
     }
   };
 
+  const editTags = () => {
+
+    const body = {
+      tags
+    };
+
+    api
+      .put('/user/poster/me/remove/tags/', body)
+      .then(() => {
+        toast('Tag(s) editada(s) com sucesso');
+        
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
+
+}
+
+  const createTags = () => {
+
+    const body = {
+      tags
+    };
+      api
+      .post('/user/poster/me/add/tags', body)
+      .then(() => {
+        //toast('Tag(s) adicionada(s) com sucesso');
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
+
+}
+
+
+
   const edit = () => {
     const validated = validateInfo();
 
@@ -125,56 +169,13 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
           toast.error(msg);
         });
 
-        if(tags.length == 0){
+        if(tags.length === 0){
           createTags();
         } else{
           editTags();
         }
     }
   };
-
-  const editTags = () => {
-
-      const body = {
-        tags
-      };
-
-      api
-        .put('/user/poster/me/remove/tags/', body)
-        .then(() => {
-          toast('Tag(s) editada(s) com sucesso');
-          
-        })
-        .catch((error) => {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
-
-          toast.error(msg);
-        });
-
-  }
-
-  const createTags = () => {
-
-      const body = {
-        tags
-      };
-        api
-        .post('/user/poster/me/add/tags', body)
-        .then(() => {
-          //toast('Tag(s) adicionada(s) com sucesso');
-        })
-        .catch((error) => {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
-
-          toast.error(msg);
-        });
-
-  }
-
 
   const cancel = () => {
     setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT);

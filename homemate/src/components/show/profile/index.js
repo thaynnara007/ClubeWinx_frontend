@@ -2,6 +2,7 @@ import './profile.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram } from '@fortawesome/free-brands-svg-icons';
 import { useHistory } from 'react-router';
+import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import api from '../../../api';
 

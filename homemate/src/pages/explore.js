@@ -21,7 +21,6 @@ function Explore() {
       .get('/profile/recomendation')
       .then((response) => {
         setProfiles(response.data);
-        console.log(profiles)
       })
       .catch((error) => {
         let msg = '';

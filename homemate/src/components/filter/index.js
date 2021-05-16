@@ -28,7 +28,6 @@ function Filter(props) {
   };
 
   const setFocus = (category) => {
-        console.log(category)
         setFocusCategory(category);
   }
 
@@ -41,12 +40,10 @@ function Filter(props) {
   }
 
   const removeFilter = (tag) => {
-    console.log(tag.id)
-    console.log(tag)
-    const newList = filterList.filter(id => tag.id != id);
-    const newTagList = filterTags.filter(t => tag.id != t.id);
-    console.log(newList);
-    console.log(newTagList);
+
+    const newList = filterList.filter(id => tag.id !== id);
+    const newTagList = filterTags.filter(t => tag.id !== t.id);
+
     setFilterList(newList);
     setFilterTags(newTagList);
   }

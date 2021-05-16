@@ -1,10 +1,8 @@
 import React from 'react';
 import './navbar.css'; 
-import LogoutButton from '../button/logoutButton'
 
 function Navbar(props) {
   const { children, actions, choosed, logout = -1} = props;
-  const size = children.length
 
   return (
     <>
