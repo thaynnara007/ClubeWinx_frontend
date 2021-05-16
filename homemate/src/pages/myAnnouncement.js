@@ -36,16 +36,15 @@ function MyAnnouncement() {
         setState(ENTER_PAGE_MYANNOUNCEMENTT);
       })
       .catch((error) => {
-        const { status } = error.response;
 
-        if (status === 404) setState(ENTER_PAGE_ADDANNOUNCEMENT);
-        else {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
+        if (error.response) {
+          const { status } = error.response;
 
-          toast.error(msg);
+          if (status === 404) setState(ENTER_PAGE_ADDANNOUNCEMENT);
+          else toast.error(error.response.data.error);
         }
+        else toast.error('Network failed');
+        
       });
       
   };

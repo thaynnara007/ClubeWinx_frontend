@@ -16,7 +16,7 @@ function EnterPage() {
     setClickedOption(ENTER_PAGE_REGISTER);
   };
 
-  const contentForm = clickedOption === ENTER_PAGE_LOGIN ? <Login /> : <Register />;
+  const contentForm = clickedOption === ENTER_PAGE_LOGIN ? <Login /> : <Register changeToLogin={onChangeLogin} />;
 
   return (
     <>

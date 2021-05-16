@@ -114,7 +114,7 @@ function ProfileDisplay({ my = true, id }) {
             </div>
           </div>
         </div>
-        <button type="button" onClick={edit}>Editar Perfil</button>
+        { my ? <button type="button" onClick={edit}>Editar Perfil</button> : <div/>}
       </div>
     </div>
   );

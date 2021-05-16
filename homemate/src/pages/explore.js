@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 import ProfileDisplay from '../components/show/profile';
 
 function Explore() {
-  const [profiles, setProfiles] = useState(null);
+  const [profiles, setProfiles] = useState([]);
   const options = [ENTER_PAGE_PROFILE, ENTER_PAGE_PROFILELIST];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_PROFILELIST);
   const [clickedProfileId, setClickedProfileId] = useState(null);
@@ -21,6 +21,7 @@ function Explore() {
       .get('/profile/recomendation')
       .then((response) => {
         setProfiles(response.data);
+        console.log(profiles)
       })
       .catch((error) => {
         let msg = '';
@@ -51,7 +52,7 @@ function Explore() {
             <ListDisplay
               key={profile.user.id}
               title={profile.user.name}
-              imageUrl={profile.picture.pictureUrl}
+              imageUrl={profile.picture ? profile.picture.pictureUrl : ''}
               city={profile.user.address.city}
               state={profile.user.address.state}
               tags={profile.tags}

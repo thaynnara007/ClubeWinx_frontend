@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import Navbar from '../components/navbar';
 import EditRegister from '../components/form/editRegister';
 import EditProfile from '../components/form/editProfile';
+import Logout from '../components/button/logoutButton'
 import PasswordRecoveryChange from '../components/form/passwordRecoveryChange'
 import { 
   ENTER_PAGE_EDIT_PROFILE, 
@@ -13,7 +14,7 @@ import {
 import api from '../api';
 
 function EditProfilePage() {
-  const options = [ENTER_PAGE_EDIT_PASSWORD ,ENTER_PAGE_EDIT_PROFILE, ENTER_PAGE_EDIT_REGISTER];
+  const options = [ENTER_PAGE_EDIT_PASSWORD ,ENTER_PAGE_EDIT_PROFILE, ENTER_PAGE_EDIT_REGISTER, <Logout/>];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_EDIT_PASSWORD);
   const [ userInfo, setUserInfo ] = useState({})
   const [ addressInfo, setAddressInfo ] = useState({})
@@ -104,7 +105,7 @@ function EditProfilePage() {
 
   return (
     <>
-      <Navbar choosed={clickedOption} actions={[onChangePassword, onChangedEditProfile, onChangedEditRegister]}>
+      <Navbar choosed={clickedOption} actions={[onChangePassword, onChangedEditProfile, onChangedEditRegister]} logout={options.length - 1}>
         {options}
       </Navbar>
       {contentForm}

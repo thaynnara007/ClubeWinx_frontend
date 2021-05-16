@@ -85,7 +85,7 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
         .post('/user/poster', body)
         .then(() => {
           toast('Anúncio criado com sucesso');
-          toast('Edite seu anúncio: adicione tags!');
+          toast('Edite seu anúncio: adicione algumas tags!');
           setFlag(true);
           setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
         })

@@ -1,8 +1,10 @@
 import React from 'react';
-import './navbar.css';
+import './navbar.css'; 
+import LogoutButton from '../button/logoutButton'
 
 function Navbar(props) {
-  const { children, actions, choosed } = props;
+  const { children, actions, choosed, logout = -1} = props;
+  const size = children.length
 
   return (
     <>
@@ -11,13 +13,12 @@ function Navbar(props) {
           let aClassName = 'component-navbar-option';
 
           if (option === choosed) aClassName += ' component-navbar-selected';
+          if (index === logout) aClassName = 'component-navbar-lougout'
 
           return (
-            <>
-              <a key={index} className={aClassName} onClick={actions[index]}>
-                {option}
-              </a>
-            </>
+            <a key={index} className={aClassName} onClick={actions[index]}>
+              {option}
+            </a>
           );
         })}
       </nav>

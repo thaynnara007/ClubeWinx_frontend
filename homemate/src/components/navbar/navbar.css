@@ -22,6 +22,14 @@
   border-bottom: 5px solid #8ec6c5;
 }
 
+.component-navbar-lougout {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  transition: 0.2s ease color;
+  border-bottom: 5px solid #8ec6c5;
+}
+
 .component-navbar-option:hover {
   border-bottom: 5px solid #6983aa;
   cursor: pointer;
