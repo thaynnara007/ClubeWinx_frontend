@@ -3,13 +3,12 @@ import { useEffect, useState } from 'react';
 import api from '../api';
 import ListDisplay from '../components/show/my';
 import BasicForm from '../components/form/BasicForm';
-import Filter from '../components/filter/index.js';
+import Filter from '../components/filter';
 import { ENTER_PAGE_ANNOUNCEMENT, ENTER_PAGE_ANNOUNCEMENTLIST } from '../utils/constants';
 import AnnouncementDisplay from '../components/show/announcement';
 
 
 function Announcements() {
-  //const [announcements, setAnnouncements] = useState(null);
   const options = [ENTER_PAGE_ANNOUNCEMENT, ENTER_PAGE_ANNOUNCEMENTLIST];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_ANNOUNCEMENTLIST);
   const [clickedAnnouncementId, setClickedAnnouncementId] = useState(null);
@@ -26,7 +25,6 @@ function Announcements() {
       .get('/user/poster')
       .then((response) => {
         setAnnouncements(response.data);
-        console.log(announcements)
       })
       .catch((error) => {
         let msg = '';
@@ -36,7 +34,7 @@ function Announcements() {
         toast.error(msg);
       });
   };
-
+/*
   const getOwnerAnnouncement = () => {
     api
       .get(`/profile/${id}`)
@@ -52,7 +50,7 @@ function Announcements() {
           toast.error(msg);
       });
       
-  };
+  }; */
 
   const onClickedAnnouncement = (id) => {
     setClickedAnnouncementId(id)
@@ -66,7 +64,7 @@ function Announcements() {
   const filterAnnuncements = () => {
     let param = filterList.length > 0 || page || pageSize ? "?" : "";
     if(page) { param= param + "page=" + page };
-    if(pageSize) { page  ?param = param + "&pageSize=" + pageSize : param = param + "pageSize=" + pageSize };
+    if(pageSize) {  param = page ? param + "&pageSize=" + pageSize :  param + "pageSize=" + pageSize };
     if(filterList.length > 0) {
 
       filterList.forEach(tagId => {

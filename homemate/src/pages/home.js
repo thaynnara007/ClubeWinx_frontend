@@ -8,6 +8,7 @@ import {
 } from '../utils/constants';
 import Announcements from './announcements';
 import MyAnnouncemente from './myAnnouncement';
+import Logout from '../components/button/logoutButton'
 import MyProfile from './myProfile';
 import Explore from './explore';
 
@@ -18,6 +19,7 @@ function HomePage() {
     ENTER_PAGE_MYANNOUNCEMENT,
     ENTER_PAGE_MYPROFILE,
     ENTER_PAGE_EXPLORE,
+    <Logout/>
   ];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_ANNOUNCEMENTS);
 
@@ -61,11 +63,11 @@ function HomePage() {
       <Navbar
         choosed={clickedOption}
         actions={[onChangeHome, onChangeMyAnnouncement, onChangeMyProfile, onChangeExplore]}
+        logout={options.length - 1}
       >
         {options}
       </Navbar>
       {contentForm}
-     
     </>
   );
 }

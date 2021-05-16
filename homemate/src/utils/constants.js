@@ -18,5 +18,6 @@ export const ENTER_PAGE_ANNOUNCEMENT = 'ANUNCIO';
 export const ENTER_PAGE_ANNOUNCEMENTLIST = 'LISTAR_ANUNCIOS';
 export const ENTER_PAGE_PROFILE = 'PERFIL';
 export const ENTER_PAGE_PROFILELIST = 'LISTAS_PERFIS';
+export const LOGOUT = 'SAIR';
 export const DATE_FORMAT = 'DD/MM/YYYY';
 export const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';

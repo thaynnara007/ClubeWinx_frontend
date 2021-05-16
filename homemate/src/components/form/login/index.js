@@ -41,10 +41,10 @@ function Login() {
 
       api
         .post('/auth/login', body)
-        .then((response) => {
+        .then( async (response) => {
           const { token, user } = response.data;
 
-          localStorage.setItem('homemate_access_token', token);
+          await localStorage.setItem('homemate_access_token', token);
           toast(`Bem-vindo de volta ${user.name}!`);
           history.push('/homepage');
         })

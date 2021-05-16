@@ -22,7 +22,7 @@ function myProfile() {
 
   useEffect(() => {
     getProfile();
-  }, [profile]);
+  }, []);
 
   return <div>{profile && <ProfileDisplay profile={profile} />}</div>;
 }
