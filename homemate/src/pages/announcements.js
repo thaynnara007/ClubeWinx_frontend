@@ -72,23 +72,27 @@ function Announcements() {
         tags = tags + "&tags[]=" + tagId;
         // param = param + "&tags[]=" + tagId;
       });
-      param = param + tags;
+      param = param + tags.substring(1);
     };
 
-    api
-    .get('/user/poster'+ param)
-    .then((response) => {
-      setAnnouncements(response.data)
-      // setAnnouncements(response.data.rows)
-    })
-      
-    .catch((error) => {
-      let msg = '';
-      if (error.response) msg = error.response.data.error;
-      else msg = 'Network failed';
+    if( !param ) {
+      getAnnouncements();
+    } else {
+      api
+      .get('/user/poster'+ param)
+      .then((response) => {
+        setAnnouncements(response.data)
+        // setAnnouncements(response.data.rows)
+      })    
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+  
+        toast.error(msg);
+      });
+    }
 
-      toast.error(msg);
-    });
   }
 
   switch(clickedOption) {
