@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import { toast } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import api from '../../../api';
+import axios from 'axios'
 
 function ProfileDisplay({ my = true, id }) {
   const history = useHistory();
@@ -25,10 +26,7 @@ function ProfileDisplay({ my = true, id }) {
   }
 
   useEffect( () => {
-    let url = '/profile/me'
-
-    if (!my) 
-      url = `/profile/${id}`
+    const url = my ? '/profile/me' : `/profile/${id}`
 
     api.get(url)
     .then( response => {
@@ -122,3 +120,4 @@ function ProfileDisplay({ my = true, id }) {
 }
 
 export default ProfileDisplay;
+

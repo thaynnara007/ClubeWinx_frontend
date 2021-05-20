@@ -9,7 +9,7 @@ import {
 import Announcements from './announcements';
 import MyAnnouncemente from './myAnnouncement';
 import Logout from '../components/button/logoutButton'
-import MyProfile from './myProfile';
+import ProfileDisplay from '../components/show/profile'
 import Explore from './explore';
 
 
@@ -49,7 +49,7 @@ function HomePage() {
       contentForm = <MyAnnouncemente />;
       break;
     case ENTER_PAGE_MYPROFILE:
-      contentForm = <MyProfile />;
+      contentForm = <ProfileDisplay />;
       break;
     case ENTER_PAGE_EXPLORE:
       contentForm = <Explore />;

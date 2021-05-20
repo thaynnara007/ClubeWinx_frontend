@@ -116,7 +116,7 @@ function Announcements() {
         {announcements &&
         announcements.map((announcement) => (
           announcement.id == clickedAnnouncementId ?
-            <AnnouncementDisplay announcement={announcement} /> : <> </>
+            <AnnouncementDisplay announcement={announcement} my={false}/> : <> </>
           
         ))}
         </>

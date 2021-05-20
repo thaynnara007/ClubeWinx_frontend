@@ -6,6 +6,7 @@ import api from '../../../api';
 import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
+import { API_BASE_URL } from '../../../utils/constants'
 
 import './login.css'
 
@@ -33,12 +34,13 @@ function Login() {
   const validateInfo = () => validateEmail() && validatePassword();
 
   const login = () => {
+    
     if (validateInfo()) {
       const body = {
         email,
         password,
       };
-
+    
       api
         .post('/auth/login', body)
         .then( async (response) => {
@@ -46,7 +48,7 @@ function Login() {
 
           await localStorage.setItem('homemate_access_token', token);
           toast(`Bem-vindo de volta ${user.name}!`);
-          history.push('/homepage');
+          window.location.replace('/homepage')
         })
         .catch((error) => {
           let msg = '';
@@ -56,6 +58,7 @@ function Login() {
           toast.error(msg);
         });
     }
+    
   };
 
   const passwordRecovery = () => {
