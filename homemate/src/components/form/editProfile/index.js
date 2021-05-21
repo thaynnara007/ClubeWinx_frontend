@@ -6,7 +6,7 @@ import BasicForm from '../BasicForm';
 import OneLineInput from '../../input/oneLineInput';
 import BaseButton from '../../button/baseButton';
 import FileImage from '../../image'
-
+import EditTags from '../../editTags/index';
 
 function EditProfile ({ profileInfo }){
   const [description, setDescription] = useState(profileInfo.description);
@@ -96,6 +96,7 @@ function EditProfile ({ profileInfo }){
           onChange={(value) => setSocialMedia(value)}
         />
         <BaseButton onClick={editProfile}>SALVAR</BaseButton>
+        <EditTags isProfile={true} ></EditTags>
       </BasicForm>
     </div>
   )
