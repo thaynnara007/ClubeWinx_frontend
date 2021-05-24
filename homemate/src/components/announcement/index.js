@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
 import api from '../../api/index';
 import BasicForm from '../form/BasicForm/index';
 import OneLineInput from '../input/oneLineInput/index';
@@ -13,8 +12,7 @@ import {
   ENTER_PAGE_EDITANNOUNCEMENT,
 } from '../../utils/constants';
 
-function Announcement({ announcement, announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2 }) {
-  const history = useHistory();
+function Announcement({ announcementExists, typeButton, setStateAnnouncement, setFlag, setFlag2, setFlag3 }) {
   let contentButton = null;
   let contentImage = null;
   let contentTag = null;
@@ -141,8 +139,6 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
 
 }
 
-
-
   const edit = () => {
     const validated = validateInfo();
 
@@ -233,6 +229,8 @@ function Announcement({ announcement, announcementExists, typeButton, setStateAn
       .post('/user/poster/me/picture', formData, config)
       .then( () => {
         toast('Imagem atualizada com sucesso');
+        setFlag3(true);
+        setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
       })
       .catch( error => {
         let msg = '';

@@ -60,15 +60,56 @@
 .component-show-announcement-right-tags span:hover {
   color: #6983aa;
 }
-.component-show-announcement button {
-  margin-top: 20px;
-  margin-left: 130px;
-  width: 40%;
+.component-show-announcement-bottom-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+.component-show-announcement-bottom-buttons button{
+  /* margin-top: 20px;
+  margin-left: 130px; */
+  width: 40%; 
+  margin: 5px;
   border-radius: 5px;
   background-color: #f4f4f4;
   box-shadow: 0px 1px 5px #6983aa;
 }
-.component-show-announcement button:hover{
+.component-show-announcement button.edit:hover{
   background-color: #6983aa;
   color: #fff;
 }
+.component-show-announcement button.delete:hover{
+  background-color: #db7047;
+  color: #fff;
+}
+.component-show-announcement-buttons button{
+  border: none;
+  background: none;
+  font-weight: normal;
+  font-size: 30px;
+  padding: 5px;
+  width: 50%;
+}
+.component-show-announcement-buttons-disable button{
+  pointer-events: none;
+  border: none;
+  background: none;
+  font-weight: normal;
+  font-size: 30px;
+  padding: 5px;
+  width: 50%;
+}
+.delete-button {
+  border: none;
+  width: 20px;
+  height: 20px;
+  background-color: grey;
+  color: white;
+  position: absolute;
+  top: 30px;
+  left: 305px;
+}
+.none {
+  display: none;
+}
+
