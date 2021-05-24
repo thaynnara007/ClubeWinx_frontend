@@ -23,6 +23,7 @@ function MyAnnouncement() {
   const [ state, setState ] = useState('')
   const [flag, setFlag] = useState(false)
   const [flag2, setFlag2] = useState(false)
+  const [flag3, setFlag3] = useState(false)
   const [id, setId] = useState('')
   const [owner, setOwner] = useState('')
 
@@ -59,6 +60,49 @@ function MyAnnouncement() {
     setState(ENTER_PAGE_EDITANNOUNCEMENT);
   };
 
+  const handleDeleteImage = (id) => {
+    api
+      .delete(`/user/poster/me/picture/${id}`)
+      .then(() => {
+        toast('Imagem excluida com sucesso!');
+        const updatedAnnouncement = announcement;
+        updatedAnnouncement.posterPictures = announcement.posterPictures.filter((picture) => {
+          return picture.id != id;
+        });
+        console.log(updatedAnnouncement.posterPictures);
+        setAnnouncement(updatedAnnouncement);
+        console.log(announcement.posterPictures);
+        setState(ENTER_PAGE_MYANNOUNCEMENTT);
+      })
+      .catch((error) => {
+  
+        if (error.response) {
+          const { status } = error.response;
+  
+          if (status === 404) setState(ENTER_PAGE_ADDANNOUNCEMENT);
+          else toast.error(error.response.data.error);
+        }
+        
+      });
+  }
+
+  const onClickDelete = () => {
+    api
+      .delete(`/user/poster/my`)
+      .then((response) => {
+        toast('Anúncio excluido com sucesso!');
+        setAnnouncement(response.data);
+        setState(ENTER_PAGE_ADDANNOUNCEMENT);
+      })
+      .catch((error) => {
+
+        if (error.response) {
+          const { status } = error.response;
+        }
+        
+      });
+  }
+
   useEffect(() => {
     getAnnouncement();
   }, [flag]);
@@ -67,9 +111,19 @@ function MyAnnouncement() {
     getAnnouncement();
   }, [flag2]);
 
+  useEffect(() => {
+    getAnnouncement();
+  }, [flag3]);
+
   switch (state) {
     case ENTER_PAGE_MYANNOUNCEMENTT:
-      contentForm = <AnnouncementDisplay announcement={announcement} onClick={onClickEdit} />;
+      contentForm = <AnnouncementDisplay 
+        announcement={announcement} 
+        onClickEdit={onClickEdit} 
+        onClickDelete={onClickDelete} 
+        isMyAnnouncement={true}
+        handleDeleteImage={handleDeleteImage}
+        />;
       break;
     case ENTER_PAGE_ADDANNOUNCEMENT:
       contentForm = (
@@ -97,6 +151,7 @@ function MyAnnouncement() {
           typeButton={ENTER_PAGE_EDITANNOUNCEMENT} 
           setStateAnnouncement={setState} 
           setFlag2={setFlag2} 
+          setFlag3={setFlag3}
         />);
       break;
     default:

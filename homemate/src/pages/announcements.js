@@ -14,6 +14,7 @@ function Announcements() {
   const [clickedAnnouncementId, setClickedAnnouncementId] = useState(null);
   const [filterList, setFilterList] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
+  // const isMyAnnouncement = false;
 
   let page = 1;
   let pageSize = 2;
@@ -116,7 +117,9 @@ function Announcements() {
         {announcements &&
         announcements.map((announcement) => (
           announcement.id == clickedAnnouncementId ?
-            <AnnouncementDisplay announcement={announcement} my={false}/> : <> </>
+            <AnnouncementDisplay announcement={announcement} isMyAnnouncement={false}/> : <> </>
+
+//             <AnnouncementDisplay announcement={announcement} my={false}/> : <> </>
           
         ))}
         </>
