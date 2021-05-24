@@ -158,6 +158,7 @@ function Register({ changeToLogin }) {
           if (response){
             toast('cadastro realizado com sucesso!');
             setLoading(false)
+            setPassword('')
 
             if (changeToLogin) changeToLogin()
           }

@@ -30,9 +30,11 @@ function MyAnnouncement() {
   let contentForm = null;
 
   const getAnnouncement = () => {
+
     api
       .get('/user/poster/my')
       .then((response) => {
+
         setAnnouncement(response.data);
         setState(ENTER_PAGE_MYANNOUNCEMENTT);
       })

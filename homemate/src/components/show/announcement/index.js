@@ -33,6 +33,8 @@ function AnnouncementDisplay({ announcement, onClickEdit, onClickDelete, isMyAnn
     }
   }, []);
 
+
+function AnnouncementDisplay({ announcement, onClick, my = true }) {
   return (
     <>
     {announcement &&
@@ -53,11 +55,15 @@ function AnnouncementDisplay({ announcement, onClickEdit, onClickDelete, isMyAnn
             <button onClick={() => {changeAnnoucementImage(1)}} className="button-display-right"> &gt; </button>
           </div>
           <p>{announcement.description}</p>
+
           <div className={isMyAnnouncement ? "component-show-announcement-bottom-buttons" : "none"} >
             <button className="edit" type="button" onClick={onClickEdit}>Editar Anúncio</button>
             <button className="delete" type="button" onClick={onClickDelete}>Excluir Anúncio</button>
           </div>
           
+
+//           { my ? <button type="button" onClick={onClick}>Editar Anúncio</button> : <div/>}
+
         </div>
 
         <div className="component-show-announcement-right">
