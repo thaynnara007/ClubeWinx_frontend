@@ -34,7 +34,7 @@ function AnnouncementDisplay({ announcement, onClickEdit, onClickDelete, isMyAnn
   }, []);
 
 
-function AnnouncementDisplay({ announcement, onClick, my = true }) {
+//function AnnouncementDisplay({ announcement, onClick, my = true }) {
   return (
     <>
     {announcement &&
@@ -62,7 +62,7 @@ function AnnouncementDisplay({ announcement, onClick, my = true }) {
           </div>
           
 
-//           { my ? <button type="button" onClick={onClick}>Editar Anúncio</button> : <div/>}
+           { /*my ? <button type="button" onClick={onClick}>Editar Anúncio</button> : <div/> */}
 
         </div>
 
@@ -97,5 +97,6 @@ function AnnouncementDisplay({ announcement, onClick, my = true }) {
     </>
   );
 }
+
 
 export default AnnouncementDisplay;
