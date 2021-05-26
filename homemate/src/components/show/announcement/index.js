@@ -28,13 +28,11 @@ function AnnouncementDisplay({ announcement, onClickEdit, onClickDelete, isMyAnn
 
   useEffect(() => {
     if(announcement && announcement.posterPictures != null && announcement.posterPictures.length > 0) {
-      // setUrlImage(announcement.posterPictures[0].pictureUrl);
       setUrlImage(announcement.posterPictures[announcement.posterPictures.length - 1].pictureUrl);
     }
   }, []);
 
 
-//function AnnouncementDisplay({ announcement, onClick, my = true }) {
   return (
     <>
     {announcement &&
@@ -60,9 +58,6 @@ function AnnouncementDisplay({ announcement, onClickEdit, onClickDelete, isMyAnn
             <button className="edit" type="button" onClick={onClickEdit}>Editar Anúncio</button>
             <button className="delete" type="button" onClick={onClickDelete}>Excluir Anúncio</button>
           </div>
-          
-
-           { /*my ? <button type="button" onClick={onClick}>Editar Anúncio</button> : <div/> */}
 
         </div>
 

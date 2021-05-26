@@ -127,7 +127,6 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
       api
       .post('/user/poster/me/add/tags', body)
       .then(() => {
-        //toast('Tag(s) adicionada(s) com sucesso');
       })
       .catch((error) => {
         let msg = '';
@@ -228,9 +227,9 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
       api
       .post('/user/poster/me/picture', formData, config)
       .then( () => {
-        toast('Imagem atualizada com sucesso');
         setFlag3(true);
         setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+        window.location.replace('/myannouncement');
       })
       .catch( error => {
         let msg = '';

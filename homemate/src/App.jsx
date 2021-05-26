@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import HomePage from './pages/home';
 import EditProfilePage from './pages/editProfile';
 import PasswordRecovery from './pages/passwordRecovery';
+import MyAnnouncement from './pages/myAnnouncement';
 
 toast.configure();
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Switch>
           <Route path="/" exact={true} component={EnterPage}></Route>
           <Route path="/homepage" component={HomePage}></Route>
+          <Route path="/myannouncement" component={MyAnnouncement}></Route>
           <Route path="/profile/edit" component={EditProfilePage}></Route>
           <Route path="/passwordRecovery" component={PasswordRecovery}></Route>
           <Route path="*" component={Page404}></Route>
