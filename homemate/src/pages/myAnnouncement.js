@@ -10,7 +10,15 @@ import {
   ENTER_PAGE_ADDANNOUNCEMENT,
   ENTER_PAGE_EDITANNOUNCEMENT,
   ENTER_PAGE_NEWANNOUNCEMENT,
+  ENTER_PAGE_EXPLORE,
+  ENTER_PAGE_ANNOUNCEMENTS,
+  ENTER_PAGE_MYANNOUNCEMENT,
+  ENTER_PAGE_MYPROFILE,
 } from '../utils/constants';
+import Navbar from '../components/navbar';
+import Logout from '../components/button/logoutButton'
+import { useHistory } from 'react-router';
+
 
 function MyAnnouncement() {
   const options = [
@@ -24,10 +32,51 @@ function MyAnnouncement() {
   const [flag, setFlag] = useState(false)
   const [flag2, setFlag2] = useState(false)
   const [flag3, setFlag3] = useState(false)
-  const [id, setId] = useState('')
-  const [owner, setOwner] = useState('')
+  const [clickedOption, setClickedOption] = useState(ENTER_PAGE_MYANNOUNCEMENTT);
+  const history = useHistory();
 
-  let contentForm = null;
+  const navBarOptions = [
+    ENTER_PAGE_ANNOUNCEMENTS,
+    ENTER_PAGE_MYANNOUNCEMENT,
+    ENTER_PAGE_MYPROFILE,
+    ENTER_PAGE_EXPLORE,
+    <Logout/>
+  ];
+
+  const onChangeHome = () => {
+    setClickedOption(ENTER_PAGE_ANNOUNCEMENTS);
+  };
+
+  const onChangeMyAnnouncement = () => {
+    setClickedOption(ENTER_PAGE_MYANNOUNCEMENT);
+  };
+
+  const onChangeMyProfile = () => {
+    setClickedOption(ENTER_PAGE_MYPROFILE);
+  };
+
+  const onChangeExplore = () => {
+    setClickedOption(ENTER_PAGE_EXPLORE);
+  };
+
+  let contentForm = clickedOption;
+
+  switch (clickedOption) {
+    case ENTER_PAGE_ANNOUNCEMENTS:
+      history.push('/homepage');
+      break;
+    case ENTER_PAGE_MYANNOUNCEMENT:
+      contentForm = <MyAnnouncement />;
+      break;
+    case ENTER_PAGE_MYPROFILE:
+      history.push('/homepage');
+      break;
+    case ENTER_PAGE_EXPLORE:
+      history.push('/homepage');
+      break;
+    default:
+      break;
+  }
 
   const getAnnouncement = () => {
 
@@ -64,15 +113,13 @@ function MyAnnouncement() {
     api
       .delete(`/user/poster/me/picture/${id}`)
       .then(() => {
-        toast('Imagem excluida com sucesso!');
         const updatedAnnouncement = announcement;
         updatedAnnouncement.posterPictures = announcement.posterPictures.filter((picture) => {
           return picture.id != id;
         });
-        console.log(updatedAnnouncement.posterPictures);
         setAnnouncement(updatedAnnouncement);
-        console.log(announcement.posterPictures);
         setState(ENTER_PAGE_MYANNOUNCEMENTT);
+        window.location.replace('/myannouncement')
       })
       .catch((error) => {
   
@@ -117,13 +164,15 @@ function MyAnnouncement() {
 
   switch (state) {
     case ENTER_PAGE_MYANNOUNCEMENTT:
-      contentForm = <AnnouncementDisplay 
-        announcement={announcement} 
-        onClickEdit={onClickEdit} 
-        onClickDelete={onClickDelete} 
-        isMyAnnouncement={true}
-        handleDeleteImage={handleDeleteImage}
-        />;
+      contentForm =
+        <AnnouncementDisplay 
+            announcement={announcement} 
+            onClickEdit={onClickEdit} 
+            onClickDelete={onClickDelete} 
+            isMyAnnouncement={true}
+            handleDeleteImage={handleDeleteImage}
+          />
+      
       break;
     case ENTER_PAGE_ADDANNOUNCEMENT:
       contentForm = (
@@ -158,7 +207,18 @@ function MyAnnouncement() {
       break;
   }
 
-  return <div>{contentForm}</div>;
+  return (
+    <>
+      <Navbar 
+          choosed={ENTER_PAGE_MYANNOUNCEMENTT}
+          actions={[onChangeHome, onChangeMyAnnouncement, onChangeMyProfile, onChangeExplore]}
+          logout={options.length - 1} 
+      >
+        {navBarOptions}
+      </Navbar>
+      {contentForm}
+    </>
+  );
 }
 
 export default MyAnnouncement;

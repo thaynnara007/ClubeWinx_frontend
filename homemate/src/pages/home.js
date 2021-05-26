@@ -7,11 +7,10 @@ import {
   ENTER_PAGE_MYPROFILE,
 } from '../utils/constants';
 import Announcements from './announcements';
-import MyAnnouncemente from './myAnnouncement';
 import Logout from '../components/button/logoutButton'
 import ProfileDisplay from '../components/show/profile'
 import Explore from './explore';
-
+import { useHistory } from 'react-router';
 
 function HomePage() {
   const options = [
@@ -22,6 +21,7 @@ function HomePage() {
     <Logout/>
   ];
   const [clickedOption, setClickedOption] = useState(ENTER_PAGE_ANNOUNCEMENTS);
+  const history = useHistory();
 
   const onChangeHome = () => {
     setClickedOption(ENTER_PAGE_ANNOUNCEMENTS);
@@ -46,7 +46,7 @@ function HomePage() {
       contentForm = <Announcements />;
       break;
     case ENTER_PAGE_MYANNOUNCEMENT:
-      contentForm = <MyAnnouncemente />;
+      contentForm = history.push('/myannouncement')
       break;
     case ENTER_PAGE_MYPROFILE:
       contentForm = <ProfileDisplay />;

@@ -14,7 +14,6 @@ function Announcements() {
   const [clickedAnnouncementId, setClickedAnnouncementId] = useState(null);
   const [filterList, setFilterList] = useState([]);
   const [announcements, setAnnouncements] = useState([]);
-  // const isMyAnnouncement = false;
 
   let page = 1;
   let pageSize = 2;
@@ -35,23 +34,6 @@ function Announcements() {
         toast.error(msg);
       });
   };
-/*
-  const getOwnerAnnouncement = () => {
-    api
-      .get(`/profile/${id}`)
-      .then((response) => {
-        console.log(id)
-        setOwner(response.data)
-      })
-      .catch((error) => {
-        const { status } = error.response
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
-          toast.error(msg);
-      });
-      
-  }; */
 
   const onClickedAnnouncement = (id) => {
     setClickedAnnouncementId(id)
@@ -119,8 +101,6 @@ function Announcements() {
           announcement.id == clickedAnnouncementId ?
             <AnnouncementDisplay announcement={announcement} isMyAnnouncement={false}/> : <> </>
 
-//             <AnnouncementDisplay announcement={announcement} my={false}/> : <> </>
-          
         ))}
         </>
       )
