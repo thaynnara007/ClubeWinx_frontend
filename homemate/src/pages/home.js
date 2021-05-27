@@ -49,7 +49,7 @@ function HomePage() {
       contentForm = history.push('/myannouncement')
       break;
     case ENTER_PAGE_MYPROFILE:
-      contentForm = <ProfileDisplay />;
+      contentForm = history.push('/myprofile')
       break;
     case ENTER_PAGE_EXPLORE:
       contentForm = <Explore />;
