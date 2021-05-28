@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import TagButton from '../button/tagButton/index';
 import BaseButton from '../button/baseButton/index';
+import CreateTag from '../createTag/index';
 
 function EditTags(props) {
   const { isProfile } = props;
@@ -55,9 +56,7 @@ function EditTags(props) {
     api
     .get(getTags)
     .then( response => {
-      console.log(response)
       const { data } = response 
-      console.log(data.tags)
       setMyTagsList(data.tags);
       setMyTags(data.tags);
     })
@@ -70,14 +69,12 @@ function EditTags(props) {
   }
 
     const saveTags = () => {
-      console.log("myTagsList ", myTagsList);
-      console.log("myTags ", myTags);
-      const adicionadas = myTagsList.filter((tag) => notContains(myTags,tag));
-      const removidas = myTags.filter((tag) => notContains(myTagsList,tag))
-      if(adicionadas  && adicionadas !== []){
+      let adicionadas = myTagsList.filter((tag) => notContains(myTags,tag));
+      let removidas = myTags.filter((tag) => notContains(myTagsList,tag));
+      if(adicionadas  && adicionadas[0] !== undefined) {
         addTagas(adicionadas)
       }
-      if(removidas && removidas !== []){
+      if(removidas && removidas[0] !== undefined) {
         removeTags(removidas)
       }
     }
@@ -88,11 +85,9 @@ function EditTags(props) {
       const body = {
         tags
       }
-      console.log(body);
       api
       .post(addTag, body)
       .then((response) => {
-        console.log("addTagas ".response.data)
         setMyTags(response.data.tags);
         setMyTagsList(response.data.tags);
       })
@@ -111,11 +106,9 @@ function EditTags(props) {
       const body = {
         tags
       }
-      console.log(body);
       api
       .put(removeTag, body)
       .then((response) => {
-        console.log("removeTags ".response.data)
         setMyTags(response.data.tags);
         setMyTagsList(response.data.tags);
       })
@@ -156,6 +149,7 @@ function EditTags(props) {
                 {focusCategory && categories && categories.map((category) => category.name === focusCategory && category.tags.map( (tag) => <TagButton tag onClick={() => addFilter(tag)}>{`${tag.name}`}</TagButton>) )}
             </div>
             <BaseButton onClick={saveTags}>SALVAR</BaseButton>
+            <CreateTag categories={categories} setMyTags={setMyTags} isProfile={isProfile} setMyTagsList={setMyTagsList}></CreateTag>
         </div>
     </>
   );

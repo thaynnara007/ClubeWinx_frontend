@@ -8,6 +8,7 @@ import TagInput from '../input/tagInput/index';
 import BaseButton from '../button/baseButton/index';
 import FileImage from '../image';
 import EditTags from '../editTags/index';
+
 import {
   ENTER_PAGE_MYANNOUNCEMENTT,
   ENTER_PAGE_NEWANNOUNCEMENT,

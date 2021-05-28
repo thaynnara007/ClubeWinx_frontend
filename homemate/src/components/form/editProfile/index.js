@@ -101,8 +101,5 @@ function EditProfile ({ profileInfo }){
     </div>
   )
 };
-  
-
 
 export default EditProfile;
-  
