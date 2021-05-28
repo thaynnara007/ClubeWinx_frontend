@@ -45,26 +45,37 @@ function Announcements() {
   }, []);
 
   const filterAnnuncements = () => {
-    let param = filterList.length > 0 || page || pageSize ? "?" : "";
-    if(page) { param= param + "page=" + page };
-    if(pageSize) {  param = page ? param + "&pageSize=" + pageSize :  param + "pageSize=" + pageSize };
+    // let param = filterList.length > 0 || page || pageSize ? "?" : "";
+    let param =  filterList.length > 0  ? "?" : "";
+    // if(page) { param= param + "page=" + page };
+    // if(pageSize) {  param = page ? param + "&pageSize=" + pageSize :  param + "pageSize=" + pageSize };
     if(filterList.length > 0) {
-
+      let tags = "";
       filterList.forEach(tagId => {
-        param = param + "&tags[]=" + tagId;
+        tags = tags + "&tags[]=" + tagId;
+        // param = param + "&tags[]=" + tagId;
       });
+      param = param + tags.substring(1);
     };
 
-    api
-    .get('/user/poster'+ param)
-    .then((response) => setAnnouncements(response.data.rows))
-    .catch((error) => {
-      let msg = '';
-      if (error.response) msg = error.response.data.error;
-      else msg = 'Network failed';
+    if( !param ) {
+      getAnnouncements();
+    } else {
+      api
+      .get('/user/poster'+ param)
+      .then((response) => {
+        setAnnouncements(response.data)
+        // setAnnouncements(response.data.rows)
+      })    
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+  
+        toast.error(msg);
+      });
+    }
 
-      toast.error(msg);
-    });
   }
 
   switch(clickedOption) {

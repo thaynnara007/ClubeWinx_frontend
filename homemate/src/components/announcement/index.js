@@ -6,6 +6,8 @@ import OneLineInput from '../input/oneLineInput/index';
 import TagInput from '../input/tagInput/index';
 import BaseButton from '../button/baseButton/index';
 import FileImage from '../image';
+import EditTags from '../editTags/index';
+
 import {
   ENTER_PAGE_MYANNOUNCEMENTT,
   ENTER_PAGE_NEWANNOUNCEMENT,
@@ -312,7 +314,6 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
         <OneLineInput problem={problemResidents} name="CEP" value={zipCode} onChange={() => {}} />
         <OneLineInput problem={problemResidents} name="Cidade" value={city} onChange={() => {}} />
         <OneLineInput problem={problemResidents} name="Estado" value={state} onChange={() => {}} />
-        {contentTag}
         <table>
           <tr>
             <td>
@@ -327,6 +328,7 @@ function Announcement({ announcementExists, typeButton, setStateAnnouncement, se
             </td>
           </tr>
         </table>
+        <EditTags isProfile={false} ></EditTags>
       </BasicForm>
     </div>
   );
