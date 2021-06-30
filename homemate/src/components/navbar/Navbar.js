@@ -5,12 +5,12 @@ import $ from 'jquery';
 
 const Navbar = () => {
   function animation() {
-    var tabsNewAnim = $('#navbarSupportedContent');
-    var activeItemNewAnim = tabsNewAnim.find('.active');
-    var activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
-    var activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
-    var itemPosNewAnimTop = activeItemNewAnim.position();
-    var itemPosNewAnimLeft = activeItemNewAnim.position();
+    let tabsNewAnim = $('#navbarSupportedContent');
+    let activeItemNewAnim = tabsNewAnim.find('.active');
+    let activeWidthNewAnimHeight = activeItemNewAnim.innerHeight();
+    let activeWidthNewAnimWidth = activeItemNewAnim.innerWidth();
+    let itemPosNewAnimTop = activeItemNewAnim.position();
+    let itemPosNewAnimLeft = activeItemNewAnim.position();
     $('.hori-selector').css({
       top: itemPosNewAnimTop.top + 'px',
       left: itemPosNewAnimLeft.left + 'px',
