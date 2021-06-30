@@ -7,6 +7,7 @@ import Explore from './pages/Explore';
 import About from './pages/About';
 import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
+import NotFound from './pages/NotFound';
 
 // toast.configure();
 function App() {
@@ -29,6 +30,9 @@ function App() {
           </Route>
           <Route path="/logout">
             <Logout />
+          </Route>
+          <Route path="*">
+            <NotFound />
           </Route>
         </Switch>
       </main>
