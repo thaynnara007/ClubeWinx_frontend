@@ -1,0 +1,10 @@
+.scroll-box-wrapper {
+  overflow-y: scroll;
+}
+
+.scroll-box-container {
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}

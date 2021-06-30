@@ -6,7 +6,7 @@ toast.configure();
 function App() {
   return (
     <>
-      <h1>HOMEMATE NEW FRONT</h1>
+      <h1>HELLO</h1>
       <ToastContainer />
     </>
   );
