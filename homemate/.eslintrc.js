@@ -24,7 +24,6 @@ module.exports = {
     'global-require': 'off',
     'no-throw-literal': 'off',
     'no-nested-ternary': 'off',
-    'prettier/prettier': 'error',
     'import/no-dynamic-require': 'off',
     'import/prefer-default-export': 'off',
 
@@ -43,5 +42,12 @@ module.exports = {
     'jsx-a11y/mouse-events-have-key-events': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'jsx-a11y/no-static-element-interactions': 'off',
+
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 };
