@@ -1,0 +1,31 @@
+.scroll-box-wrapper {
+  overflow-y: scroll;
+}
+
+.scroll-box-container {
+  height: 200px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+/* Works on Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #6983aa #f4f4f4;
+}
+
+/* Works on Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 12px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f4f4f4;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #6983aa;
+  border-radius: 20px;
+  border: 3px solid #f4f4f4;
+}
