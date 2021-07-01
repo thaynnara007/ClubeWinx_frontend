@@ -1,0 +1,22 @@
+.info-span-info {
+  position: relative;
+  display: flex;
+  align-items: center;
+  grid-row: 3;
+}
+.info-span-info:not(:first-of-type):before {
+  content: '';
+  position: absolute;
+  left: -0.9em;
+  height: 18px;
+  width: 1px;
+  background-color: #ccc;
+}
+
+.info-span-icon-span {
+  display: block;
+  margin-top: -0.25em;
+  font-weight: 600;
+  white-space: nowrap;
+  font-family: 'Roboto';
+}
