@@ -23,6 +23,10 @@ i {
   padding: 0px;
 }
 
+.nav-link span {
+  margin-left: 10px;
+}
+
 #navbarSupportedContent {
   overflow: hidden;
   position: relative;
