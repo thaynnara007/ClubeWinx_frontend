@@ -1,12 +1,12 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import IconPeople from './components/icons/iconPeople'
 
 toast.configure();
 function App() {
   return (
     <>
-      <h1>HELLO</h1>
+      <IconPeople/>
       <ToastContainer />
     </>
   );
