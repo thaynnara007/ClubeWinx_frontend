@@ -1,3 +1,7 @@
+/* eslint-disable  func-names */
+/* eslint-disable func-names */
+/* eslint-disable no-unused-vars */
+
 import { useEffect } from 'react';
 import './Navbar.css';
 import { NavLink } from 'react-router-dom';
@@ -17,7 +21,7 @@ const Navbar = () => {
       height: `${activeWidthNewAnimHeight}px`,
       width: `${activeWidthNewAnimWidth}px`,
     });
-    $('#navbarSupportedContent').on('click', 'li', () => {
+    $('#navbarSupportedContent').on('click', 'li', function (e) {
       $('#navbarSupportedContent ul li').removeClass('active');
       $(this).addClass('active');
       activeWidthNewAnimHeight = $(this).innerHeight();
@@ -50,7 +54,7 @@ const Navbar = () => {
 
       <button
         className="navbar-toggler"
-        onClick={() => {
+        onClick={function () {
           setTimeout(() => {
             animation();
           });
