@@ -1,5 +1,7 @@
+import FlipCard from '../components/flipCard';
+
 function About() {
-  return <p>About</p>;
+  return <FlipCard />;
 }
 
 export default About;
