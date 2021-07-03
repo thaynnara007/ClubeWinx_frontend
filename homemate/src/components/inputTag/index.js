@@ -31,7 +31,7 @@ function InputTag(props) {
       <span onClick={() => clickTag(children)}>
         {tagValue} 
       </span>
-      {truncate || children != tagValue ? <span onClick={() => changeTag(tagValue)}>{expanseTag}</span> : ""} 
+      {truncate || children !== tagValue ? <span onClick={() => changeTag(tagValue)}>{expanseTag}</span> : ""} 
     </div>
   );
 }
