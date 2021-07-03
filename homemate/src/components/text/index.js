@@ -3,7 +3,7 @@ import './text.css';
 function Text({ children , styles }) {
 
     return (
-        <p className='style-text' styles={styles}>{children}</p>
+        <p className='style-text' style={styles}>{children}</p>
     );
 }
 
