@@ -5,7 +5,7 @@ function Input(props) {
 
   return (
     <div>
-      <label className="input-label">{name}</label>
+      <label className="input-label">{name}
       <input className='input-box-style'
         type={type}
        style={styles}
