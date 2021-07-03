@@ -8,7 +8,7 @@ function Input(props) {
       <label>{name}</label>
       <input className='input-box-style'
         type={type}
-        className='field'
+       style={styles}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
