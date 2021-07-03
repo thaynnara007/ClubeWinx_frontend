@@ -25,7 +25,7 @@ function InputTag(props) {
       setExpanseTag('(...)');
     }
   }
-
+truncateTag(children);
   return (
     <div class='components-inputTag-tag' style={styles?? {}}>
       <span onClick={() => clickTag(children)}>
