@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import './input.css';
 
 function Input(props) {
