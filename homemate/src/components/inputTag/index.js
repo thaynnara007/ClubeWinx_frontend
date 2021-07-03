@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import './inputTag.css';
 
 function InputTag(props) {
+
+  const changeTag = (tag) => {
+    setTruncate(true);
+    if(tag !== children) { 
+      setTagValue(children);
+      setExpanseTag('<<<');
+    } else {
+      setTagValue(children.slice(0,9));
+      setExpanseTag('(...)');
+    }
+  }
+
   const { children, clickTag = () => '', styles } = props;
   const [tagValue, setTagValue] = useState(truncateTag(children));
   const [expanseTag, setExpanseTag] = useState("(...)");
@@ -15,16 +27,6 @@ function InputTag(props) {
     }
   }
 
-  function changeTag(tag) {
-    setTruncate(true);
-    if(tag !== children) { 
-      setTagValue(children);
-      setExpanseTag('<<<');
-    } else {
-      setTagValue(children.slice(0,9));
-      setExpanseTag('(...)');
-    }
-  }
 truncateTag(children);
   return (
     <div class='components-inputTag-tag' style={styles?? {}}>

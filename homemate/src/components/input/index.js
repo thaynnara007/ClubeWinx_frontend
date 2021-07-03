@@ -6,17 +6,16 @@ function Input(props) {
 
   return (
     <div>
-      <label className="input-label">{name}
-      <input className='input-box-style'
+      <label className="input-label">{name} </label>
+      <input
+        className="input-box-style"
         type={type}
-       style={styles}
+        style={styles}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
-      </label>
     </div>
   );
 }
-
 
 export default Input;
