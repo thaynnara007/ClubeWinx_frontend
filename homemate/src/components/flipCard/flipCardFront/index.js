@@ -4,39 +4,39 @@ import React from 'react';
 import ScrollBox from '../../scrollBox';
 import './flipCardFront.css';
 
+const item = {
+  maxWidth: '500px',
+  maxHeight: '80px',
+};
+
+const display = {
+  height: 'fit-content',
+  justifySelf: 'center',
+  width: 'fit-content',
+  gridRow: '2',
+  gridColumn: '1 / 4',
+};
+
+const scrollBox1Style = {
+  display: {
+    ...display,
+    ...item,
+  },
+  item,
+};
+
+const scrollBox2Style = {
+  display: {
+    ...display,
+    alignSelf: 'end',
+    ...item,
+  },
+  item,
+};
+
 function FlipCardFront({ flip, imageUrl, mainText, subText, buttonName }) {
   const imageStyles = {
     backgroundImage: `linear-gradient(40deg, rgba(105, 131, 170, 0.7),rgba(244, 244, 244, 0.7)), url('${imageUrl}')`,
-  };
-
-  const item = {
-    maxWidth: '400px',
-    maxHeight: '56px',
-  };
-
-  const display = {
-    height: 'fit-content',
-    justifySelf: 'center',
-    width: 'fit-content',
-    gridRow: '2',
-    gridColumn: '1 / 4',
-  };
-
-  const scrollBox1Style = {
-    display: {
-      ...display,
-      ...item,
-    },
-    item,
-  };
-
-  const scrollBox2Style = {
-    display: {
-      ...display,
-      alignSelf: 'end',
-      ...item,
-    },
-    item,
   };
 
   return (
