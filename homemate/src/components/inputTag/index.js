@@ -17,7 +17,7 @@ function InputTag(props) {
 
   function changeTag(tag) {
     setTruncate(true);
-    if(tag != children) { 
+    if(tag !== children) { 
       setTagValue(children);
       setExpanseTag('<<<');
     } else {
