@@ -34,7 +34,7 @@ const scrollBox2Style = {
   item,
 };
 
-function FlipCardFront({ flip, imageUrl, mainText, subText, buttonName }) {
+function FlipCardFront({ flip, imageUrl, mainText, subText, buttonName = 'datalhes' }) {
   const imageStyles = {
     backgroundImage: `linear-gradient(40deg, rgba(105, 131, 170, 0.7),rgba(244, 244, 244, 0.7)), url('${imageUrl}')`,
   };

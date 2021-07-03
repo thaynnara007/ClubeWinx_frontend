@@ -23,6 +23,7 @@
   font-size: 16px;
   color: #6983aa;
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 .flip-card-back-vl {
