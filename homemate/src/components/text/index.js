@@ -1,9 +1,9 @@
-import style from './text.css';
+import './text.css';
 
 function Text({ children , styles }) {
 
     return (
-        <p styles={styles={style}, styles}>{children}</p>
+        <p className='style-text' styles={styles}>{children}</p>
     );
 }
 
