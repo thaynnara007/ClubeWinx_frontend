@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './inputTag.css';
 
 function InputTag(props) {
-  const { children, clickTag, styles } = props;
+  const { children, clickTag = () => '', styles } = props;
   const [tagValue, setTagValue] = useState(truncateTag(children));
   const [expanseTag, setExpanseTag] = useState("(...)");
   const [truncate, setTruncate] = useState(false);
