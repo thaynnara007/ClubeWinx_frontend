@@ -10,7 +10,6 @@
   display: block;
   appearance: none;
   outline: 0;
-  border: 1px solid fade(white, 40%);
   background-color: fade(white, 20%);
   margin: 0 auto 10px auto;
   /* transition-duration: 0.25s;
