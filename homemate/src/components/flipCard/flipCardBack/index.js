@@ -87,6 +87,7 @@ function FlipCardBack({
   description,
   backButton = 'voltar',
   seePageButton = 'ver página',
+  seePage,
 }) {
   return (
     <div className="flip-card-back-card">
@@ -125,7 +126,10 @@ function FlipCardBack({
           <button className="flip-card-back-button flip-card-back-button-back" onClick={flip}>
             {backButton}
           </button>
-          <button className="flip-card-back-button flip-card-back-button-see-page">
+          <button
+            className="flip-card-back-button flip-card-back-button-see-page"
+            onClick={seePage}
+          >
             {seePageButton}
           </button>
         </div>

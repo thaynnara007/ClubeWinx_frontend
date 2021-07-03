@@ -18,6 +18,7 @@ function FlipCard({
   beds,
   bathrooms,
   description,
+  seePage = () => '',
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -43,6 +44,7 @@ function FlipCard({
         beds={beds}
         bathrooms={bathrooms}
         description={description}
+        seePage={seePage}
       />
     </ReactCardFlip>
   );
