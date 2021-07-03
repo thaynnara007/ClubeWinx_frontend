@@ -12,6 +12,7 @@ function Input(props) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
+      </label>
     </div>
   );
 }
