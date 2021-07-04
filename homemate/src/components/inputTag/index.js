@@ -16,15 +16,18 @@ function InputTag(props) {
   const [expanseTag, setExpanseTag] = useState("(...)");
   const [truncate, setTruncate] = useState(false);
 
-  function truncateTag(tag) {
-    if(tag.length > 10) { 
-      return  children.slice(0,9)
+const changeTag = (tag) => {
+    setTruncate(true);
+    if(tag !== children) { 
+      setTagValue(children);
+      setExpanseTag('<<<');
     } else {
-      return tag;
+      setTagValue(children.slice(0,9));
+      setExpanseTag('(...)');
     }
   }
 
-truncateTag(children);
+  truncateTag(children);
   return (
     <div class='components-inputTag-tag' style={styles?? {}}>
       <span onClick={() => clickTag(children)}>
