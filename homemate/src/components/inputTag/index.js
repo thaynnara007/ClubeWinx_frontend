@@ -3,15 +3,12 @@ import './inputTag.css';
 
 function InputTag(props) {
 
-  const changeTag = (tag) => {
-    setTruncate(true);
-    if(tag !== children) { 
-      setTagValue(children);
-      setExpanseTag('<<<');
-    } else {
-      setTagValue(children.slice(0,9));
-      setExpanseTag('(...)');
-    }
+    const truncateTag = (tag) => {
+      if(tag.length > 10) { 
+        return  tag.slice(0,9)
+      } else {
+        return tag;
+      }
   }
 
   const { children, clickTag = () => '', styles } = props;
