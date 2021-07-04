@@ -1,0 +1,9 @@
+.login-forget-password {
+  color: gray;
+  text-decoration: none;
+}
+  
+.login-forget-password:hover {
+  color: #6983AA;
+  cursor: pointer;
+}
