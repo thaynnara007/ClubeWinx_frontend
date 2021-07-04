@@ -1,10 +1,9 @@
-import BaseButton from '../components/button';
+import Register from '../components/register';
 
 function Profile() {
   return (
     <>
-      <BaseButton>AIAIAI</BaseButton>
-      <BaseButton styles={{ backgroundColor: 'black' }}>:D</BaseButton>
+      <Register />
     </>
   );
 }
