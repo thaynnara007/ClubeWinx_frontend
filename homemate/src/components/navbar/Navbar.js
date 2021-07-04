@@ -77,7 +77,7 @@ const Navbar = () => {
           </div>
 
           <li className="nav-item active">
-            <NavLink className="nav-link" to="/" exact>
+            <NavLink className="nav-link" to="/posts" exact>
               <i className="bi bi-megaphone" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +143,7 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/logout" exact>
+            <NavLink className="nav-link" to="/" exact>
               <i className="bi bi-door-closed" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -164,4 +164,5 @@ const Navbar = () => {
     </nav>
   );
 };
+
 export default Navbar;

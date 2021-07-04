@@ -5,7 +5,7 @@ function Input(props) {
   const { type = 'text', name, value, onChange, styles } = props;
 
   return (
-    <div style={{ marginTop: '15px' }}>
+    <div style={{ marginTop: '15px', width: '100%' }}>
       <span className="input-label">{name} </span>
       <input
         className="input-box-style"
