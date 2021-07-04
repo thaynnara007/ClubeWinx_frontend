@@ -1,10 +1,9 @@
 import React from 'react'
 import ReactCardFlip from 'react-card-flip';
 
-
 import Register from '../../components/register';
 import Login from '../../components/login';
-import BasicForm from '../../components/basicForm'
+import Flex from '../../components/flex'
 
 import './homepage.css'
 
@@ -13,9 +12,12 @@ function Home({ showNavbar }) {
 
   return (
     <div className="homepage-background">
-      <BasicForm>
-        <Login></Login>
-      </BasicForm>
+      <Flex styles={{width: '50%', margin: '0 auto'}}>
+        <image></image>
+        <Flex styles={{ width: '50%'}}>
+          <Login></Login>
+        </Flex>
+      </Flex>
     </div>
   )
 }
