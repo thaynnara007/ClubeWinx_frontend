@@ -1,7 +1,7 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 
 import Home from './pages/homepage';
 import Posts from './pages/Posts';
@@ -13,21 +13,21 @@ import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
 
 const isLoginPage = () => {
-  return window.location.pathname !== '/'
-}
+  return window.location.pathname !== '/';
+};
 
 toast.configure();
 function App() {
-  const [ showNavbar, setShowNavbar ] = useState(isLoginPage())
+  const [showNavbar, setShowNavbar] = useState(isLoginPage());
 
   return (
     <>
       <Router>
-        { showNavbar && <Navbar /> }
+        {showNavbar && <Navbar />}
         <main>
           <Switch>
             <Route exact path="/">
-              <Home showNavbar={setShowNavbar}/>
+              <Home showNavbar={setShowNavbar} />
             </Route>
             <Route exact path="/posts">
               <Posts />

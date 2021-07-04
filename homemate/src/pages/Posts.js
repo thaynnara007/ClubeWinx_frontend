@@ -1,10 +1,5 @@
 function Posts() {
-    return (
-      <p>
-        Posts
-      </p>
-    );
-  }
-  
-  export default Posts;
-  
+  return <p>Posts</p>;
+}
+
+export default Posts;

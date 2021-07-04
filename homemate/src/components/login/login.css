@@ -1,9 +1,9 @@
 .login-forget-password {
-  color: #F4F4F4;
+  color: #f4f4f4;
   text-decoration: none;
 }
-  
+
 .login-forget-password:hover {
-  color: #6983AA;
+  color: #6983aa;
   cursor: pointer;
 }
