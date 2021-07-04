@@ -1,5 +1,12 @@
+import BaseButton from '../components/button';
+
 function Profile() {
-  return <p>Profile</p>;
+  return (
+    <>
+      <BaseButton>AIAIAI</BaseButton>
+      <BaseButton styles={{ backgroundColor: 'black' }}>:D</BaseButton>
+    </>
+  );
 }
 
 export default Profile;
