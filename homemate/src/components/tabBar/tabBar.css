@@ -1,0 +1,44 @@
+.component-navbar-navbar {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  left: 0;
+  width: 900px;
+  display: table;
+  margin: 0 auto;
+  transform: translateY(-50%);
+}
+
+.component-navbar-option {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  color: #f4f4f4;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 10px 20px;
+  transition: 0.2s ease color;
+}
+
+.component-navbar-lougout {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  transition: 0.2s ease color;
+  border-bottom: 5px solid #8ec6c5;
+}
+
+.component-navbar-other-option:hover {
+  color: #6983aa;
+  cursor: pointer;
+}
+
+.component-navbar-selected {
+  border-bottom: 5px solid #8ec6c5;
+}
+
+.component-navbar-selected:hover {
+  cursor: default;
+  color: #f4f4f4;
+}

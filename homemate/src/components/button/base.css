@@ -2,10 +2,9 @@
   font-size: 15px;
   cursor: pointer;
   margin: 30px 0px;
-  padding: 5px 20px;
+  padding: 8px 20px;
   color: white;
   background-color: #8ec6c5;
-  box-shadow: 0px 3px 7px #8ec6c5;
   border-radius: 30px;
   transition: all 0.5s;
   min-width: 150px;
@@ -35,7 +34,7 @@
   transition: all 0.5s;
   border-radius: 30px;
   border: none;
-  padding: 8px 20px;
+  padding: 10px 20px;
 }
 
 .component-button-base-button-color:hover {

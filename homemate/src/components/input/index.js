@@ -5,12 +5,14 @@ function Input(props) {
   const { type = 'text', name, value, onChange, styles } = props;
 
   return (
-    <div>
-      <label className="input-label">{name} </label>
+    <div style={{ marginTop: '15px', width: '100%' }}>
+      <span className="input-label" style={styles?.label ?? {}}>
+        {name}
+      </span>
       <input
         className="input-box-style"
         type={type}
-        style={styles}
+        style={styles?.input ?? {}}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
