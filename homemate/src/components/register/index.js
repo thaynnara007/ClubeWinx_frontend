@@ -85,9 +85,7 @@ function Register({ toLogin }) {
     validatePassword();
 
   const register = () => {
-    const validated = validateInfo();
-
-    if (validated) {
+    if (validateInfo()) {
       setLoading(true);
 
       const body = {

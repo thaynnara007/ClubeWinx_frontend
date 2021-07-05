@@ -1,6 +1,7 @@
 /* eslint-disable  func-names */
 /* eslint-disable func-names */
 /* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import { useEffect } from 'react';
 import './Navbar.css';
@@ -8,6 +9,8 @@ import { NavLink } from 'react-router-dom';
 import $ from 'jquery';
 
 const Navbar = () => {
+  const logout = () => localStorage.removeItem('homemate_access_token');
+
   function animation() {
     const tabsNewAnim = $('#navbarSupportedContent');
     const activeItemNewAnim = tabsNewAnim.find('.active');
@@ -142,7 +145,7 @@ const Navbar = () => {
               <span>Sobre</span>
             </NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item" onClick={logout}>
             <NavLink className="nav-link" to="/" exact>
               <i className="bi bi-door-closed" />
               <svg
