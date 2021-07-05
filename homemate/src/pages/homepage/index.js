@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 
 import Register from '../../components/register';
@@ -11,6 +11,19 @@ import './homepage.css';
 function Home({ showNavbar }) {
   showNavbar(false);
 
+  const [isFlipped, setIsFlipped] = useState(false);
+  const [choosedTab, setChoosedTab] = useState('CONECTE-SE');
+
+  const handleClickLogin = () => {
+    setIsFlipped(false);
+    setChoosedTab('CONECTE-SE');
+  };
+
+  const handleClickRegister = () => {
+    setIsFlipped(true);
+    setChoosedTab('INSCREVA-SE');
+  };
+
   return (
     <div className="homepage-background">
       <Flex styles={{ width: '50%', margin: '0 auto' }}>
@@ -19,12 +32,26 @@ function Home({ showNavbar }) {
           className="homepage-logo"
           alt="homemate's logo"
         />
-        <TabBar choosed="CONECTE-SE" styles={{ top: '150px' }}>
+        <TabBar
+          choosed={choosedTab}
+          styles={{ top: '160px' }}
+          actions={[handleClickLogin, handleClickRegister]}
+        >
           {['CONECTE-SE', 'INSCREVA-SE']}
         </TabBar>
-        <Flex styles={{ width: '50%', marginTop: '80px' }}>
-          <Login></Login>
-        </Flex>
+        <ReactCardFlip
+          isFlipped={isFlipped}
+          flipDirection="horizontal"
+          containerStyle={{ width: '50%', marginTop: '100px' }}
+        >
+          <Flex styles={{ width: '100%' }}>
+            <Login />
+          </Flex>
+
+          <Flex styles={{ width: '100%' }}>
+            <Register />
+          </Flex>
+        </ReactCardFlip>
       </Flex>
     </div>
   );

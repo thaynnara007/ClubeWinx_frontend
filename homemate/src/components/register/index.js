@@ -17,7 +17,7 @@ function Register() {
       <Input name="GENÊRO" value={gender} onChange={setGender} />
       <Input name="EMAIL" value={email} onChange={setEmail} />
       <Input name="SENHA" type="password" value={password} onChange={setPassword} />
-      <BaseButton styles={{ width: '100%' }}>CADASTRAR</BaseButton>
+      <BaseButton styles={{ width: '100%', fontWeight: 'bold' }}>CADASTRAR</BaseButton>
     </>
   );
 }

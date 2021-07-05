@@ -12,9 +12,7 @@ import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
 
-const isLoginPage = () => {
-  return window.location.pathname !== '/';
-};
+const isLoginPage = () => window.location.pathname !== '/';
 
 toast.configure();
 function App() {
