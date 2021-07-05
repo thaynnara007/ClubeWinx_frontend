@@ -6,11 +6,13 @@ function Input(props) {
 
   return (
     <div style={{ marginTop: '15px', width: '100%' }}>
-      <span className="input-label">{name} </span>
+      <span className="input-label" style={styles?.label ?? {}}>
+        {name}
+      </span>
       <input
         className="input-box-style"
         type={type}
-        style={styles}
+        style={styles?.input ?? {}}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />

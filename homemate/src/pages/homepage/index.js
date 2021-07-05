@@ -49,7 +49,7 @@ function Home({ showNavbar }) {
           </Flex>
 
           <Flex styles={{ width: '100%' }}>
-            <Register />
+            <Register toLogin={handleClickLogin} />
           </Flex>
         </ReactCardFlip>
       </Flex>
