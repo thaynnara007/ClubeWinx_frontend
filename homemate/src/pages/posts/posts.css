@@ -1,0 +1,12 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.posts-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  margin: 3rem 1rem;
+  overflow: hidden;
+}

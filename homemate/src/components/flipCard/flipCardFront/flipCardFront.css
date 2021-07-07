@@ -1,6 +1,6 @@
 .flip-card-front-card {
-  width: 500px;
-  height: 400px;
+  width: 25rem;
+  height: 20rem;
   margin: 20px;
   perspective: 1500px;
 }
