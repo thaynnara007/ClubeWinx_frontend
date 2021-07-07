@@ -3,8 +3,20 @@
   height: 40vh;
 }
 
+.profile-image {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  left: 43%;
+  right: 45%;
+  top: 14%;
+  border-radius: 50%;
+  background-color: #8EC6C5;
+  z-index: 3;
+}
+
 .profile-box {
-  width: 90%;
+  width: auto;
   min-height: 100%;
   height: 100vh;
   backface-visibility: hidden;
@@ -12,6 +24,7 @@
   background-color: #f4f4f4;
   position: absolute;
   left: 5%;
+  right: 5%;
   top: 24%;
   border-radius: 13px;
 }

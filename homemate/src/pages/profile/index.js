@@ -9,7 +9,9 @@ function Profile() {
   return (
     <>
       <div className="profile-header" style={{ ...headerBackground }}>
-        <div className="profile-box"></div>
+        <div className="profile-image"/>  
+        <div className="profile-box">
+        </div>
       </div>
     </>
   );
