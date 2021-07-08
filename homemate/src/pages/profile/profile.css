@@ -1,18 +1,5 @@
 .profile-header {
-  min-width: 100vh;
   height: 40vh;
-}
-
-.profile-image {
-  width: 200px;
-  height: 200px;
-  position: absolute;
-  left: 43%;
-  right: 45%;
-  top: 14%;
-  border-radius: 50%;
-  background-color: #8EC6C5;
-  z-index: 3;
 }
 
 .profile-box {
