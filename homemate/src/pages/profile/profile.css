@@ -18,3 +18,18 @@
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(2, 1fr);
 }
+
+.profile-edit-info-icon {
+  grid-row: 1;
+  grid-column: 2;
+  justify-self: end;
+  height: fit-content;
+  width: fit-content;
+  margin-top: 20px;
+  margin-right: 20px;
+}
+
+.profile-icon-button {
+  border: none;
+  background-color: transparent;
+}

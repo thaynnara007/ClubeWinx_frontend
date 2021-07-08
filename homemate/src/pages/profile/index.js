@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core';
 import Text from '../../components/text';
 import Button from '../../components/button';
 import IconEdit from '../../components/icons/iconEdit';
+import IconProfileEdit from '../../components/icons/iconEditProfile';
 
 import './profile.css';
 
@@ -32,7 +33,7 @@ function Profile() {
           <Avatar className={styles.avatar}>MD</Avatar>
           <div style={{ marginLeft: '60px' }}>
             <Tooltip title="mudar foto">
-              <button style={{ border: 'none' }}>
+              <button type="button" className="profile-icon-button">
                 <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
               </button>
             </Tooltip>
@@ -40,6 +41,13 @@ function Profile() {
         </div>
       </div>
       <div className="profile-box">
+        <div className="profile-edit-info-icon">
+          <Tooltip title="editar informações">
+            <button type="button" className="profile-icon-button">
+              <IconProfileEdit size="2x"/>
+            </button>
+          </Tooltip>
+        </div>
       </div>
     </>
   );
