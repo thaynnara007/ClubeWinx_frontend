@@ -5,13 +5,12 @@ import './posts.css';
 
 function Posts() {
   const { data: posts, isLoading } = useFetch('/user/poster');
+  const loadingStyle = { marginTop: '400px' };
 
   return (
     <>
       {isLoading ? (
-        <div style={{ marginTop: '400px' }}>
-          <Loading />
-        </div>
+        <Loading style={loadingStyle} />
       ) : (
         <div className="posts-container">
           {posts &&
@@ -24,7 +23,11 @@ function Posts() {
                 district={post.owner.address.district}
                 street={post.owner.address.street}
                 number={post.owner.address.number}
-                pictureUrl="https://images.unsplash.com/photo-1529408686214-b48b8532f72c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=986e2dee5c1b488d877ad7ba1afaf2ec&auto=format&fit=crop&w=1350&q=80"
+                pictureUrl={
+                  Array.isArray(post.posterPictures) && post.posterPictures.length > 0
+                    ? post.posterPictures[0].pictureUrl
+                    : ''
+                }
                 price={post.expense}
                 people={post.residents}
                 rooms={5}
