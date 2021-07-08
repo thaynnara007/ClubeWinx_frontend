@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 
-import Text from '../../components/text'
-import Button from '../../components/button'
+import Text from '../../components/text';
+import Button from '../../components/button';
 import IconEdit from '../../components/icons/iconEdit';
 
 import './profile.css';
@@ -14,7 +14,6 @@ const useStyles = makeStyles(() => ({
     height: 200,
     backgroundColor: '#8566AA',
     fontSize: 40,
-    zIndex: 3,
     position: 'relative',
     left: '-50%',
   },
@@ -29,15 +28,18 @@ function Profile() {
   return (
     <>
       <div className="profile-header" style={{ ...headerBackground }}>
-        <div style={{ position: 'absolute', left: '50%', top: '13%' }}>
+        <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
           <Avatar className={styles.avatar}>MD</Avatar>
+          <div style={{ marginLeft: '60px' }}>
+            <Tooltip title="mudar foto">
+              <button style={{ border: 'none' }}>
+                <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
+              </button>
+            </Tooltip>
+          </div>
         </div>
-        <div style={{ backgroundColor: 'white'}}>
-          <IconEdit styles={{ zIndex: 4, color: 'black'}} />
-        </div>
-        <div className="profile-box">
-
-        </div>
+      </div>
+      <div className="profile-box">
       </div>
     </>
   );

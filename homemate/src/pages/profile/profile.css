@@ -14,4 +14,7 @@
   right: 5%;
   top: 24%;
   border-radius: 13px;
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  grid-template-columns: repeat(2, 1fr);
 }
