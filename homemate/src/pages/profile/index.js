@@ -44,9 +44,27 @@ function Profile() {
         <div className="profile-edit-info-icon">
           <Tooltip title="editar informações">
             <button type="button" className="profile-icon-button">
-              <IconProfileEdit size="2x"/>
+              <IconProfileEdit size="2x" />
             </button>
           </Tooltip>
+        </div>
+        <div className="profile-title">
+          <Text
+            styles={{
+              fontSize: '36px',
+              color: '#6983AA',
+              fontFamily: 'Roboto',
+              fontWeight: 'bold',
+              textTransform: 'capitalize',
+            }}
+          >
+            mylena dantas
+          </Text>
+          <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
+            <Button styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}>
+              VER ANÚNCIO
+            </Button>
+          </div>
         </div>
       </div>
     </>
