@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 
+import Text from '../../components/text'
+import Button from '../../components/button'
+import IconEdit from '../../components/icons/iconEdit';
+
 import './profile.css';
 
 const useStyles = makeStyles(() => ({
@@ -26,9 +30,14 @@ function Profile() {
     <>
       <div className="profile-header" style={{ ...headerBackground }}>
         <div style={{ position: 'absolute', left: '50%', top: '13%' }}>
-          <Avatar className={styles.avatar}>TH</Avatar>
+          <Avatar className={styles.avatar}>MD</Avatar>
         </div>
-        <div className="profile-box"></div>
+        <div style={{ backgroundColor: 'white'}}>
+          <IconEdit styles={{ zIndex: 4, color: 'black'}} />
+        </div>
+        <div className="profile-box">
+
+        </div>
       </div>
     </>
   );
