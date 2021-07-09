@@ -87,3 +87,8 @@
   overflow: auto;
   grid-template-columns: 0.5fr 1.5fr;
 }
+
+.profile-description-text {
+  font-size: '20px';
+  color: #6983aa;
+}
