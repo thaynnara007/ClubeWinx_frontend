@@ -26,5 +26,4 @@ yarn-debug.log*
 yarn-error.log*
 
 #personal vscode configuration folder
-./vscode
-
+.vscode/
