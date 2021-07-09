@@ -66,6 +66,7 @@ function Profile() {
             </Button>
           </div>
         </div>
+        <div className="profile-vl" />
       </div>
     </>
   );
