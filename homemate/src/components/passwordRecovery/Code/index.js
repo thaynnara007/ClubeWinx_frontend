@@ -38,7 +38,6 @@ function Code(props) {
         code,
         email,
       };
-      console.log("teste")
       api
         .post('/auth/verify/code', body)
         .then((response) => {
