@@ -130,7 +130,6 @@ function FlipCardBack({
               {seePageButton}
             </button>
           </Link>
-          ;
         </div>
       </div>
     </div>
