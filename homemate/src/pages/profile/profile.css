@@ -75,3 +75,15 @@
   text-shadow: none;
   color: #6983aa;
 }
+
+.profile-info-display {
+  grid-row: 3 / 5;
+  grid-column: 1;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  flex-wrap: wrap;
+  flex-direction: row;
+  overflow: auto;
+  grid-template-columns: 0.5fr 1.5fr;
+}

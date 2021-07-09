@@ -4,9 +4,11 @@ import { Avatar, Tooltip } from '@material-ui/core';
 
 import Text from '../../components/text';
 import Button from '../../components/button';
-import ScrollBox from '../../components/scrollBox'
 import IconEdit from '../../components/icons/iconEdit';
+import IconPhone from '../../components/icons/iconPhone';
+import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople'
+import IconAddress from '../../components/icons/iconAddress';
 import IconProfileEdit from '../../components/icons/iconEditProfile';
 
 import './profile.css';
@@ -22,13 +24,24 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const infoStyle = {
-  display: {
-    gridRow: '3 / 5',
-    gridColumn: '1',
-    width: '100%',
-    height: '100%'
-  }
+
+const iconStyle = {
+  gridColumn: '1',
+  justifySelf: 'end',
+  width: 'fit-content',
+  height: 'fit-content',
+
+}
+
+const infoTextStyle = {
+  fontSize: '22px',
+  color: '#6983AA',
+  marginBottom: '0',
+  marginLeft: '30px',
+  gridColumn: '2',
+  justifySelf: 'start',
+  width: 'fit-content',
+  height: 'fit-content',
 }
 
 function Profile() {
@@ -81,15 +94,27 @@ function Profile() {
           </div>
         </div>
         <div className="profile-vl" />
-        <ScrollBox styles={infoStyle}>
-          {[
-            <li>
-              <div>
-                <IconPeople />
-              </div>
-            </li>
-          ]}
-        </ScrollBox>
+        <div className="profile-info-display">
+          <div style={iconStyle}>
+            <IconPeople size="2x" />
+          </div>
+          <Text styles={infoTextStyle}>22 ano, Masculino</Text>
+
+          <div style={iconStyle}>
+            <IconEmail size="2x" />
+          </div>
+          <Text styles={infoTextStyle}>someEmail987@gmail.com</Text>
+
+          <div style={iconStyle}>
+            <IconPhone size="2x" />
+          </div>
+          <Text styles={infoTextStyle}>(83) 998745-5632</Text>
+
+          <div style={iconStyle}>
+            <IconAddress size="2x" />
+          </div>
+          <Text styles={infoTextStyle}>Paraíba, Campina Grande</Text>
+        </div>
       </div>
     </>
   );
