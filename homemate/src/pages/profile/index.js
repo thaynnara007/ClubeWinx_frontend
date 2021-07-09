@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Avatar, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
+import { Avatar, Tooltip } from '@material-ui/core';
 
 import Text from '../../components/text';
 import Button from '../../components/button';
+import ScrollBox from '../../components/scrollBox'
 import IconEdit from '../../components/icons/iconEdit';
+import IconPeople from '../../components/icons/iconPeople'
 import IconProfileEdit from '../../components/icons/iconEditProfile';
 
 import './profile.css';
@@ -20,6 +22,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+const infoStyle = {
+  display: {
+    gridRow: '3 / 5',
+    gridColumn: '1',
+    width: '100%',
+    height: '100%'
+  }
+}
+
 function Profile() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [isHeaderImage, setIsHeaderImage] = useState(false);
@@ -29,6 +40,9 @@ function Profile() {
   return (
     <>
       <div className="profile-header" style={{ ...headerBackground }}>
+        <div style={{ position: 'absolute', right: '5%', top: '16%'}}>
+          <button type="button" className="profile-header-edit-button">EDITAR</button>
+        </div>
         <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
           <Avatar className={styles.avatar}>MD</Avatar>
           <div style={{ marginLeft: '60px' }}>
@@ -67,6 +81,15 @@ function Profile() {
           </div>
         </div>
         <div className="profile-vl" />
+        <ScrollBox styles={infoStyle}>
+          {[
+            <li>
+              <div>
+                <IconPeople />
+              </div>
+            </li>
+          ]}
+        </ScrollBox>
       </div>
     </>
   );
