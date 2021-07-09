@@ -1,0 +1,28 @@
+.selectBarComponent-component-navbar-navbar {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  left: 0;
+  width: 900px;
+  display: table;
+  margin: 0 auto;
+  transform: translateY(-50%);
+}
+
+.selectBarComponent-component-navbar-option {
+  position: relative;
+  display: table-cell;
+  text-align: center;
+  color: #f4f4f4;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 24px;
+  padding: 10px 20px;
+  transition: 0.2s ease color;
+}
+
+
+.selectBarComponent-component-navbar-selected {
+  border-bottom: 5px solid #8ec6c5;
+}
+
