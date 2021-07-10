@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useState } from 'react';
 
 import Home from './pages/homepage';
-import Posts from './pages/Posts';
+import Posts from './pages/posts';
+import PostDetails from './pages/postDetails';
 import Profile from './pages/profile';
 import Explore from './pages/Explore';
 import About from './pages/About';
@@ -29,6 +30,9 @@ function App() {
             </Route>
             <Route exact path="/posts">
               <Posts />
+            </Route>
+            <Route path="/posts/:id">
+              <PostDetails />
             </Route>
             <Route path="/profile">
               <Profile />

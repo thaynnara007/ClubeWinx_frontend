@@ -6,6 +6,7 @@ import FlipCardFront from './flipCardFront';
 import FlipCardBack from './flipCardBack';
 
 function FlipCard({
+  id,
   state,
   city,
   district,
@@ -18,7 +19,6 @@ function FlipCard({
   beds,
   bathrooms,
   description,
-  seePage = () => '',
 }) {
   const [isFlipped, setIsFlipped] = useState(false);
 
@@ -36,6 +36,7 @@ function FlipCard({
       />
 
       <FlipCardBack
+        id={id}
         flip={handleClick}
         address={`${street ?? ''}, ${number ?? ''}`}
         price={price}
@@ -44,7 +45,6 @@ function FlipCard({
         beds={beds}
         bathrooms={bathrooms}
         description={description}
-        seePage={seePage}
       />
     </ReactCardFlip>
   );
