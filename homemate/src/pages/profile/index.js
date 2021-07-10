@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import { Avatar, Tooltip } from '@material-ui/core';
+import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
 import Text from '../../components/text';
 import Button from '../../components/button';
@@ -75,17 +74,25 @@ const textExample = `And so, does the destination matter? Or is it the path we t
 
 function Profile() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
-  const [isHeaderImage, setIsHeaderImage] = useState(false);
+  const [avatarImage, setAvatarImage] = useState('');
 
   const styles = useStyles();
 
   const handleHeaderUpload = (file) => {
     if (file) {
-      const image = URL.createObjectURL(file)
+      const image = URL.createObjectURL(file);
 
-      setHeaderBackground({ backgroundImage: `url('${image}')`})
+      setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
-  }
+  };
+
+  const handleAvatarUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+
+      setAvatarImage(image);
+    }
+  };
 
   return (
     <>
@@ -95,11 +102,13 @@ function Profile() {
         </div>
 
         <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
-          <Avatar className={styles.avatar}>MD</Avatar>
+          <Avatar className={styles.avatar} src={avatarImage}>
+            MD
+          </Avatar>
           <div style={{ marginLeft: '60px' }}>
             <Tooltip title="mudar foto">
-              <div style={{width: 'fit-content'}}>
-                <FileUploader icon={true}>
+              <div style={{ width: 'fit-content' }}>
+                <FileUploader icon handleUpload={handleAvatarUpload}>
                   <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
                 </FileUploader>
               </div>
