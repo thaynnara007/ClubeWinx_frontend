@@ -51,8 +51,6 @@ const descriptionBoxStyle = {
     justifySelf: 'center',
     width: '80%',
     height: '100%',
-    //    border: '2px solid #cbdae5',
-    //    borderRadius: '8px',
   },
 };
 
@@ -60,7 +58,7 @@ const tagsBoxStyle = {
   display: {
     gridColumn: '1 / 3',
     gridRow: '5 / 7',
-    width: '80%',
+    width: '70%',
     height: '80%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
@@ -159,16 +157,16 @@ function Profile() {
 
         <ScrollBox styles={tagsBoxStyle}>
           {[
-            <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'black' }}>UFCG</InputTag>,
-            <InputTag styles={{ backgroundColor: 'orange' }}>mecânica</InputTag>,
-            <InputTag styles={{ backgroundColor: 'green' }}>planta</InputTag>,
-            <InputTag styles={{ backgroundColor: 'grey' }}>música</InputTag>,
-            <InputTag styles={{ backgroundColor: 'pink' }}>LGBTQ+</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
+            <InputTag styles={{ backgroundColor: '#D67676' }}>cachorro</InputTag>,
+            <InputTag styles={{ backgroundColor: '#A2C7FE' }}>fumanete</InputTag>,
+            <InputTag styles={{ backgroundColor: '#C0B059' }}>UFCG</InputTag>,
+            <InputTag styles={{ backgroundColor: '#D67676' }}>mecânica</InputTag>,
+            <InputTag styles={{ backgroundColor: '#94CFA1' }}>planta</InputTag>,
+            <InputTag styles={{ backgroundColor: '#C0B059' }}>música</InputTag>,
+            <InputTag styles={{ backgroundColor: '#94CFA1' }}>LGBTQ+</InputTag>,
+            <InputTag styles={{ backgroundColor: '#A2C7FE' }}>fumanete</InputTag>,
+            <InputTag styles={{ backgroundColor: '#A2C7FE' }}>fumanete</InputTag>,
+            <InputTag styles={{ backgroundColor: '#A2C7FE' }}>fumanete</InputTag>,
           ]}
         </ScrollBox>
       </div>
