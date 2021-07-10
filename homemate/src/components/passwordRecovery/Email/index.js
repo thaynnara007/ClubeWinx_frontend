@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import Input from '../../input';
 import BaseButton from '../../button';
-import {PASSWORD_RECOVERY_CODE} from '../../../utils/constants'
+import { PASSWORD_RECOVERY_CODE } from '../../../utils/constants';
 import './Email.css';
 import api from '../../../api';
 
@@ -38,8 +38,8 @@ function Email(props) {
       api
         .post('/user/forget/password', body)
         .then(() => {
-          toast("Código enviado")
-          setState(PASSWORD_RECOVERY_CODE)
+          toast('Código enviado');
+          setState(PASSWORD_RECOVERY_CODE);
         })
         .catch((error) => {
           let msg = '';

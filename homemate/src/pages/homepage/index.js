@@ -11,8 +11,8 @@ import './homepage.css';
 function Home({ showNavbar }) {
   showNavbar(false);
 
-  const [isFlipped, setIsFlipped] = useState(false);
   const [choosedTab, setChoosedTab] = useState('CONECTE-SE');
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const handleClickLogin = () => {
     setIsFlipped(false);

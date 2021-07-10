@@ -11,7 +11,8 @@ import About from './pages/About';
 import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
-import PasswordRecovery from './pages/passwordRecovery/index';
+import PasswordRecovery from './pages/passwordRecovery';
+
 const isLoginPage = () => window.location.pathname !== '/';
 
 toast.configure();

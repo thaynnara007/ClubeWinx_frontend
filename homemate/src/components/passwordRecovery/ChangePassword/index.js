@@ -38,15 +38,14 @@ function ChangePassword() {
 
     return !validation;
   };
-  
+
   const validate = () => {
-    if(validateEmail() && validateEmail2()){
-        const valid = newPassword === newPassword2;
-        return valid;
-      }
-      return false;
-  }
-  
+    if (validateEmail() && validateEmail2()) {
+      const valid = newPassword === newPassword2;
+      return valid;
+    }
+    return false;
+  };
 
   const changePassword = () => {
     if (validate()) {
@@ -66,13 +65,25 @@ function ChangePassword() {
           else msg = 'Network failed';
           toast.error(msg);
         });
-      }
-    };
-  
+    }
+  };
+
   return (
     <>
-      <Input type='password' name="NOVA SENHA" value={newPassword} onChange={setNewPassword} styles={labelNewPassowrd} />
-      <Input type='password' name="REPITA A NOVA SENHA" value={newPassword2} onChange={setNewPassword2} styles={labelConfirmPassword} />
+      <Input
+        type="password"
+        name="NOVA SENHA"
+        value={newPassword}
+        onChange={setNewPassword}
+        styles={labelNewPassowrd}
+      />
+      <Input
+        type="password"
+        name="REPITA A NOVA SENHA"
+        value={newPassword2}
+        onChange={setNewPassword2}
+        styles={labelConfirmPassword}
+      />
       <BaseButton onClick={changePassword} styles={{ width: '100%', fontWeight: 'bold' }}>
         VERIFICAR
       </BaseButton>

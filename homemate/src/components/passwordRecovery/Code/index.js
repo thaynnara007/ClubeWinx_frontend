@@ -4,8 +4,7 @@ import './Code.css';
 import api from '../../../api';
 import Input from '../../input';
 import BaseButton from '../../button';
-import {PASSWORD_RECOVERY_CHANGE} from '../../../utils/constants'
-
+import { PASSWORD_RECOVERY_CHANGE } from '../../../utils/constants';
 
 const stylesInvalid = {
   label: {
