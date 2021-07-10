@@ -14,27 +14,29 @@ import {
 
 import './passwordRecovery.css';
 
-function PasswordRecovery({ showNavbar }) {
-  showNavbar(false);
+let contentForm = null;
+
+function PasswordRecovery() {
+  // showNavbar(false);
 
   const [recoveryPage, setRecoveryPage] = useState(PASSWORD_RECOVERY_EMAIL);
   const [email, setEmail] = useState('');
 
-  let contentForm = null;
-
-  switch (recoveryPage) {
-    case PASSWORD_RECOVERY_EMAIL:
-      contentForm = <Email setState={setRecoveryPage} email={email} setEmail={setEmail} />;
-      break;
-    case PASSWORD_RECOVERY_CODE:
-      contentForm = <Code setState={setRecoveryPage} email={email} />;
-      break;
-    case PASSWORD_RECOVERY_CHANGE:
-      contentForm = <ChangePassword />;
-      break;
-    default:
-      break;
-  }
+  const validatePage = () => {
+    switch (recoveryPage) {
+      case PASSWORD_RECOVERY_EMAIL:
+        contentForm = <Email setState={setRecoveryPage} email={email} setEmail={setEmail} />;
+        break;
+      case PASSWORD_RECOVERY_CODE:
+        contentForm = <Code setState={setRecoveryPage} email={email} />;
+        break;
+      case PASSWORD_RECOVERY_CHANGE:
+        contentForm = <ChangePassword />;
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <div className="passwordRecovery-background">
@@ -46,7 +48,7 @@ function PasswordRecovery({ showNavbar }) {
         />
         <SelectedBar styles={{ top: '160px' }}>{recoveryPage}</SelectedBar>
 
-        <Flex styles={{ width: '50%', marginTop: '100px' }}>{contentForm}</Flex>
+        <Flex styles={{ width: '50%', marginTop: '100px' }}>{(validatePage(), contentForm)}</Flex>
       </Flex>
     </div>
   );

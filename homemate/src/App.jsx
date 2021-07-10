@@ -44,7 +44,7 @@ function App() {
               <Logout />
             </Route>
             <Route path="/PasswordRecovery">
-              <PasswordRecovery showNavbar={setShowNavbar} />
+              <PasswordRecovery />
             </Route>
             <Route path="*">
               <NotFound />
