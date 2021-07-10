@@ -51,7 +51,6 @@ function Code(props) {
           else msg = 'Codigo invalido';
           toast.error(msg);
         });
-        setState(PASSWORD_RECOVERY_CHANGE);
     }
   };
 

@@ -71,8 +71,8 @@ function ChangePassword() {
   
   return (
     <>
-      <Input name="NOVA SENHA" value={newPassword} onChange={setNewPassword} styles={labelNewPassowrd} />
-      <Input name="REPITA A NOVA SENHA" value={newPassword2} onChange={setNewPassword2} styles={labelConfirmPassword} />
+      <Input type='password' name="NOVA SENHA" value={newPassword} onChange={setNewPassword} styles={labelNewPassowrd} />
+      <Input type='password' name="REPITA A NOVA SENHA" value={newPassword2} onChange={setNewPassword2} styles={labelConfirmPassword} />
       <BaseButton onClick={changePassword} styles={{ width: '100%', fontWeight: 'bold' }}>
         VERIFICAR
       </BaseButton>

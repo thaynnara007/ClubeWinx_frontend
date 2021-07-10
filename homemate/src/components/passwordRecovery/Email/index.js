@@ -47,7 +47,6 @@ function Email(props) {
           else msg = 'Network failed';
           toast.error(msg);
         });
-        setState(PASSWORD_RECOVERY_CODE)
     }
   };
 
