@@ -18,6 +18,7 @@ function Posts() {
             posts.map((post) => (
               <FlipCard
                 key={post.id}
+                id={post.id}
                 state={post.owner.address.state}
                 city={post.owner.address.city}
                 district={post.owner.address.district}
