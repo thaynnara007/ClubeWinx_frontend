@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React, { useState } from 'react';
 
 import Home from './pages/homepage';
-import Posts from './pages/Posts';
+import Posts from './pages/posts';
 import Profile from './pages/Profile';
 import Explore from './pages/Explore';
 import About from './pages/About';
