@@ -7,6 +7,7 @@ import Button from '../../components/button';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
 import IconEdit from '../../components/icons/iconEdit';
+import FileUploader from '../../components/fileUploader';
 import IconPhone from '../../components/icons/iconPhone';
 import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
@@ -66,8 +67,8 @@ const tagsBoxStyle = {
     marginTop: '40px',
   },
   item: {
-    height: 'fit-content'
-  }
+    height: 'fit-content',
+  },
 };
 
 const textExample = `And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.`;
@@ -78,22 +79,30 @@ function Profile() {
 
   const styles = useStyles();
 
+  const handleHeaderUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file)
+
+      setHeaderBackground({ backgroundImage: `url('${image}')`})
+    }
+  }
+
   return (
     <>
       <div className="profile-header" style={{ ...headerBackground }}>
         <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-          <button type="button" className="profile-header-edit-button">
-            EDITAR
-          </button>
+          <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
         </div>
 
         <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
           <Avatar className={styles.avatar}>MD</Avatar>
           <div style={{ marginLeft: '60px' }}>
             <Tooltip title="mudar foto">
-              <button type="button" className="profile-icon-button">
-                <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
-              </button>
+              <div style={{width: 'fit-content'}}>
+                <FileUploader icon={true}>
+                  <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
+                </FileUploader>
+              </div>
             </Tooltip>
           </div>
         </div>
