@@ -15,7 +15,7 @@ function FileUploader({ children, styles, handleUpload, icon = false }) {
     handleUpload(file);
   };
 
-  const className = icon ? "file-uploader-icon-button" : "file-uploader-button"
+  const className = icon ? 'file-uploader-icon-button' : 'file-uploader-button';
 
   return (
     <>
