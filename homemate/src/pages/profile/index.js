@@ -1,6 +1,9 @@
+import { toast } from 'react-toastify';
 import React, { useState } from 'react';
+import { useHistory } from 'react-router';
 import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
+import api from '../../api';
 import Text from '../../components/text';
 import useFetch from '../../hooks/useFetch';
 import Button from '../../components/button';
@@ -78,6 +81,7 @@ function Profile() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [avatarImage, setAvatarImage] = useState(userData?.picture);
 
+  const history = useHistory();
   const styles = useStyles();
 
   const handleHeaderUpload = (file) => {
@@ -91,8 +95,28 @@ function Profile() {
   const handleAvatarUpload = (file) => {
     if (file) {
       const image = URL.createObjectURL(file);
+      const formData = new FormData();
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
 
+      formData.append('file', file);
       setAvatarImage(image);
+
+      api
+        .put('/profile/me/picture', formData, config)
+        .then(() => {
+          toast('Foto atualizada com sucesso');
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
     }
   };
 
@@ -108,7 +132,7 @@ function Profile() {
             </div>
 
             <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
-              <Avatar className={styles.avatar} src={avatarImage ?? ''}>
+              <Avatar className={styles.avatar} src={avatarImage ?? userData?.picture}>
                 {`${userData?.name[0]}${userData?.lastname[0]}`}
               </Avatar>
               <div style={{ marginLeft: '60px' }}>
@@ -145,7 +169,10 @@ function Profile() {
                 {`${userData?.name} ${userData?.lastname}`}
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
-                <Button styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}>
+                <Button
+                  styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                  onClick={() => history.push(`/posts/${userData?.posterId}`)}
+                >
                   VER ANÚNCIO
                 </Button>
               </div>
