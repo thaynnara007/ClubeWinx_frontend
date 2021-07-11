@@ -1,6 +1,5 @@
 /* eslint-disable react/button-has-type */
-import React from 'react';
-
+import { Link } from 'react-router-dom';
 import ScrollBox from '../../scrollBox';
 import IconPeople from '../../icons/iconPeople';
 import IconDoor from '../../icons/iconDoor';
@@ -77,6 +76,7 @@ const scrollBoxDescriptionStyles = {
 };
 
 function FlipCardBack({
+  id,
   flip,
   address,
   price,
@@ -87,7 +87,6 @@ function FlipCardBack({
   description,
   backButton = 'voltar',
   seePageButton = 'ver página',
-  seePage,
 }) {
   return (
     <div className="flip-card-back-card">
@@ -126,12 +125,11 @@ function FlipCardBack({
           <button className="flip-card-back-button flip-card-back-button-back" onClick={flip}>
             {backButton}
           </button>
-          <button
-            className="flip-card-back-button flip-card-back-button-see-page"
-            onClick={seePage}
-          >
-            {seePageButton}
-          </button>
+          <Link to={`/posts/${id}`}>
+            <button className="flip-card-back-button flip-card-back-button-see-page">
+              {seePageButton}
+            </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -12,8 +12,18 @@ import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
 import IconAddress from '../../components/icons/iconAddress';
 import IconProfileEdit from '../../components/icons/iconEditProfile';
+import FlipCardBack from '../../components/flipCard/flipCardBack';
 
-import './profile.css';
+import IconDoor from '../../components/icons/iconDoor';
+import IconBed from '../../components/icons/iconBed';
+import IconBath from '../../components/icons/iconBath';
+
+import './postDetails.css';
+
+import useFetch from '../../hooks/useFetch';
+import Loading from '../../components/loading';
+import InfoSpan from '../../components/infoSpan';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -72,19 +82,74 @@ const tagsBoxStyle = {
   },
 };
 
+const commumDisplay = {
+  width: 'fit-content',
+  height: 'fit-content',
+  marginBottom: '10px',
+};
+
+const scrollBoxPriceStyles = {
+  display: {
+    ...commumDisplay,
+    marginTop: '20px',
+    marginRight: '20px',
+    justifySelf: 'end',
+    gridRow: '1',
+    gridColumn: '4',
+  },
+  item: {
+    maxWidth: '140px',
+    maxHeight: '50px',
+  },
+};
+
+const scrollBoxIconsStyles = {
+  display: {
+    ...commumDisplay,
+    marginLeft: '80px',
+    marginRight: '20px',
+    gridRow: '1',
+    gridColumn: '1 / 5',
+    alignSelf: 'end',
+    maxWidth: '460px',
+    maxHeight: '460px',
+  },
+};
+
+const scrollBoxDescriptionStyles = {
+  display: {
+    marginLeft: '80px',
+    marginRight: '20px',
+    gridRow: '2',
+    gridColumn: '1 / 5',
+    alignSelf: 'center',
+    width: '460px',
+    height: '170px',
+  },
+  item: {
+    width: '100%',
+    height: '100%',
+    color: 'grey',
+  },
+};
+
 const textExample = `And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.`;
 
-function Profile() {
+function PostDetails() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [isHeaderImage, setIsHeaderImage] = useState(false);
 
+  const { data: post, isLoading } = useFetch('/user/poster');
+  const loadingStyle = { marginTop: '400px' };
+
   const styles = useStyles();
+  //post-details
 
   return (
     <>
-      <div className="profile-header" style={{ ...headerBackground }}>
+      <div className="post-header" style={{ ...headerBackground }}>
         <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-          <button type="button" className="profile-header-edit-button">
+          <button type="button" className="post-header-edit-button">
             EDITAR
           </button>
         </div>
@@ -93,7 +158,7 @@ function Profile() {
           <Avatar className={styles.avatar}>MD</Avatar>
           <div style={{ marginLeft: '60px' }}>
             <Tooltip title="mudar foto">
-              <button type="button" className="profile-icon-button">
+              <button type="button" className="post-icon-button">
                 <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
               </button>
             </Tooltip>
@@ -101,16 +166,16 @@ function Profile() {
         </div>
       </div>
 
-      <div className="profile-box">
-        <div className="profile-edit-info-icon">
+      <div className="post-box">
+        <div className="post-edit-info-icon">
           <Tooltip title="editar informações">
-            <button type="button" className="profile-icon-button">
+            <button type="button" className="post-icon-button">
               <IconProfileEdit size="2x" />
             </button>
           </Tooltip>
         </div>
 
-        <div className="profile-title">
+        <div className="post-title">
           <Text
             styles={{
               fontSize: '36px',
@@ -120,44 +185,50 @@ function Profile() {
               textTransform: 'capitalize',
             }}
           >
-            mylena dantas
+            Rua João Pessoa, Centro, Campina Grande - PB
           </Text>
-          <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
-            <Button styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}>
-              VER ANÚNCIO
-            </Button>
-          </div>
         </div>
-
-        <div className="profile-vl" />
-
-        <div className="profile-info-display">
-          <div style={iconStyle}>
-            <IconPeople size="2x" />
+        <div className="post-owner">
+            <table>
+              <td><Text styles={{
+                fontSize: '20px',
+                color: '#6983AA',
+                fontFamily: 'Roboto',
+                textTransform: 'capitalize',
+                textAlign: '20px',
+              }}>Anunciado por </Text></td>
+              <td><Link>Mariana</Link></td>
+            </table>
           </div>
-          <Text styles={infoTextStyle}>22 ano, Masculino</Text>
 
-          <div style={iconStyle}>
-            <IconEmail size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>someEmail987@gmail.com</Text>
+        <div className="post-vl" />
 
-          <div style={iconStyle}>
-            <IconPhone size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>(83) 998745-5632</Text>
-
-          <div style={iconStyle}>
-            <IconAddress size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>Paraíba, Campina Grande</Text>
+        <div className="post-info-display">
+          <ScrollBox styles={scrollBoxPriceStyles}>
+            {[<span className="flip-card-back-font">{`R$ 100,00`}</span>]}
+          </ScrollBox>
+          <ScrollBox styles={scrollBoxIconsStyles}>
+            {[
+              <InfoSpan description="pessoas" amountText={'2'}>
+                <IconPeople />
+              </InfoSpan>,
+              <div className="flip-card-back-vl" />,
+              <InfoSpan description="quartos" amountText={'2'}>
+                <IconDoor />
+              </InfoSpan>,
+              <div className="flip-card-back-vl" />,
+              <InfoSpan description="camas" amountText={'2'}>
+                <IconBed />
+              </InfoSpan>,
+              <div className="flip-card-back-vl" />,
+              <InfoSpan description="banheiros" amountText={'1'}>
+                <IconBath />
+              </InfoSpan>,
+            ]}
+          </ScrollBox>
+          <ScrollBox styles={scrollBoxDescriptionStyles}>{[textExample]}</ScrollBox>
         </div>
-
         <ScrollBox styles={descriptionBoxStyle}>
-          {[<p className="profile-description-text">{textExample}</p>]}
-        </ScrollBox>
-
-        <ScrollBox styles={tagsBoxStyle}>
           {[
             <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
             <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
@@ -176,4 +247,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default PostDetails;
