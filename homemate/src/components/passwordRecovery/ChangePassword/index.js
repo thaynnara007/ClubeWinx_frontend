@@ -23,7 +23,7 @@ function ChangePassword() {
   const [labelNewPassowrd, setNewPassowrd] = useState({});
   const [labelConfirmPassword, setConfirmPassword] = useState({});
 
-  const validateEmail = () => {
+  const validatePassword = () => {
     const validation = newPassword === '' || newPassword === null;
 
     setNewPassowrd(validation ? stylesInvalid : stylesValid);
