@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import Input from '../../input';
 import BaseButton from '../../button';
 import { PASSWORD_RECOVERY_CODE } from '../../../utils/constants';
-import './Email.css';
+import '../ChangePassword/ChangePassword.css';
 import api from '../../../api';
 
 const stylesInvalid = {
