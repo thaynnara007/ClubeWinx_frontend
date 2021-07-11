@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
@@ -10,6 +11,7 @@ import Button from '../../components/button';
 import Loading from '../../components/loading';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
+import { getTagColor } from '../../utils/functions';
 import IconEdit from '../../components/icons/iconEdit';
 import FileUploader from '../../components/fileUploader';
 import IconPhone from '../../components/icons/iconPhone';
@@ -120,6 +122,8 @@ function Profile() {
     }
   };
 
+  const getAge = (birthday) => (birthday ? moment().diff(birthday, 'years') : '');
+
   return (
     <>
       {isLoading ? (
@@ -184,7 +188,7 @@ function Profile() {
               <div style={iconStyle}>
                 <IconPeople size="2x" />
               </div>
-              <Text styles={infoTextStyle}>{`${userData?.birthday}, ${
+              <Text styles={infoTextStyle}>{`${getAge(userData?.birthday)} anos, ${
                 userData?.gender ?? ''
               }`}</Text>
 
@@ -212,9 +216,15 @@ function Profile() {
 
             <ScrollBox styles={tagsBoxStyle}>
               {userData?.tags
-                ? userData?.tags?.map((tag) => (
-                    <InputTag styles={{ backgroundColor: 'red' }}>{`${tag?.name}`}</InputTag>
-                  ))
+                ? userData?.tags?.map((tag) => {
+                    const tagColor = getTagColor(tag?.categoryId);
+
+                    return (
+                      <InputTag
+                        styles={{ backgroundColor: `${tagColor}` }}
+                      >{`${tag?.name}`}</InputTag>
+                    );
+                  })
                 : []}
             </ScrollBox>
           </div>
