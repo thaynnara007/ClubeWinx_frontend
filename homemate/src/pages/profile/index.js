@@ -1,12 +1,19 @@
+import moment from 'moment';
+import { toast } from 'react-toastify';
 import React, { useState } from 'react';
-import { makeStyles } from '@material-ui/core';
-import { Avatar, Tooltip } from '@material-ui/core';
+import { useHistory } from 'react-router';
+import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
+import api from '../../api';
 import Text from '../../components/text';
+import useFetch from '../../hooks/useFetch';
 import Button from '../../components/button';
+import Loading from '../../components/loading';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
+import { getTagColor } from '../../utils/functions';
 import IconEdit from '../../components/icons/iconEdit';
+import FileUploader from '../../components/fileUploader';
 import IconPhone from '../../components/icons/iconPhone';
 import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
@@ -51,8 +58,6 @@ const descriptionBoxStyle = {
     justifySelf: 'center',
     width: '80%',
     height: '100%',
-    //    border: '2px solid #cbdae5',
-    //    borderRadius: '8px',
   },
 };
 
@@ -60,7 +65,7 @@ const tagsBoxStyle = {
   display: {
     gridColumn: '1 / 3',
     gridRow: '5 / 7',
-    width: '80%',
+    width: '70%',
     height: '80%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
@@ -72,106 +77,159 @@ const tagsBoxStyle = {
   },
 };
 
-const textExample = `And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.`;
-
 function Profile() {
-  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
-  const [isHeaderImage, setIsHeaderImage] = useState(false);
+  const { data: userData, isLoading } = useFetch('/profile/me');
 
+  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
+  const [avatarImage, setAvatarImage] = useState(userData?.picture);
+
+  const history = useHistory();
   const styles = useStyles();
+
+  const handleHeaderUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+
+      setHeaderBackground({ backgroundImage: `url('${image}')` });
+    }
+  };
+
+  const handleAvatarUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+      const formData = new FormData();
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
+
+      formData.append('file', file);
+      setAvatarImage(image);
+
+      api
+        .put('/profile/me/picture', formData, config)
+        .then(() => {
+          toast('Foto atualizada com sucesso');
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+    }
+  };
+
+  const getAge = (birthday) => (birthday ? moment().diff(birthday, 'years') : '');
 
   return (
     <>
-      <div className="profile-header" style={{ ...headerBackground }}>
-        <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-          <button type="button" className="profile-header-edit-button">
-            EDITAR
-          </button>
-        </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="profile-header" style={{ ...headerBackground }}>
+            <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
+              <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
+            </div>
 
-        <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
-          <Avatar className={styles.avatar}>MD</Avatar>
-          <div style={{ marginLeft: '60px' }}>
-            <Tooltip title="mudar foto">
-              <button type="button" className="profile-icon-button">
-                <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
-              </button>
-            </Tooltip>
+            <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
+              <Avatar className={styles.avatar} src={avatarImage ?? userData?.picture}>
+                {`${userData?.name[0]}${userData?.lastname[0]}`}
+              </Avatar>
+              <div style={{ marginLeft: '60px' }}>
+                <Tooltip title="mudar foto">
+                  <div style={{ width: 'fit-content' }}>
+                    <FileUploader icon handleUpload={handleAvatarUpload}>
+                      <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
+                    </FileUploader>
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <div className="profile-box">
-        <div className="profile-edit-info-icon">
-          <Tooltip title="editar informações">
-            <button type="button" className="profile-icon-button">
-              <IconProfileEdit size="2x" />
-            </button>
-          </Tooltip>
-        </div>
+          <div className="profile-box">
+            <div className="profile-edit-info-icon">
+              <Tooltip title="editar informações">
+                <button type="button" className="profile-icon-button">
+                  <IconProfileEdit size="2x" />
+                </button>
+              </Tooltip>
+            </div>
 
-        <div className="profile-title">
-          <Text
-            styles={{
-              fontSize: '36px',
-              color: '#6983AA',
-              fontFamily: 'Roboto',
-              fontWeight: 'bold',
-              textTransform: 'capitalize',
-            }}
-          >
-            mylena dantas
-          </Text>
-          <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
-            <Button styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}>
-              VER ANÚNCIO
-            </Button>
+            <div className="profile-title">
+              <Text
+                styles={{
+                  fontSize: '36px',
+                  color: '#6983AA',
+                  fontFamily: 'Roboto',
+                  fontWeight: 'bold',
+                  textTransform: 'capitalize',
+                }}
+              >
+                {`${userData?.name} ${userData?.lastname}`}
+              </Text>
+              <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
+                <Button
+                  styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                  onClick={() => history.push(`/posts/${userData?.posterId}`)}
+                >
+                  VER ANÚNCIO
+                </Button>
+              </div>
+            </div>
+
+            <div className="profile-vl" />
+
+            <div className="profile-info-display">
+              <div style={iconStyle}>
+                <IconPeople size="2x" />
+              </div>
+              <Text styles={infoTextStyle}>{`${getAge(userData?.birthday)} anos, ${
+                userData?.gender ?? ''
+              }`}</Text>
+
+              <div style={iconStyle}>
+                <IconEmail size="2x" />
+              </div>
+              <Text styles={infoTextStyle}>{`${userData?.email}`}</Text>
+
+              <div style={iconStyle}>
+                <IconPhone size="2x" />
+              </div>
+              <Text styles={infoTextStyle}>{`${userData?.phone ?? ''}`}</Text>
+
+              <div style={iconStyle}>
+                <IconAddress size="2x" />
+              </div>
+              <Text styles={infoTextStyle}>{`${userData?.address?.state ?? ''}, ${
+                userData?.address?.city ?? ''
+              }`}</Text>
+            </div>
+
+            <ScrollBox styles={descriptionBoxStyle}>
+              {[<p className="profile-description-text">{`${userData?.description}`}</p>]}
+            </ScrollBox>
+
+            <ScrollBox styles={tagsBoxStyle}>
+              {userData?.tags
+                ? userData?.tags?.map((tag) => {
+                    const tagColor = getTagColor(tag?.categoryId);
+
+                    return (
+                      <InputTag
+                        styles={{ backgroundColor: `${tagColor}` }}
+                      >{`${tag?.name}`}</InputTag>
+                    );
+                  })
+                : []}
+            </ScrollBox>
           </div>
-        </div>
-
-        <div className="profile-vl" />
-
-        <div className="profile-info-display">
-          <div style={iconStyle}>
-            <IconPeople size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>22 ano, Masculino</Text>
-
-          <div style={iconStyle}>
-            <IconEmail size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>someEmail987@gmail.com</Text>
-
-          <div style={iconStyle}>
-            <IconPhone size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>(83) 998745-5632</Text>
-
-          <div style={iconStyle}>
-            <IconAddress size="2x" />
-          </div>
-          <Text styles={infoTextStyle}>Paraíba, Campina Grande</Text>
-        </div>
-
-        <ScrollBox styles={descriptionBoxStyle}>
-          {[<p className="profile-description-text">{textExample}</p>]}
-        </ScrollBox>
-
-        <ScrollBox styles={tagsBoxStyle}>
-          {[
-            <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'black' }}>UFCG</InputTag>,
-            <InputTag styles={{ backgroundColor: 'orange' }}>mecânica</InputTag>,
-            <InputTag styles={{ backgroundColor: 'green' }}>planta</InputTag>,
-            <InputTag styles={{ backgroundColor: 'grey' }}>música</InputTag>,
-            <InputTag styles={{ backgroundColor: 'pink' }}>LGBTQ+</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-          ]}
-        </ScrollBox>
-      </div>
+        </>
+      )}
     </>
   );
 }
