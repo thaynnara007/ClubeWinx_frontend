@@ -12,7 +12,7 @@ import {
   PASSWORD_RECOVERY_CHANGE,
 } from '../../utils/constants';
 
-import './passwordRecovery.css';
+import '../homepage/homepage.css';
 
 let contentForm = null;
 
