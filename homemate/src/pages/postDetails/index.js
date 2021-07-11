@@ -196,6 +196,10 @@ function PostDetails() {
                   textTransform: 'capitalize',
                 }}
               >
+                {`${post.owner.address.street},   
+                ${post.owner.address.number}, 
+                ${post.owner.address.district}, 
+                ${post.owner.address.city}`}
                 {console.log(post)}
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
@@ -212,11 +216,11 @@ function PostDetails() {
 
             <div className="post-info-display">
               <ScrollBox styles={scrollBoxPriceStyles}>
-                {[<span className="flip-card-back-font">{`R$ 100,00`}</span>]}
+                {[<span className="flip-card-back-font">{`R$ ${post.expense},00`}</span>]}
               </ScrollBox>
               <ScrollBox styles={scrollBoxIconsStyles}>
                 {[
-                  <InfoSpan description="pessoas" amountText={'4'}>
+                  <InfoSpan description="pessoas" amountText={post.residents}>
                     <IconPeople />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
@@ -233,7 +237,7 @@ function PostDetails() {
                   </InfoSpan>,
                 ]}
               </ScrollBox>
-              <ScrollBox styles={scrollBoxDescriptionStyles}>{[textExample]}</ScrollBox>
+              <ScrollBox styles={scrollBoxDescriptionStyles}>{[post.description]}</ScrollBox>
             </div>
             <ScrollBox styles={descriptionBoxStyle}>
               {[
