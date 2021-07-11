@@ -40,7 +40,7 @@ function ChangePassword() {
   };
 
   const validate = () => {
-    if (validateEmail() && validateEmail2()) {
+    if (validatePassword() && validatePassword2()) {
       const valid = newPassword === newPassword2;
       return valid;
     }
