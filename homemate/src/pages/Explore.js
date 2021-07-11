@@ -18,8 +18,6 @@ function Explore() {
 
   return (
     <div className="Picture">
-      <h1>Show Picture Component of Homemate System</h1>
-      <h3>Componente Exibir Foto do Sistema Homemate</h3>
       <Picture listPost={posts} />
     </div>
   );
