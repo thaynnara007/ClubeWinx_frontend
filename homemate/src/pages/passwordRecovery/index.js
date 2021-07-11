@@ -43,7 +43,7 @@ function PasswordRecovery() {
       <Flex styles={{ width: '50%', margin: '0 auto' }}>
         <img
           src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
-          className="passwordRecovery-logo"
+          className="homepage-logo"
           alt="homemate's logo"
         />
         <SelectedBar styles={{ top: '160px' }}>{recoveryPage}</SelectedBar>
