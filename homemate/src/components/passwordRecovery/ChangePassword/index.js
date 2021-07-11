@@ -31,7 +31,7 @@ function ChangePassword() {
     return !validation;
   };
 
-  const validateEmail2 = () => {
+  const validatePassword2 = () => {
     const validation = newPassword2 === '' || newPassword2 === null;
 
     setConfirmPassword(validation ? stylesInvalid : stylesValid);
