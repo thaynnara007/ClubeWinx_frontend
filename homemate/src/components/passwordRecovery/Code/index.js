@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
-import './Code.css';
+import '../ChangePassword/ChangePassword.css';
 import api from '../../../api';
 import Input from '../../input';
 import BaseButton from '../../button';
