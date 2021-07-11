@@ -12,7 +12,7 @@ import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
 import IconAddress from '../../components/icons/iconAddress';
 import IconProfileEdit from '../../components/icons/iconEditProfile';
-import FlipCardBack from '../../components/flipCard/flipCardBack';
+import FileUploader from '../../components/fileUploader';
 
 import IconDoor from '../../components/icons/iconDoor';
 import IconBed from '../../components/icons/iconBed';
@@ -23,7 +23,7 @@ import './postDetails.css';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/loading';
 import InfoSpan from '../../components/infoSpan';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -139,110 +139,119 @@ function PostDetails() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [isHeaderImage, setIsHeaderImage] = useState(false);
 
-  const { data: post, isLoading } = useFetch('/user/poster');
+  const { id } = useParams();
+  const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
   const loadingStyle = { marginTop: '400px' };
 
   const styles = useStyles();
   //post-details
 
+  const handleHeaderUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+
+      setHeaderBackground({ backgroundImage: `url('${image}')` });
+    }
+  };
+
   return (
     <>
-      <div className="post-header" style={{ ...headerBackground }}>
-        <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-          <button type="button" className="post-header-edit-button">
-            EDITAR
-          </button>
-        </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <>
+          <div className="post-header" style={{ ...headerBackground }}>
+            <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
+              <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
+            </div>
 
-        <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
-          <Avatar className={styles.avatar}>MD</Avatar>
-          <div style={{ marginLeft: '60px' }}>
-            <Tooltip title="mudar foto">
-              <button type="button" className="post-icon-button">
-                <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
-              </button>
-            </Tooltip>
-          </div>
-        </div>
-      </div>
-
-      <div className="post-box">
-        <div className="post-edit-info-icon">
-          <Tooltip title="editar informações">
-            <button type="button" className="post-icon-button">
-              <IconProfileEdit size="2x" />
-            </button>
-          </Tooltip>
-        </div>
-
-        <div className="post-title">
-          <Text
-            styles={{
-              fontSize: '36px',
-              color: '#6983AA',
-              fontFamily: 'Roboto',
-              fontWeight: 'bold',
-              textTransform: 'capitalize',
-            }}
-          >
-            Rua João Pessoa, Centro, Campina Grande - PB
-          </Text>
-        </div>
-        <div className="post-owner">
-            <table>
-              <td><Text styles={{
-                fontSize: '20px',
-                color: '#6983AA',
-                fontFamily: 'Roboto',
-                textTransform: 'capitalize',
-                textAlign: '20px',
-              }}>Anunciado por </Text></td>
-              <td><Link>Mariana</Link></td>
-            </table>
+            <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
+              <Avatar className={styles.avatar}>MD</Avatar>
+              <div style={{ marginLeft: '60px' }}>
+                <Tooltip title="mudar foto">
+                  <button type="button" className="post-icon-button">
+                    <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
+                  </button>
+                </Tooltip>
+              </div>
+            </div>
           </div>
 
-        <div className="post-vl" />
+          <div className="post-box">
+            <div className="post-edit-info-icon">
+              <Tooltip title="editar informações">
+                <button type="button" className="post-icon-button">
+                  <IconProfileEdit size="2x" />
+                </button>
+              </Tooltip>
+            </div>
 
-        <div className="post-info-display">
-          <ScrollBox styles={scrollBoxPriceStyles}>
-            {[<span className="flip-card-back-font">{`R$ 100,00`}</span>]}
-          </ScrollBox>
-          <ScrollBox styles={scrollBoxIconsStyles}>
-            {[
-              <InfoSpan description="pessoas" amountText={'2'}>
-                <IconPeople />
-              </InfoSpan>,
-              <div className="flip-card-back-vl" />,
-              <InfoSpan description="quartos" amountText={'2'}>
-                <IconDoor />
-              </InfoSpan>,
-              <div className="flip-card-back-vl" />,
-              <InfoSpan description="camas" amountText={'2'}>
-                <IconBed />
-              </InfoSpan>,
-              <div className="flip-card-back-vl" />,
-              <InfoSpan description="banheiros" amountText={'1'}>
-                <IconBath />
-              </InfoSpan>,
-            ]}
-          </ScrollBox>
-          <ScrollBox styles={scrollBoxDescriptionStyles}>{[textExample]}</ScrollBox>
-        </div>
-        <ScrollBox styles={descriptionBoxStyle}>
-          {[
-            <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'black' }}>UFCG</InputTag>,
-            <InputTag styles={{ backgroundColor: 'orange' }}>mecânica</InputTag>,
-            <InputTag styles={{ backgroundColor: 'green' }}>planta</InputTag>,
-            <InputTag styles={{ backgroundColor: 'grey' }}>música</InputTag>,
-            <InputTag styles={{ backgroundColor: 'pink' }}>LGBTQ+</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-            <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-          ]}
-        </ScrollBox>
-      </div>
+            <div className="post-title">
+              <Text
+                styles={{
+                  fontSize: '36px',
+                  color: '#6983AA',
+                  fontFamily: 'Roboto',
+                  fontWeight: 'bold',
+                  textTransform: 'capitalize',
+                }}
+              >
+                {console.log(post)}
+              </Text>
+              <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
+                <Button
+                  styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                  onClick={() => history.push(`/profile/id`)}
+                >
+                  VER PERFIL DO ANUNCIANTE
+                </Button>
+              </div>
+            </div>
+
+            <div className="post-vl" />
+
+            <div className="post-info-display">
+              <ScrollBox styles={scrollBoxPriceStyles}>
+                {[<span className="flip-card-back-font">{`R$ 100,00`}</span>]}
+              </ScrollBox>
+              <ScrollBox styles={scrollBoxIconsStyles}>
+                {[
+                  <InfoSpan description="pessoas" amountText={'4'}>
+                    <IconPeople />
+                  </InfoSpan>,
+                  <div className="flip-card-back-vl" />,
+                  <InfoSpan description="quartos" amountText={'2'}>
+                    <IconDoor />
+                  </InfoSpan>,
+                  <div className="flip-card-back-vl" />,
+                  <InfoSpan description="camas" amountText={'2'}>
+                    <IconBed />
+                  </InfoSpan>,
+                  <div className="flip-card-back-vl" />,
+                  <InfoSpan description="banheiros" amountText={'1'}>
+                    <IconBath />
+                  </InfoSpan>,
+                ]}
+              </ScrollBox>
+              <ScrollBox styles={scrollBoxDescriptionStyles}>{[textExample]}</ScrollBox>
+            </div>
+            <ScrollBox styles={descriptionBoxStyle}>
+              {[
+                <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
+                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
+                <InputTag styles={{ backgroundColor: 'black' }}>UFCG</InputTag>,
+                <InputTag styles={{ backgroundColor: 'orange' }}>mecânica</InputTag>,
+                <InputTag styles={{ backgroundColor: 'green' }}>planta</InputTag>,
+                <InputTag styles={{ backgroundColor: 'grey' }}>música</InputTag>,
+                <InputTag styles={{ backgroundColor: 'pink' }}>LGBTQ+</InputTag>,
+                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
+                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
+                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
+              ]}
+            </ScrollBox>
+          </div>
+        </>
+      )}
     </>
   );
 }
