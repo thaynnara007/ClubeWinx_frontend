@@ -69,6 +69,10 @@ function Login() {
     }
   };
 
+  const passwordRecovery = () => {
+    window.location.replace('/passwordRecovery');
+  };
+
   return (
     <>
       <Input name="EMAIL" value={email} onChange={setEmail} styles={labelEmailStyle} />
@@ -82,7 +86,9 @@ function Login() {
       <BaseButton onClick={login} styles={{ width: '100%', fontWeight: 'bold' }}>
         ENTRAR
       </BaseButton>
-      <a className="login-forget-password">Esqueceu a senha?</a>
+      <a onClick={passwordRecovery} className="login-forget-password">
+        Esqueceu a senha?
+      </a>
     </>
   );
 }

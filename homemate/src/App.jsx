@@ -12,6 +12,7 @@ import About from './pages/About';
 import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
+import PasswordRecovery from './pages/passwordRecovery';
 
 const isLoginPage = () => window.location.pathname !== '/';
 
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route path="/logout">
               <Logout />
+            </Route>
+            <Route path="/PasswordRecovery">
+              <PasswordRecovery showNavbar={setShowNavbar}/>
             </Route>
             <Route path="*">
               <NotFound />
