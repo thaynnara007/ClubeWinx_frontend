@@ -97,7 +97,7 @@ const Navbar = () => {
           </li>
 
           <li className="nav-item">
-            <NavLink className="nav-link" to="/profile" exact>
+            <NavLink className="nav-link" to="/profile/me" exact>
               <i className="bi bi-person" />
               <svg
                 xmlns="http://www.w3.org/2000/svg"

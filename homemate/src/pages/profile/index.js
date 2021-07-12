@@ -4,6 +4,7 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
 import api from '../../api';
@@ -80,7 +81,9 @@ const tagsBoxStyle = {
 };
 
 function Profile() {
-  const { data: userData, isLoading } = useFetch('/profile/me');
+  const { id } = useParams();
+
+  const { data: userData, isLoading } = useFetch(`/profile/${id}`, id);
 
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [avatarImage, setAvatarImage] = useState(userData?.picture);
@@ -133,34 +136,40 @@ function Profile() {
       ) : (
         <>
           <div className="profile-header" style={{ ...headerBackground }}>
-            <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-              <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
-            </div>
+            {id === 'me' && (
+              <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
+                <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
+              </div>
+            )}
 
             <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
               <Avatar className={styles.avatar} src={avatarImage ?? userData?.picture}>
                 {`${userData?.name[0]}${userData?.lastname[0]}`}
               </Avatar>
-              <div style={{ marginLeft: '60px' }}>
-                <Tooltip title="mudar foto">
-                  <div style={{ width: 'fit-content' }}>
-                    <FileUploader icon handleUpload={handleAvatarUpload}>
-                      <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
-                    </FileUploader>
-                  </div>
-                </Tooltip>
-              </div>
+              {id === 'me' && (
+                <div style={{ marginLeft: '60px' }}>
+                  <Tooltip title="mudar foto">
+                    <div style={{ width: 'fit-content' }}>
+                      <FileUploader icon handleUpload={handleAvatarUpload}>
+                        <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
+                      </FileUploader>
+                    </div>
+                  </Tooltip>
+                </div>
+              )}
             </div>
           </div>
 
           <div className="profile-box">
-            <div className="profile-edit-info-icon">
-              <Tooltip title="editar informações">
-                <button type="button" className="profile-icon-button">
-                  <IconProfileEdit size="2x" />
-                </button>
-              </Tooltip>
-            </div>
+            {id === 'me' && (
+              <div className="profile-edit-info-icon">
+                <Tooltip title="editar informações">
+                  <button type="button" className="profile-icon-button">
+                    <IconProfileEdit size="2x" />
+                  </button>
+                </Tooltip>
+              </div>
+            )}
 
             <div className="profile-title">
               <Text

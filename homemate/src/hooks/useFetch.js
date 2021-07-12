@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import api from '../api';
 
-function useFetch(url) {
+function useFetch(url, callAgain) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,7 +20,7 @@ function useFetch(url) {
         setIsLoading(false);
         toast.error(msg);
       });
-  }, []);
+  }, [callAgain]);
 
   return { data, isLoading };
 }

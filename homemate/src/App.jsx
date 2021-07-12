@@ -35,9 +35,6 @@ function App() {
             <Route path="/posts/:id">
               <PostDetails />
             </Route>
-            <Route path="/profile">
-              <Profile />
-            </Route>
             <Route path="/profile/:id">
               <Profile />
             </Route>

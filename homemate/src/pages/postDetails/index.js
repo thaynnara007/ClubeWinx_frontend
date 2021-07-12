@@ -90,6 +90,7 @@ function PostDetails() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
 
   const { id } = useParams();
+
   const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
 
   const history = useHistory();
