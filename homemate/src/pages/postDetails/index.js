@@ -1,18 +1,14 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
-import { Avatar, Tooltip } from '@material-ui/core';
+import { useHistory } from 'react-router';
 
 import Text from '../../components/text';
 import Button from '../../components/button';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
-import IconEdit from '../../components/icons/iconEdit';
-import IconPhone from '../../components/icons/iconPhone';
-import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
-import IconAddress from '../../components/icons/iconAddress';
-import IconProfileEdit from '../../components/icons/iconEditProfile';
 import FileUploader from '../../components/fileUploader';
+import { getTagColor } from '../../utils/functions';
 
 import IconDoor from '../../components/icons/iconDoor';
 import IconBed from '../../components/icons/iconBed';
@@ -23,7 +19,8 @@ import './postDetails.css';
 import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/loading';
 import InfoSpan from '../../components/infoSpan';
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Picture from '../../components/picture';
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -35,24 +32,6 @@ const useStyles = makeStyles(() => ({
     left: '-50%',
   },
 }));
-
-const iconStyle = {
-  gridColumn: '1',
-  justifySelf: 'end',
-  width: 'fit-content',
-  height: 'fit-content',
-};
-
-const infoTextStyle = {
-  fontSize: '22px',
-  color: '#6983AA',
-  marginBottom: '0',
-  marginLeft: '30px',
-  gridColumn: '2',
-  justifySelf: 'start',
-  width: 'fit-content',
-  height: 'fit-content',
-};
 
 const descriptionBoxStyle = {
   display: {
@@ -66,26 +45,10 @@ const descriptionBoxStyle = {
   },
 };
 
-const tagsBoxStyle = {
-  display: {
-    gridColumn: '1 / 3',
-    gridRow: '5 / 7',
-    width: '80%',
-    height: '80%',
-    border: '2px solid #cbdae5',
-    borderRadius: '8px',
-    justifySelf: 'center',
-    marginTop: '40px',
-  },
-  item: {
-    height: 'fit-content',
-  },
-};
-
 const commumDisplay = {
   width: 'fit-content',
   height: 'fit-content',
-  marginBottom: '10px',
+  marginBottom: '30px',
 };
 
 const scrollBoxPriceStyles = {
@@ -133,8 +96,6 @@ const scrollBoxDescriptionStyles = {
   },
 };
 
-const textExample = `And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.And so, does the destination matter? Or is it the path we take? I declare that no accomplishment has substance nearly as great as the road used to achieve it. We are not creatures of destinations. It is the journey that shapes us. Our callused feet, our backs strong from carrying the weight of our travels, our eyes open with the fresh delight of experiences lived.`;
-
 function PostDetails() {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [isHeaderImage, setIsHeaderImage] = useState(false);
@@ -143,8 +104,7 @@ function PostDetails() {
   const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
   const loadingStyle = { marginTop: '400px' };
 
-  const styles = useStyles();
-  //post-details
+  const history = useHistory();
 
   const handleHeaderUpload = (file) => {
     if (file) {
@@ -153,6 +113,17 @@ function PostDetails() {
       setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
   };
+
+  const posts = [
+    {
+      id: 1,
+      post: 'https://dmhxz00kguanp.cloudfront.net/fotos/136023/quarto-infantil-estrelinha-rosa-291044.jpg',
+    },
+    {
+      id: 2,
+      post: 'https://images-americanas.b2w.io/produtos/01/00/img/84842/9/84842978_1GG.jpg',
+    },
+  ];
 
   return (
     <>
@@ -163,29 +134,14 @@ function PostDetails() {
           <div className="post-header" style={{ ...headerBackground }}>
             <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
               <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
-            </div>
-
-            <div style={{ position: 'absolute', left: '50%', top: '13%', zIndex: 3 }}>
-              <Avatar className={styles.avatar}>MD</Avatar>
-              <div style={{ marginLeft: '60px' }}>
-                <Tooltip title="mudar foto">
-                  <button type="button" className="post-icon-button">
-                    <IconEdit styles={{ zIndex: 4, color: '#6983AA' }} />
-                  </button>
-                </Tooltip>
-              </div>
+            </div>     
+          </div>
+          <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
+            <div className="Picture">
+              <Picture listPost={posts} />
             </div>
           </div>
-
           <div className="post-box">
-            <div className="post-edit-info-icon">
-              <Tooltip title="editar informações">
-                <button type="button" className="post-icon-button">
-                  <IconProfileEdit size="2x" />
-                </button>
-              </Tooltip>
-            </div>
-
             <div className="post-title">
               <Text
                 styles={{
@@ -196,31 +152,29 @@ function PostDetails() {
                   textTransform: 'capitalize',
                 }}
               >
-                {`${post.owner.address.street},   
-                ${post.owner.address.number}, 
-                ${post.owner.address.district}, 
-                ${post.owner.address.city}`}
+                {`${post?.owner.address.street ?? ''},   
+                ${post?.owner.address.number ?? ''}, 
+                ${post?.owner.address.district ?? ''}, 
+                ${post?.owner.address.city ?? ''}`}
                 {console.log(post)}
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
                 <Button
                   styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
-                  onClick={() => history.push(`/profile/id`)}
+                  onClick={() => history.push(`/profile/${id}`)}
                 >
                   VER PERFIL DO ANUNCIANTE
                 </Button>
               </div>
             </div>
-
             <div className="post-vl" />
-
             <div className="post-info-display">
               <ScrollBox styles={scrollBoxPriceStyles}>
-                {[<span className="flip-card-back-font">{`R$ ${post.expense},00`}</span>]}
+                {[<span className="flip-card-back-font">{`R$ ${post?.expense ?? ''},00`}</span>]}
               </ScrollBox>
               <ScrollBox styles={scrollBoxIconsStyles}>
                 {[
-                  <InfoSpan description="pessoas" amountText={post.residents}>
+                  <InfoSpan description="pessoas" amountText={post?.residents ?? ''}>
                     <IconPeople />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
@@ -237,21 +191,20 @@ function PostDetails() {
                   </InfoSpan>,
                 ]}
               </ScrollBox>
-              <ScrollBox styles={scrollBoxDescriptionStyles}>{[post.description]}</ScrollBox>
+              <ScrollBox styles={scrollBoxDescriptionStyles}>{[post?.description ?? '']}</ScrollBox>
             </div>
             <ScrollBox styles={descriptionBoxStyle}>
-              {[
-                <InputTag styles={{ backgroundColor: 'red' }}>cachorro</InputTag>,
-                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-                <InputTag styles={{ backgroundColor: 'black' }}>UFCG</InputTag>,
-                <InputTag styles={{ backgroundColor: 'orange' }}>mecânica</InputTag>,
-                <InputTag styles={{ backgroundColor: 'green' }}>planta</InputTag>,
-                <InputTag styles={{ backgroundColor: 'grey' }}>música</InputTag>,
-                <InputTag styles={{ backgroundColor: 'pink' }}>LGBTQ+</InputTag>,
-                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-                <InputTag styles={{ backgroundColor: 'blue' }}>fumanete</InputTag>,
-              ]}
+            {post?.tags
+                ? post?.tags?.map((tag) => {
+                    const tagColor = getTagColor(tag?.categoryId);
+
+                    return (
+                      <InputTag
+                        styles={{ backgroundColor: `${tagColor}` }}
+                      >{`${tag?.name}`}</InputTag>
+                    );
+                  })
+                : []}
             </ScrollBox>
           </div>
         </>
