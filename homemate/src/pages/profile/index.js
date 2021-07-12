@@ -211,7 +211,7 @@ function Profile() {
             </div>
 
             <ScrollBox styles={descriptionBoxStyle}>
-              {[<p className="profile-description-text">{`${userData?.description}`}</p>]}
+              {[<p className="profile-description-text">{`${userData?.description ?? ''}`}</p>]}
             </ScrollBox>
 
             <ScrollBox styles={tagsBoxStyle}>
