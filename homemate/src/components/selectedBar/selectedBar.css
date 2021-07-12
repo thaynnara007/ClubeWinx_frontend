@@ -21,8 +21,6 @@
   transition: 0.2s ease color;
 }
 
-
 .selectBarComponent-component-navbar-selected {
   border-bottom: 5px solid #8ec6c5;
 }
-

@@ -39,9 +39,10 @@ function Code(props) {
       };
       api
         .post('/auth/verify/code', body)
-        .then((response) => {
+        .then(async (response) => {
           const { token } = response.data;
-          localStorage.setItem('homemate_access_token', token);
+
+          await localStorage.setItem('homemate_access_token', token);
           setState(PASSWORD_RECOVERY_CHANGE);
         })
         .catch((error) => {

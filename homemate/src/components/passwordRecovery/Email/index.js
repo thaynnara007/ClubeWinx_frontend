@@ -18,7 +18,6 @@ const stylesValid = {
   },
 };
 
-
 function Email(props) {
   const { setState, email, setEmail, setIsLoading } = props;
   const [labelEmailStyle, setLabelEmailStyle] = useState({});
@@ -43,7 +42,6 @@ function Email(props) {
           toast('Código enviado');
           setIsLoading(false);
           setState(PASSWORD_RECOVERY_CODE);
-          
         })
         .catch((error) => {
           setIsLoading(false);
@@ -63,7 +61,6 @@ function Email(props) {
       </BaseButton>
     </>
   );
-
 }
 
 export default Email;
