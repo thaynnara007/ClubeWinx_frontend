@@ -38,6 +38,9 @@ function App() {
             <Route path="/profile">
               <Profile />
             </Route>
+            <Route path="/profile/:id">
+              <Profile />
+            </Route>
             <Route path="/explore">
               <Explore />
             </Route>
@@ -48,7 +51,7 @@ function App() {
               <Logout />
             </Route>
             <Route path="/PasswordRecovery">
-              <PasswordRecovery showNavbar={setShowNavbar}/>
+              <PasswordRecovery showNavbar={setShowNavbar} />
             </Route>
             <Route path="*">
               <NotFound />

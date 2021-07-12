@@ -1,7 +1,5 @@
 .profile-header {
   height: 50vh;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 
 .profile-box {
@@ -66,16 +64,4 @@
 .profile-description-text {
   font-size: '20px';
   color: #6983aa;
-}
-
-.component-image-cover {
-  overflow: hidden;
-  display: inline-block;
-}
-
-.component-image-cover input[type='file'] {
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
 }

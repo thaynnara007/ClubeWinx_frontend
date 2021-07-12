@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
@@ -216,11 +218,12 @@ function Profile() {
 
             <ScrollBox styles={tagsBoxStyle}>
               {userData?.tags
-                ? userData?.tags?.map((tag) => {
+                ? userData?.tags?.map((tag, index) => {
                     const tagColor = getTagColor(tag?.categoryId);
 
                     return (
                       <InputTag
+                        key={index}
                         styles={{ backgroundColor: `${tagColor}` }}
                       >{`${tag?.name}`}</InputTag>
                     );
