@@ -159,7 +159,7 @@ function PostDetails() {
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
                 <Text styles={{ ...textStyle, fontSize: '28px' }}>
-                  {`CPF: ${post?.owner.address.zipCode ?? ''}`}
+                  {`CEP: ${post?.owner.address.zipCode ?? ''}`}
                 </Text>
               </div>
             </div>
