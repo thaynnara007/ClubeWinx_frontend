@@ -28,7 +28,9 @@ function InputTag(props) {
   truncateTag(children);
   return (
     <div className="components-inputTag-tag" style={styles ?? {}}>
-      <span onClick={() => clickTag(children)}>{tagValue}</span>
+      <span className="components-inputTag-font" onClick={() => clickTag(children)}>
+        {tagValue}
+      </span>
       {truncate || children !== tagValue ? (
         <span onClick={() => changeTag(tagValue)}>{expanseTag}</span>
       ) : (

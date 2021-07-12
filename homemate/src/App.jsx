@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import Home from './pages/homepage';
 import Posts from './pages/posts';
 import PostDetails from './pages/postDetails';
-import Profile from './pages/Profile';
+import Profile from './pages/profile';
 import Explore from './pages/Explore';
 import About from './pages/About';
 import Logout from './pages/Logout';

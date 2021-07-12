@@ -2,11 +2,13 @@
   display: inline-flex;
   align-items: center;
   margin: 5px 5px;
+  padding: 5px 20px;
   margin-right: 10px;
-  padding: 5px 5px;
-  padding-right: 5px;
-  border: none;
-  border-radius: 15px;
+  border-radius: 5px;
   color: white;
   cursor: pointer;
+}
+
+.components-inputTag-font {
+  font-weight: bold;
 }
