@@ -18,8 +18,9 @@ const stylesValid = {
   },
 };
 
+
 function Email(props) {
-  const { setState, email, setEmail } = props;
+  const { setState, email, setEmail, setIsLoading } = props;
   const [labelEmailStyle, setLabelEmailStyle] = useState({});
 
   const validateEmail = () => {
@@ -31,6 +32,7 @@ function Email(props) {
 
   const recovery = () => {
     if (validateEmail()) {
+      setIsLoading(true);
       const body = {
         email,
       };
@@ -39,9 +41,12 @@ function Email(props) {
         .post('/user/forget/password', body)
         .then(() => {
           toast('Código enviado');
+          setIsLoading(false);
           setState(PASSWORD_RECOVERY_CODE);
+          
         })
         .catch((error) => {
+          setIsLoading(false);
           let msg = '';
           if (error.response) msg = error.response.data.error;
           else msg = 'Network failed';
@@ -58,6 +63,7 @@ function Email(props) {
       </BaseButton>
     </>
   );
+
 }
 
 export default Email;
