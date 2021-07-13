@@ -14,6 +14,7 @@ import Button from '../../components/button';
 import Loading from '../../components/loading';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
+import { DATE_FORMAT } from '../../utils/constants';
 import { getTagColor } from '../../utils/functions';
 import IconEdit from '../../components/icons/iconEdit';
 import FileUploader from '../../components/fileUploader';
@@ -127,7 +128,14 @@ function Profile() {
     }
   };
 
-  const getAge = (birthday) => (birthday ? moment().diff(birthday, 'years') : '');
+  const getAge = (birthday) => {
+    if (birthday) {
+      const bDay = moment(birthday, DATE_FORMAT);
+
+      return moment().diff(bDay, 'years');
+    }
+    return '';
+  };
 
   return (
     <>
