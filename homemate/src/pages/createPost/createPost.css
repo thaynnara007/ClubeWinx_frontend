@@ -1,4 +1,4 @@
-.homepage-background {
+.createPost-background {
   background-color: #fff;
   background-size: cover;
   background-position: center center;
@@ -18,4 +18,9 @@
 .homepage-logo {
   height: 150px;
   width: 150px;
+}
+
+.arrow-left-icon-button {
+  border: none;
+  background-color: transparent;
 }

@@ -5,14 +5,16 @@ import AddTag from '../../components/addTag';
 import TabBar from '../../components/tabBar';
 import NewPost from '../../components/newPost';
 import Flex from '../../components/flex';
+import IconArrowLeft from '../../components/icons/iconArrowLeft';
 
 import './createPost.css';
+import { useHistory } from 'react-router';
 
-function CreatePost({ showNavbar }) {
-  showNavbar(false);
-
+function CreatePost() {
   const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
   const [isFlipped, setIsFlipped] = useState(false);
+
+  const history = useHistory();
 
   const handleClickCreatePost = () => {
     setIsFlipped(false);
@@ -24,20 +26,35 @@ function CreatePost({ showNavbar }) {
     setChoosedTab('ADICIONAR TAGS');
   };
 
+  const homepage = () => {
+    window.location.replace('/posts');
+  };
+
+  const back = (
+    <button
+      type="button"
+      className="profile-icon-button"
+      onClick={() => history.push('/profile/me')}
+    >
+      <IconArrowLeft styles={{ zIndex: 4, color: '#FFFFFF' }} />
+    </button>
+  );
+
   return (
-    <div className="homepage-background">
+    <div className="createPost-background">
       <Flex styles={{ width: '50%', margin: '0 auto' }}>
         <img
           src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
           className="homepage-logo"
           alt="homemate's logo"
+          onClick={() => homepage()}
         />
         <TabBar
           choosed={choosedTab}
           styles={{ top: '160px' }}
           actions={[handleClickCreatePost, handleClickAddTag]}
         >
-          {['CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
+          {[back, 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
         </TabBar>
         <ReactCardFlip
           isFlipped={isFlipped}

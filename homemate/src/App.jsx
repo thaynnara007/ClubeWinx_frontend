@@ -31,7 +31,7 @@ function App() {
               <Home showNavbar={setShowNavbar} />
             </Route>
             <Route exact path="/createPost">
-              <CreatePost showNavbar={setShowNavbar} />
+              <CreatePost />
             </Route>
             <Route exact path="/posts">
               <Posts />

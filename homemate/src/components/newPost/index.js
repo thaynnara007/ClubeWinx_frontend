@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../../api';
@@ -21,99 +21,85 @@ const stylesValid = {
 };
 
 function NewPost() {
-  const [valor, setValor] = useState('');
-  const [descricao, setDescricao] = useState('');
-  const [moradores, setMoradores] = useState('');
-  const [quartos, setQuartos] = useState('');
-  const [rua, setRua] = useState('');
-  const [numero, setNumero] = useState('');
-  const [bairro, setBairro] = useState('');
+  const [expense, setExpense] = useState('');
+  const [description, setDescription] = useState('');
+  const [residents, setResidents] = useState('');
+  const [vacancies, setVacancies] = useState('');
+  const [bathrooms, setBathrooms] = useState('');
+  const [beds, setBeds] = useState('');
+
+  const [labelExpenseStyle, setLabelExpenseStyle] = useState({});
+  const [labelDescriptionStyle, setLabelDescriptionStyle] = useState({});
+  const [labelResidentsStyle, setLabelResidentsStyle] = useState({});
+  const [labelVacanciesStyle, setLabelVacanciesStyle] = useState({});
+  const [labelBathroomsStyle, setLabelBathroomsStyle] = useState({});
+  const [labelBedsStyle, setLabelBedsStyle] = useState({});
+
   const [loading, setLoading] = useState(false);
-  const [labelValorStyle, setLabelValorStyle] = useState({});
-  const [labelDescricaoStyle, setLabelDescricaoStyle] = useState({});
-  const [labelMoradoresStyle, setLabelMoradoresStyle] = useState({});
-  const [labelQuartosStyle, setLabelQuartosStyle] = useState({});
-  const [labelRuaStyle, setLabelRuaStyle] = useState({});
-  const [labelNumeroStyle, setLabelNumeroStyle] = useState({});
-  const [labelBairroStyle, setLabelBairroStyle] = useState({});
 
-  const validateValor = () => {
-    const validation = valor === '' || valor === null;
+  const [street, setStreet] = useState('');
+  const [number, setNumber] = useState('');
+  const [district, setDistrict] = useState('');
+  const [complement, setComplement] = useState('');
+  const [zipCode, setZipCode] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
 
-    setLabelValorStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateExpense = () => {
+    const validation = expense === '' || expense === null;
+    setLabelExpenseStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
-  const validateDescricao = () => {
-    const validation = descricao === '' || descricao === null;
-
-    setLabelDescricaoStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateDescription = () => {
+    const validation = description === '' || description === null;
+    setLabelDescriptionStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
-  const validateMoradores = () => {
-    const validation = moradores === '' || moradores === null;
-
-    setLabelMoradoresStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateResidents = () => {
+    const validation = residents === '' || residents === null;
+    setLabelResidentsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
-  const validateQuartos = () => {
-    const validation = quartos === '' || quartos === null;
-
-    setLabelQuartosStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateVacancies = () => {
+    const validation = vacancies === '' || vacancies === null;
+    setLabelVacanciesStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
-  const validateRua = () => {
-    const validation = rua === '' || rua === null;
-
-    setLabelRuaStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateBathrooms = () => {
+    const validation = bathrooms === '' || bathrooms === null;
+    setLabelBathroomsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
-  const validateNumero = () => {
-    const validation = numero === '' || numero === null;
-
-    setLabelNumeroStyle(validation ? stylesInvalid : stylesValid);
-
-    return !validation;
-  };
-
-  const validateBairro = () => {
-    const validation = bairro === '' || bairro === null;
-
-    setLabelBairroStyle(validation ? stylesInvalid : stylesValid);
-
+  const validateBeds = () => {
+    const validation = beds === '' || beds === null;
+    setLabelBedsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
   const validateInfo = () =>
-    validateValor() &&
-    validateDescricao() &&
-    validateMoradores() &&
-    validateQuartos() &&
-    validateRua() &&
-    validateNumero() &&
-    validateBairro();
+    validateExpense() &&
+    validateDescription() &&
+    validateResidents() &&
+    validateVacancies() &&
+    validateBathrooms() &&
+    validateBeds();
 
   const register = () => {
     if (validateInfo()) {
       setLoading(true);
 
       const body = {
-        valor,
-        descricao,
-        moradores,
-        quartos,
-        rua,
-        numero,
-        bairro,
+        expense,
+        description,
+        residents,
+        vacancies,
+        bathrooms,
+        beds,
       };
 
       api
@@ -138,6 +124,21 @@ function NewPost() {
     }
   };
 
+  const getAddress = () => {
+    api.get('/address/me').then((response) => {
+      setStreet(response.data.street);
+      setNumber(response.data.number);
+      setDistrict(response.data.district);
+      setZipCode(response.data.zipCode);
+      setCity(response.data.city);
+      setState(response.data.state);
+    });
+  };
+
+  useEffect(() => {
+    getAddress();
+  }, []);
+
   return (
     <>
       {loading ? (
@@ -146,28 +147,44 @@ function NewPost() {
         </div>
       ) : (
         <>
-          <Input name="VALOR" value={valor} onChange={setValor} styles={labelValorStyle} />
+          <Input name="VALOR" value={expense} onChange={setExpense} styles={labelExpenseStyle} />
           <Input
             name="DESCRIÇÃO"
-            value={descricao}
-            onChange={setDescricao}
-            styles={labelDescricaoStyle}
+            value={description}
+            onChange={setDescription}
+            styles={labelDescriptionStyle}
           />
           <Input
             name="QUANTIDADE DE MORADORES"
-            value={moradores}
-            onChange={setMoradores}
-            styles={labelMoradoresStyle}
+            value={residents}
+            onChange={setResidents}
+            styles={labelResidentsStyle}
           />
           <Input
             name="QUANTIDADE DE QUARTOS"
-            value={quartos}
-            onChange={setQuartos}
-            styles={labelQuartosStyle}
+            value={vacancies}
+            onChange={setVacancies}
+            styles={labelVacanciesStyle}
           />
-          <Input name="RUA" value={rua} onChange={setRua} styles={labelRuaStyle} />
-          <Input name="NÚMERO" value={numero} onChange={setNumero} styles={labelNumeroStyle} />
-          <Input name="BAIRRO" value={bairro} onChange={setBairro} styles={labelBairroStyle} />
+          <Input
+            name="QUANTIDADE DE BANHEIROS"
+            value={bathrooms}
+            onChange={setBathrooms}
+            styles={labelBathroomsStyle}
+          />
+          <Input
+            name="QUANTIDADE DE CAMAS"
+            value={beds}
+            onChange={setBeds}
+            styles={labelBedsStyle}
+          />
+          <Input name="RUA" value={street} onChange={() => {}} />
+          <Input name="NÚMERO" value={number} onChange={() => {}} />
+          <Input name="BAIRRO" value={district} onChange={() => {}} />
+          <Input name="COMPLEMENTO" value={complement} onChange={() => {}} />
+          <Input name="CEP" value={zipCode} onChange={() => {}} />
+          <Input name="CIDADE" value={city} onChange={() => {}} />
+          <Input name="ESTADO" value={state} onChange={() => {}} />
           <BaseButton onClick={register} styles={{ width: '100%', fontWeight: 'bold' }}>
             CRIAR
           </BaseButton>
