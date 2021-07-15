@@ -42,6 +42,9 @@ function ChangePassword() {
   const validate = () => {
     if (validatePassword() && validatePassword2()) {
       const valid = newPassword === newPassword2;
+
+      setConfirmPassword(!valid ? stylesInvalid : stylesValid);
+
       return valid;
     }
     return false;
