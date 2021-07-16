@@ -18,9 +18,7 @@ import '../homepage/homepage.css';
 
 const loadingStyle = { marginTop: '400px' };
 
-function PasswordRecovery({ showNavbar }) {
-  showNavbar(false);
-
+function PasswordRecovery() {
   const [recoveryPage, setRecoveryPage] = useState(PASSWORD_RECOVERY_EMAIL);
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
