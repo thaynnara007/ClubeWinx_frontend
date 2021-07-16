@@ -1,24 +1,38 @@
 import React from 'react';
 import '../components/picture/picture.css';
-import Picture from '../components/picture';
+import Autocomplete from "../components/autocomplete";
+import { useState, useEffect } from 'react';
+import api from '../api';
 
 function Explore() {
-  const posts = [
-    {
-      id: 1,
-      post: 'https://dmhxz00kguanp.cloudfront.net/fotos/136023/quarto-infantil-estrelinha-rosa-291044.jpg',
-      legend: 'Quarto',
-    },
-    {
-      id: 2,
-      post: 'https://images-americanas.b2w.io/produtos/01/00/img/84842/9/84842978_1GG.jpg',
-      legend: 'Banheiro',
-    },
+  const [tags, setTags] = useState([]);
+  const [filterTags, setFiltertags] = useState([]);
+
+  const teste = [
+    { id: 69, name: 'Cachorro', isFixed: true, categoryId: 5 },
+    { id: 70, name: 'Calopsita', isFixed: true, categoryId: 5 },
+    { id: 72, name: 'Coelho', isFixed: true, categoryId: 5 },
+    { id: 73, name: 'Gato', isFixed: true, categoryId: 5 },
+    { id: 74, name: 'Hamster', isFixed: true, categoryId: 5 },
+    { id: 75, name: 'Periquito', isFixed: true, categoryId: 5 },
+    { id: 76, name: 'Porco', isFixed: true, categoryId: 5 },
+    { id: 71, name: 'Porquinho-da-india', isFixed: true, categoryId: 5 }
   ];
 
+  const updateSelectList = () => {
+    const att = filterTags && filterTags.length > 0 && filterTags.map(x => (<h1>{x.name}</h1>))
+    console.log("att: ",att)
+    setTags(att)
+  }
+
+  useEffect(() => {
+    updateSelectList()
+  }, [filterTags]);
+
   return (
-    <div className="Picture">
-      <Picture listPost={posts} />
+    <div>
+        { tags }
+        <Autocomplete filterTags={filterTags} setFiltertags={setFiltertags} suggestions={teste}/>
     </div>
   );
 }
