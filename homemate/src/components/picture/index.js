@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
@@ -7,10 +9,9 @@ function Picture({ listPost }) {
     <Carousel showArrows infiniteLoop showStatus={false} showIndicators={false} showThumbs={false}>
       {listPost &&
         listPost.length > 0 &&
-        listPost.map((post) => (
-          <div>
-            <img alt="" src={post.post} />
-            <p className="legend">{post.legend}</p>
+        listPost.map((post, index) => (
+          <div key={index}>
+            <img alt="" src={post.pictureUrl} />
           </div>
         ))}
     </Carousel>

@@ -35,7 +35,7 @@ function App() {
             <Route path="/posts/:id">
               <PostDetails />
             </Route>
-            <Route path="/profile">
+            <Route path="/profile/:id">
               <Profile />
             </Route>
             <Route path="/explore">
