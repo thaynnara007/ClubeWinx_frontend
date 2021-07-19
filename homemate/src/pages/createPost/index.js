@@ -36,7 +36,7 @@ function CreatePost() {
       className="profile-icon-button"
       onClick={() => history.push('/profile/me')}
     >
-      <IconArrowLeft styles={{ zIndex: 4, color: '#FFFFFF' }} />
+      <IconArrowLeft styles={{  color: '#FFFFFF' }} />
     </button>
   );
 
