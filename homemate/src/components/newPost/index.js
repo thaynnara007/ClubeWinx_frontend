@@ -21,6 +21,32 @@ const stylesValid = {
   },
 };
 
+const buttonStyle = { width: '100%', fontWeight: 'bold' };
+const disabledButtonStyle = { ...buttonStyle, backgroundColor: 'grey', cursor: 'not-allowed' };
+
+const UPDATE_YOUR_ADDRESS = 'Pegaremos essa informação do seu perfil.';
+const disabledButtonTip =
+  'Para criar um anúncio, você precisa ter alguma informação relativa a endereço no seu';
+
+const HtmlTooltip = withStyles(() => ({
+  tooltip: {
+    backgroundColor: '#F4F4F4',
+    color: '#6983AA',
+    maxWidth: 250,
+    fontSize: '18px',
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
+
+const tooltip = (
+  <>
+    <p>
+      {disabledButtonTip}
+      <b>{' perfil.'}</b>
+    </p>
+  </>
+);
+
 function NewPost() {
   const { data: address, isLoading } = useFetch('/address/me');
   
