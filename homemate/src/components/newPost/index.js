@@ -101,10 +101,8 @@ function NewPost() {
         .then((response) => {
           if (response) {
             setLoading(false);
-            setPassword('');
 
             toast('Anúncio criado com sucesso!');
-            toLogin();
           }
         })
         .catch((error) => {
