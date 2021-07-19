@@ -14,6 +14,7 @@ import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
 import PasswordRecovery from './pages/passwordRecovery';
 import EditProfile from './pages/editProfile';
+import CreatePost from './pages/createPost';
 
 const isLoginPage = () => window.location.pathname !== '/';
 
@@ -29,6 +30,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home showNavbar={setShowNavbar} />
+            </Route>
+            <Route exact path="/createPost">
+              <CreatePost />
             </Route>
             <Route exact path="/posts">
               <Posts />

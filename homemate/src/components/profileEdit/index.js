@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
+
+import { useHistory } from 'react-router';
 
 const stylesInvalid = {
   label: {
@@ -25,6 +27,8 @@ function ProfileEdit() {
   const [problemSocialMedia, setProblemSocialMedia] = useState(false);
 
   const [loading, setLoading] = useState(false);
+
+  const history = useHistory();
 
   const validateDescription = () => {
     const validation = description === '' || description === null;
@@ -53,6 +57,7 @@ function ProfileEdit() {
         .put(`/profile/me`, body)
         .then(() => {
           toast('Informações atualizadas com sucesso');
+          history.push('/profile/me');
         })
         .catch((error) => {
           let msg = '';

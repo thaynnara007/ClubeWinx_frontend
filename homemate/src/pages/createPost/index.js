@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 
+import AddTag from '../../components/addTag';
 import TabBar from '../../components/tabBar';
+import NewPost from '../../components/newPost';
 import Flex from '../../components/flex';
 import IconArrowLeft from '../../components/icons/iconArrowLeft';
 
-import './editProfile.css';
+import './createPost.css';
 import { useHistory } from 'react-router';
-import ProfileEdit from '../../components/profileEdit';
-import EditRegister from '../../components/editRegister';
 
-function EditProfile() {
-  const [choosedTab, setChoosedTab] = useState('PERFIL');
+function CreatePost() {
+  const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
   const [isFlipped, setIsFlipped] = useState(false);
 
   const history = useHistory();
 
-  const handleClickEditProfile = () => {
+  const handleClickCreatePost = () => {
     setIsFlipped(false);
-    setChoosedTab('PERFIL');
+    setChoosedTab('CRIAR ANÚNCIO');
   };
 
-  const handleClickEditRegister = () => {
+  const handleClickAddTag = () => {
     setIsFlipped(true);
-    setChoosedTab('CADASTRO');
+    setChoosedTab('ADICIONAR TAGS');
   };
 
   const homepage = () => {
@@ -33,28 +33,29 @@ function EditProfile() {
   const back = (
     <button
       type="button"
-      className="profile-icon-button"
+      className="arrow-left-icon-button"
       onClick={() => history.push('/profile/me')}
     >
-      <IconArrowLeft styles={{ zIndex: 4, color: '#FFFFFF' }} />
+      <IconArrowLeft styles={{  color: '#FFFFFF' }} />
     </button>
   );
 
   return (
-    <div className="editProfile-background">
+    <div className="homepage-background createPost-background">
       <Flex styles={{ width: '50%', margin: '0 auto' }}>
         <img
           src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
           className="homepage-logo"
           alt="homemate's logo"
+          style={{ cursor: 'pointer'}}
           onClick={() => homepage()}
         />
         <TabBar
           choosed={choosedTab}
           styles={{ top: '160px' }}
-          actions={[() => {}, handleClickEditProfile, handleClickEditRegister]}
+          actions={[() => {}, handleClickCreatePost, handleClickAddTag]}
         >
-          {[back, 'PERFIL', 'CADASTRO']}
+          {[back, 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
         </TabBar>
         <ReactCardFlip
           isFlipped={isFlipped}
@@ -62,10 +63,11 @@ function EditProfile() {
           containerStyle={{ width: '50%', marginTop: '100px' }}
         >
           <Flex styles={{ width: '100%' }}>
-            <ProfileEdit/>
+            <NewPost />
           </Flex>
+
           <Flex styles={{ width: '100%' }}>
-            <EditRegister/>
+            <AddTag />
           </Flex>
         </ReactCardFlip>
       </Flex>
@@ -73,4 +75,4 @@ function EditProfile() {
   );
 }
 
-export default EditProfile;
+export default CreatePost;
