@@ -202,15 +202,15 @@ function Profile() {
                   >
                     VER ANÚNCIO
                   </Button>
-                ) : id === 'me' ? (
-                  <Button
-                    styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
-                    onClick={createPost}
-                  >
-                    CRIAR ANÚNCIO
-                  </Button>
                 ) : (
-                  ''
+                  id === 'me' && (
+                    <Button
+                      styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                      onClick={createPost}
+                    >
+                      CRIAR ANÚNCIO
+                    </Button>
+                  )
                 )}
               </div>
             </div>

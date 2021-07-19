@@ -116,9 +116,11 @@ function PostDetails() {
       ) : (
         <>
           <div className="post-header" style={{ ...headerBackground }}>
-            <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-              <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
-            </div>
+            {id === 'my' && (
+              <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
+                <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
+              </div>
+            )}
           </div>
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
@@ -136,13 +138,15 @@ function PostDetails() {
               ]}
             </ScrollBox>
 
-            <div className="post-edit-info-icon">
-              <Tooltip title="editar informações">
-                <button type="button" className="post-icon-button">
-                  <IconEdit size="2x" />
-                </button>
-              </Tooltip>
-            </div>
+            {id === 'my' && (
+              <div className="post-edit-info-icon">
+                <Tooltip title="editar informações">
+                  <button type="button" className="post-icon-button">
+                    <IconEdit size="2x" />
+                  </button>
+                </Tooltip>
+              </div>
+            )}
 
             <div className="post-title">
               <Text
