@@ -4,8 +4,6 @@ import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
 
-import './editRegister.css';
-
 const stylesInvalid = {
   label: {
     color: 'red',

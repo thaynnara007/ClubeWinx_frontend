@@ -8,18 +8,13 @@ import IconArrowLeft from '../../components/icons/iconArrowLeft';
 import './editProfile.css';
 import { useHistory } from 'react-router';
 import ProfileEdit from '../../components/profileEdit';
-import EditRegister from '../../components/editRegister'
+import EditRegister from '../../components/editRegister';
 
 function EditProfile() {
   const [choosedTab, setChoosedTab] = useState('PERFIL');
   const [isFlipped, setIsFlipped] = useState(false);
 
   const history = useHistory();
-
-  const handleClickEditAddress = () => {
-    setIsFlipped(false);
-    setChoosedTab('ENDEREÇO');
-  };
 
   const handleClickEditProfile = () => {
     setIsFlipped(true);
@@ -57,9 +52,9 @@ function EditProfile() {
         <TabBar
           choosed={choosedTab}
           styles={{ top: '160px' }}
-          actions={[handleClickEditAddress, handleClickEditProfile, handleClickEditRegister]}
+          actions={[handleClickEditProfile, handleClickEditRegister]}
         >
-          {[back, 'ENDEREÇO', 'PERFIL', 'CADASTRO']}
+          {[back, 'PERFIL', 'CADASTRO']}
         </TabBar>
         <ReactCardFlip
           isFlipped={isFlipped}
@@ -67,10 +62,10 @@ function EditProfile() {
           containerStyle={{ width: '50%', marginTop: '100px' }}
         >
           <Flex styles={{ width: '100%' }}>
-            <ProfileEdit />
+            <ProfileEdit/>
           </Flex>
           <Flex styles={{ width: '100%' }}>
-            <EditRegister />
+            <EditRegister/>
           </Flex>
         </ReactCardFlip>
       </Flex>
