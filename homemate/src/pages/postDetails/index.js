@@ -19,6 +19,7 @@ import Loading from '../../components/loading';
 import InfoSpan from '../../components/infoSpan';
 import Picture from '../../components/picture';
 import IconEdit from '../../components/icons/iconEdit';
+import IconTrash from '../../components/icons/iconTrash';
 
 import './postDetails.css';
 
@@ -140,9 +141,14 @@ function PostDetails() {
 
             {id === 'my' && (
               <div className="post-edit-info-icon">
-                <Tooltip title="editar informações">
+                <Tooltip title="Editar informações">
                   <button type="button" className="post-icon-button">
                     <IconEdit size="2x" />
+                  </button>
+                </Tooltip>
+                <Tooltip title="Deletar anúncio">
+                  <button type="button" className="post-icon-button" style={{ marginLeft: '20px' }}>
+                    <IconTrash styles={{ color: '#FF7E67' }} size="2x" />
                   </button>
                 </Tooltip>
               </div>
