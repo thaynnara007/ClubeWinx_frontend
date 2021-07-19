@@ -1,13 +1,35 @@
 import React, { Fragment, useState } from "react";
+import useFetch from '../../hooks/useFetch';
+import InputTag from '../inputTag';
+import { getTagColor } from '../../utils/functions';
+
 import "./autocomplete.css";
 
+const teste = [
+  { id: 69, name: 'Cachorro', isFixed: true, categoryId: 5 },
+  { id: 70, name: 'Calopsita', isFixed: true, categoryId: 5 },
+  { id: 72, name: 'Coelho', isFixed: true, categoryId: 5 },
+  { id: 73, name: 'Gato', isFixed: true, categoryId: 5 },
+  { id: 74, name: 'Hamster', isFixed: true, categoryId: 5 },
+  { id: 75, name: 'Periquito', isFixed: true, categoryId: 5 },
+  { id: 76, name: 'Porco', isFixed: true, categoryId: 5 },
+  { id: 71, name: 'Porquinho-da-india', isFixed: true, categoryId: 5 }
+];
+
+
 function Autocomplete(props) {
-  const { suggestions ,filterTags, setFiltertags } = props;
+  const { tags, setTags } = props
+  const { data: suggestions, isLoading } = useFetch('/tag');
+
+  //const [suggestions, setSuggestions] = useState(teste);
   const [activeSuggestion, setActiveSuggestion] = useState();
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState('');
-  const [selecionado, setSelecionado] = useState([]);
+
+  const [filterTags, setFiltertags] = useState([]);//tags clicadas id e name
+  // const [tags, setTags] = useState([]);//filtertags em botao
+
 
   const onChange = e => {
     const input = e.currentTarget.value;
@@ -27,62 +49,34 @@ function Autocomplete(props) {
   };
 
   const onClick = e => {
-    setSelecionado(selecionado.concat([activeSuggestion]));
     setActiveSuggestion(activeSuggestion);
     setFilteredSuggestions([]);
     setShowSuggestions(false);
     setUserInput("");
     console.log(e.currentTarget.innerText)
     console.log(e.currentTarget.value)
+
     const tag = {
-      id: e.currentTarget.value.id,
+      id: e.currentTarget.value,
       name: e.currentTarget.innerText
     }
-    filterTags.push(tag)
-    console.log(filterTags.length > 0)
-    console.log(filterTags)
-    // console.log(e.target.value)
-    // console.log(selecionado)
-    // console.log(filterTags)
 
-    // if (filterTags && filterTags.length > 0) {
-    //   setFiltertags(filterTags.concat([selecionado]))  
-    // } else {
-    //   setFiltertags([selecionado]);
-    // } 
+    filterTags.push(tag)
+    setFiltertags(filterTags)
+    updateSelectList()
+
   };
 
-  // const onKeyDown = e => {
-
-  //   if (e.keyCode === 13) {
-  //     // this.setState({
-  //     //   activeSuggestion: 0,
-  //     //   showSuggestions: false,
-  //     //   userInput: filteredSuggestions[activeSuggestion]
-  //     // });
-  //     setActiveSuggestion(0);
-  //     setFilteredSuggestions(activeSuggestion.name);
-  //     setShowSuggestions(false);
-  //   } else if (e.keyCode === 38) {
-  //     if (activeSuggestion === 0) {
-  //       return;
-  //     }
-  //     // this.setState({ activeSuggestion: activeSuggestion - 1 });
-  //     setActiveSuggestion(activeSuggestion - 1);
-
-  //   }
-  //   // User pressed the down arrow, increment the index
-  //   else if (e.keyCode === 40) {
-  //     if (activeSuggestion - 1 === filteredSuggestions.length) {
-  //       return;
-  //     }
-  //     // this.setState({ activeSuggestion: activeSuggestion + 1 });
-  //     setActiveSuggestion(activeSuggestion + 1);
-
-  //   }
-  // };
-
-  const suggestionsListComponent = (filteredSuggestions.length)
+    const updateSelectList = () => {
+      const att = filterTags && filterTags.length > 0 && filterTags.map(x => {
+        const tagColor = getTagColor(x?.categoryId);
+        return(<InputTag styles={{ backgroundColor: `${tagColor}`}}>{x.name} {x.id}</InputTag>);
+        })
+      console.log("att: ",att)
+      setTags(att)
+    }
+    
+  const suggestionsListComponent = (filteredSuggestions.length > 0)
     ?
     <ul class="suggestions">
       {filteredSuggestions.map((suggestion, index) => {
@@ -91,8 +85,9 @@ function Autocomplete(props) {
         if (index === activeSuggestion) {
           className = "suggestion-active";
         }
+
         return (
-          <li value={suggestion[index]} className={className} key={suggestion.id} onClick={onClick}>
+          <li value={suggestion.id} className={className} key={suggestion.id} onClick={onClick}>
             {suggestion.name}
           </li>
         );
@@ -121,17 +116,19 @@ function Autocomplete(props) {
   };
 
   return (
-    <Fragment>
-      <input
-        type="text"
-        onChange={onChange}
-        // onKeyDown={onKeyDown}
-        value={userInput}
-        placeholder='Pesquisa por tag'
-      />
-      {suggestionsListComponent}
-      <h1>{selecionado}</h1>
-    </Fragment>
+    <div>
+
+      <Fragment>
+        <input
+          type="text"
+          onChange={onChange}
+          // onKeyDown={onKeyDown}
+          value={userInput}
+          placeholder='Pesquisa por tag'
+        />
+        {suggestionsListComponent}
+      </Fragment>
+    </div>
   );
 }
 
