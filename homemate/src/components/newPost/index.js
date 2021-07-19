@@ -119,7 +119,7 @@ function NewPost() {
 
   return (
     <>
-      {loading ? (
+      {isLoading || loading ? (
         <div style={{ marginTop: '400px' }}>
           <Loading />
         </div>
@@ -156,16 +156,34 @@ function NewPost() {
             onChange={setBeds}
             styles={labelBedsStyle}
           />
-          <Input name="RUA" value={street} onChange={() => {}} />
-          <Input name="NÚMERO" value={number} onChange={() => {}} />
-          <Input name="BAIRRO" value={district} onChange={() => {}} />
-          <Input name="COMPLEMENTO" value={complement} onChange={() => {}} />
-          <Input name="CEP" value={zipCode} onChange={() => {}} />
-          <Input name="CIDADE" value={city} onChange={() => {}} />
-          <Input name="ESTADO" value={state} onChange={() => {}} />
-          <BaseButton onClick={register} styles={{ width: '100%', fontWeight: 'bold' }}>
-            CRIAR
-          </BaseButton>
+          <Input name="RUA" value={address?.street ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
+          <Input name="NÚMERO" value={address?.number ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
+          <Input
+            name="BAIRRO"
+            value={address?.district ?? UPDATE_YOUR_ADDRESS}
+            onChange={() => {}}
+          />
+          <Input
+            name="COMPLEMENTO"
+            value={address?.complement ?? UPDATE_YOUR_ADDRESS}
+            onChange={() => {}}
+          />
+          <Input name="CEP" value={address?.zipCode ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
+          <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
+          <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
+          {validateAddress() ? (
+            <BaseButton onClick={register} styles={buttonStyle}>
+              CRIAR
+            </BaseButton>
+          ) : (
+            <HtmlTooltip title={tooltip} placement="right-end">
+              <div style={{ width: '100%' }}>
+                <BaseButton onClick={() => {}} styles={disabledButtonStyle}>
+                  CRIAR
+                </BaseButton>
+              </div>
+            </HtmlTooltip>
+          )}
         </>
       )}
     </>
