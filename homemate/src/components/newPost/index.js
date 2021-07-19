@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from 'react-toastify';
+import { Tooltip } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
 import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
-
-import './newPost.css';
+import useFetch from '../../hooks/useFetch';
 
 const stylesInvalid = {
   label: {
