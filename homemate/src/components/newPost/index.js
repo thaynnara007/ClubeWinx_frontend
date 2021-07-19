@@ -116,20 +116,6 @@ function NewPost() {
     }
   };
 
-  const getAddress = () => {
-    api.get('/address/me').then((response) => {
-      setStreet(response.data.street);
-      setNumber(response.data.number);
-      setDistrict(response.data.district);
-      setZipCode(response.data.zipCode);
-      setCity(response.data.city);
-      setState(response.data.state);
-    });
-  };
-
-  useEffect(() => {
-    getAddress();
-  }, []);
 
   return (
     <>
