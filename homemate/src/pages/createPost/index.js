@@ -47,6 +47,7 @@ function CreatePost() {
           src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
           className="homepage-logo"
           alt="homemate's logo"
+          style={{ cursor: 'pointer'}}
           onClick={() => homepage()}
         />
         <TabBar
