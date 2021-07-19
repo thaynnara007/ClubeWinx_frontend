@@ -52,7 +52,7 @@ function CreatePost() {
         <TabBar
           choosed={choosedTab}
           styles={{ top: '160px' }}
-          actions={[handleClickCreatePost, handleClickAddTag]}
+          actions={[() => {}, handleClickCreatePost, handleClickAddTag]}
         >
           {[back, 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
         </TabBar>
