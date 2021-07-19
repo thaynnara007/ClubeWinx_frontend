@@ -3,7 +3,7 @@ import Input from '../input';
 import Loading from '../loading';
 import BaseButton from '../button';
 
-function AddTag({ toLogin }) {
+function AddTag() {
   const [categoria, setCategoria] = useState('');
   const [name, setName] = useState('');
   const [loading, setLoading] = useState(false);
