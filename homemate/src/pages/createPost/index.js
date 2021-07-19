@@ -33,7 +33,7 @@ function CreatePost() {
   const back = (
     <button
       type="button"
-      className="profile-icon-button"
+      className="arrow-left-icon-button"
       onClick={() => history.push('/profile/me')}
     >
       <IconArrowLeft styles={{  color: '#FFFFFF' }} />
