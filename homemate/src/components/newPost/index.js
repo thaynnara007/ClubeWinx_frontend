@@ -74,7 +74,22 @@ function NewPost() {
     setLabelBedsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
+  const validateAddress = () => {
+    if (
+      address &&
+      address.street &&
+      address.number &&
+      address.district &&
+      address.city &&
+      address.state
+    )
+      return true;
 
+    return false;
+  
+  };
+  
+  
   const validateInfo = () =>
     validateExpense() &&
     validateDescription() &&
