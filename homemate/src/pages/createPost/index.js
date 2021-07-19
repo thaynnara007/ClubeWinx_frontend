@@ -66,7 +66,7 @@ function CreatePost() {
           </Flex>
 
           <Flex styles={{ width: '100%' }}>
-            <AddTag toLogin={handleClickCreatePost} />
+            <AddTag />
           </Flex>
         </ReactCardFlip>
       </Flex>
