@@ -28,7 +28,7 @@ function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              <Home showNavbar={setShowNavbar} />
+              <Home />
             </Route>
             <Route exact path="/createPost">
               <CreatePost />

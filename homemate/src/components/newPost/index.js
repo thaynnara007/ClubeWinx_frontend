@@ -49,7 +49,7 @@ const tooltip = (
 
 function NewPost() {
   const { data: address, isLoading } = useFetch('/address/me');
-  
+
   const [expense, setExpense] = useState('');
   const [description, setDescription] = useState('');
   const [residents, setResidents] = useState('');
@@ -113,10 +113,8 @@ function NewPost() {
       return true;
 
     return false;
-  
   };
-  
-  
+
   const validateInfo = () =>
     validateExpense() &&
     validateDescription() &&
@@ -157,7 +155,6 @@ function NewPost() {
         });
     }
   };
-
 
   return (
     <>

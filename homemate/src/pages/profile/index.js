@@ -128,6 +128,9 @@ function Profile() {
     }
   };
 
+  const seePost = () => history.push(`/posts/${id === 'me' ? 'my' : userData?.posterId}`);
+  const createPost = () => history.push(`/createPost`);
+
   const getAge = (birthday) => {
     if (birthday) {
       const bDay = moment(birthday, DATE_FORMAT);
@@ -192,12 +195,23 @@ function Profile() {
                 {`${userData?.name} ${userData?.lastname}`}
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
-                <Button
-                  styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
-                  onClick={() => history.push(`/posts/${userData?.posterId}`)}
-                >
-                  VER ANÚNCIO
-                </Button>
+                {userData?.posterId ? (
+                  <Button
+                    styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                    onClick={seePost}
+                  >
+                    VER ANÚNCIO
+                  </Button>
+                ) : id === 'me' ? (
+                  <Button
+                    styles={{ paddingTop: '4px', paddingBottom: '4px', margin: 0 }}
+                    onClick={createPost}
+                  >
+                    CRIAR ANÚNCIO
+                  </Button>
+                ) : (
+                  ''
+                )}
               </div>
             </div>
 
