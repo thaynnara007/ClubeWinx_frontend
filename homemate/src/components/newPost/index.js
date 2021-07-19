@@ -21,6 +21,8 @@ const stylesValid = {
 };
 
 function NewPost() {
+  const { data: address, isLoading } = useFetch('/address/me');
+  
   const [expense, setExpense] = useState('');
   const [description, setDescription] = useState('');
   const [residents, setResidents] = useState('');
@@ -36,14 +38,6 @@ function NewPost() {
   const [labelBedsStyle, setLabelBedsStyle] = useState({});
 
   const [loading, setLoading] = useState(false);
-
-  const [street, setStreet] = useState('');
-  const [number, setNumber] = useState('');
-  const [district, setDistrict] = useState('');
-  const [complement, setComplement] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
 
   const validateExpense = () => {
     const validation = expense === '' || expense === null;
