@@ -86,9 +86,9 @@ function Posts() {
                   }
                   price={post.expense}
                   people={post.residents}
-                  rooms={5}
-                  beds={3}
-                  bathrooms={2}
+                  rooms={post.vacancies}
+                  beds={post.beds}
+                  bathrooms={post.bathrooms}
                   description={post.description}
                 />
               ))}

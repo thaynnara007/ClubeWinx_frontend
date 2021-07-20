@@ -215,19 +215,19 @@ function PostDetails() {
             <div className="post-info-display">
               <ScrollBox styles={scrollBoxIconsStyles}>
                 {[
-                  <InfoSpan description="pessoas" amountText={post?.residents ?? ''}>
+                  <InfoSpan description="pessoas" amountText={post?.residents}>
                     <IconPeople />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="quartos" amountText="2">
+                  <InfoSpan description="quartos" amountText={post?.vacancies}>
                     <IconDoor />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="camas" amountText="2">
+                  <InfoSpan description="camas" amountText={post?.beds}>
                     <IconBed />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="banheiros" amountText="1">
+                  <InfoSpan description="banheiros" amountText={post?.bathrooms}>
                     <IconBath />
                   </InfoSpan>,
                 ]}
