@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
+import { useHistory } from 'react-router';
 
 import AddTag from '../../components/addTag';
 import TabBar from '../../components/tabBar';
@@ -8,7 +11,6 @@ import Flex from '../../components/flex';
 import IconArrowLeft from '../../components/icons/iconArrowLeft';
 
 import './createPost.css';
-import { useHistory } from 'react-router';
 
 function CreatePost() {
   const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
@@ -36,7 +38,7 @@ function CreatePost() {
       className="arrow-left-icon-button"
       onClick={() => history.push('/profile/me')}
     >
-      <IconArrowLeft styles={{  color: '#FFFFFF' }} />
+      <IconArrowLeft styles={{ color: '#FFFFFF' }} />
     </button>
   );
 
@@ -47,7 +49,7 @@ function CreatePost() {
           src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
           className="homepage-logo"
           alt="homemate's logo"
-          style={{ cursor: 'pointer'}}
+          style={{ cursor: 'pointer' }}
           onClick={() => homepage()}
         />
         <TabBar
