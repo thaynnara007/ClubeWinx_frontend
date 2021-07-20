@@ -19,7 +19,7 @@ const isLoginPage = () => window.location.pathname !== '/';
 
 toast.configure();
 function App() {
-  const [showNavbar, setShowNavbar] = useState(isLoginPage());
+  const [showNavbar] = useState(isLoginPage());
 
   return (
     <>
