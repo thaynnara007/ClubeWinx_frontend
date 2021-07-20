@@ -43,19 +43,20 @@ function Autocomplete(props) {
     
     const tagId = e.currentTarget.value;
     const tag = suggestions.find(e => e.id === tagId);
-    filterTags.push(tag);
-    setFiltertags(filterTags);
-    updateTagList();
+    if(!filterTags.includes(tag)){
+      filterTags.push(tag);
+      setFiltertags(filterTags);
+      updateTagList();
+    }
   };
 
     const updateTagList = () => {
-      setTags(filterTags)
       console.log(tags)
+      setTags(filterTags)
       const att = filterTags && filterTags.length > 0 && filterTags.map(x => {
         const tagColor = getTagColor(x.categoryId);
         return(<InputTag styles={{ backgroundColor: `${tagColor}`}}>{x.name}</InputTag>);
         })
-      console.log("att: ",att)
       setTagsFormmated(att)
     }
     
