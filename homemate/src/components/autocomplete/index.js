@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useLayoutEffect  } from "react";
+import React, { Fragment, useState } from "react";
 import useFetch from '../../hooks/useFetch';
 import InputTag from '../inputTag';
 import { getTagColor } from '../../utils/functions';
