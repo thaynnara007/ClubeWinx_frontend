@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+
+import api from '../../api';
 
 import Input from '../input';
 import BaseButton from '../button';
@@ -129,18 +132,18 @@ function EditRegister() {
   };
 
   const validateInfo = () =>
-  validateName() &&
-  validateLastname() &&
-  validateBirthday() &&
-  validateGender() &&
-  validatePhoneNumber() &&
-  validateEmail() &&
-  validateStreet() &&
-  validateNumber() &&
-  validateComplement() &&
-  validateZipCode() &&
-  validateState() &&
-  validateCity() &&
+  validateName() ||
+  validateLastname() ||
+  validateBirthday() ||
+  validateGender() ||
+  validatePhoneNumber() ||
+  validateEmail() ||
+  validateStreet() ||
+  validateNumber() ||
+  validateComplement() ||
+  validateZipCode() ||
+  validateState() ||
+  validateCity() ||
   validateDistrict();
 
   const edit = () => {

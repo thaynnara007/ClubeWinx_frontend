@@ -35,6 +35,7 @@ function ProfileEdit() {
     setProblemDescription(validation);
     return !validation;
   };
+
   const validateSocialMedia = () => {
     const validation = socialMedia === '' || socialMedia === null;
     setProblemSocialMedia(validation);
@@ -42,8 +43,7 @@ function ProfileEdit() {
     return !validation;
   };
 
-
-  const validateInfo = () => validateDescription() && validateSocialMedia();
+  const validateInfo = () => validateDescription() || validateSocialMedia();
 
   const editProfile = () => {
     const validated = validateInfo();
