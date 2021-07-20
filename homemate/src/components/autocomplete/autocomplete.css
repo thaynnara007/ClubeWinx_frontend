@@ -1,12 +1,3 @@
-body {
-  font-family: sans-serif;
-}
-
-input {
-  border: 1px solid #999;
-  padding: 0.5rem;
-  width: 300px;
-}
 
 .no-suggestions {
   color: #999;
@@ -18,10 +9,10 @@ input {
   border-top-width: 0;
   list-style: none;
   margin-top: 0;
-  max-height: 143px;
+  max-height: 200px;
   overflow-y: auto;
   padding-left: 0;
-  width: calc(300px + 1rem);
+  width: 100%;
 }
 
 .suggestions li {
@@ -30,8 +21,8 @@ input {
 
 .suggestion-active,
 .suggestions li:hover {
-  background-color: #008f68;
-  color: #fae042;
+  background-color: aquamarine;
+  color: black;
   cursor: pointer;
   font-weight: 700;
 }

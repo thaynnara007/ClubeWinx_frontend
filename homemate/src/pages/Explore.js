@@ -5,13 +5,14 @@ import { useState } from 'react';
 
 
 function Explore() {
+  const [tagsFormmated, setTagsFormmated] = useState([]);
   const [tags, setTags] = useState([]);
 
   return (
     <div>
-      {tags}
+      {tagsFormmated}
       <p></p>
-      <Autocomplete tags={tags} setTags={setTags} />
+      <Autocomplete tagsFormmated={tagsFormmated} setTagsFormmated={setTagsFormmated} tags={tags} setTags={setTags} />
     </div>
   );
 }
