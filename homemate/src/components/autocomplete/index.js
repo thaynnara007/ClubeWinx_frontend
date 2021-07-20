@@ -9,31 +9,14 @@ import "./autocomplete.css";
 function Autocomplete(props) {
   const { tagsFormmated, setTagsFormmated, tags, setTags } = props
   const { data: suggestions } = useFetch('/tag');
-  let mapaTags = new Map();
 
   const [activeSuggestion, setActiveSuggestion] = useState();
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState('');
 
-  const [filterTags, setFiltertags] = useState([]);//tags clicadas id e name
-  // const [tags, setTags] = useState([]);//filtertags em botao
+  const [filterTags, setFiltertags] = useState([]);
 
-  const uploadMapTags = () => {
-    console.log("uploadMapTags");
-    if(mapaTags.size === 0) {
-      suggestions.map(element => 
-        mapaTags.set(element.id,element)
-      );
-      console.log(mapaTags.size === 0);
-    }
-  }
-
-  // uploadMapTags();
-//   const hash = Object.fromEntries(
-//     await suggestions
-//     suggestions.map(e => [e.id, e])
-//  )
 
   const onChange = e => {
     const input = e;
@@ -58,26 +41,18 @@ function Autocomplete(props) {
     setShowSuggestions(false);
     setUserInput("");
     
-    console.log("e ", e)
-    console.log("innerText ", e.currentTarget.innerText)
-    console.log("value ", e.currentTarget.value)
-
-    const tag = {
-      id: e.currentTarget.value,
-      name: e.currentTarget.innerText
-    }
-
-    filterTags.push(tag)
-    setFiltertags(filterTags)
-    updateTagList()
-
+    const tagId = e.currentTarget.value;
+    const tag = suggestions.find(e => e.id === tagId);
+    filterTags.push(tag);
+    setFiltertags(filterTags);
+    updateTagList();
   };
 
     const updateTagList = () => {
       setTags(filterTags)
       console.log(tags)
       const att = filterTags && filterTags.length > 0 && filterTags.map(x => {
-        const tagColor = getTagColor(mapaTags.get(x.id).categoryId);
+        const tagColor = getTagColor(x.categoryId);
         return(<InputTag styles={{ backgroundColor: `${tagColor}`}}>{x.name}</InputTag>);
         })
       console.log("att: ",att)
@@ -124,7 +99,6 @@ function Autocomplete(props) {
 
   return (
     <div>
-      { suggestions && suggestions.length > 0 && uploadMapTags()}
       <Fragment>
       <Input
         name="Buscar tags"
