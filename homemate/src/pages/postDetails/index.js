@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Tooltip } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
+import api from '../../api';
 import Text from '../../components/text';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
@@ -20,6 +22,7 @@ import InfoSpan from '../../components/infoSpan';
 import Picture from '../../components/picture';
 import IconEdit from '../../components/icons/iconEdit';
 import IconTrash from '../../components/icons/iconTrash';
+import ConfirmationModal from '../../components/confirmationModal';
 
 import './postDetails.css';
 
@@ -88,13 +91,12 @@ const scrollBoxDescriptionStyles = {
 };
 
 function PostDetails() {
-  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
-
   const { id } = useParams();
-
   const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
-
   const history = useHistory();
+
+  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
+  const [open, setOpen] = useState(false);
 
   const goToProfile = () => {
     history.push(`/profile/${post?.owner.id}`);
@@ -108,6 +110,30 @@ function PostDetails() {
 
       setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deletePost = () => {
+    api
+      .delete('/user/poster/my')
+      .then(() => {
+        toast('Anúncio deletado.');
+        history.push('/profile/me');
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
   };
 
   return (
@@ -147,10 +173,20 @@ function PostDetails() {
                   </button>
                 </Tooltip>
                 <Tooltip title="Deletar anúncio">
-                  <button type="button" className="post-icon-button" style={{ marginLeft: '20px' }}>
+                  <button
+                    type="button"
+                    className="post-icon-button"
+                    style={{ marginLeft: '20px' }}
+                    onClick={handleOpen}
+                  >
                     <IconTrash styles={{ color: '#FF7E67' }} size="2x" />
                   </button>
                 </Tooltip>
+                <ConfirmationModal
+                  open={open}
+                  handleClose={handleClose}
+                  handleConfirm={deletePost}
+                />
               </div>
             )}
 
