@@ -24,7 +24,6 @@ const stylesValid = {
 };
 
 function EditRegister({data: registerData}) {
-
   const [name, setName] = useState(registerData?.name ?? '');
   const [labelNameStyle, setLabelNameStyle] = useState({});
   const [lastname, setLastname] = useState(registerData?.lastname ?? '');
