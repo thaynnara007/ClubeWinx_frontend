@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useHistory } from 'react-router';
 import { Tooltip } from '@material-ui/core';
+import { toast } from 'react-toastify';
 
+import api from '../../api';
 import Text from '../../components/text';
 import InputTag from '../../components/inputTag';
 import ScrollBox from '../../components/scrollBox';
@@ -19,6 +21,8 @@ import Loading from '../../components/loading';
 import InfoSpan from '../../components/infoSpan';
 import Picture from '../../components/picture';
 import IconEdit from '../../components/icons/iconEdit';
+import IconTrash from '../../components/icons/iconTrash';
+import ConfirmationModal from '../../components/confirmationModal';
 
 import './postDetails.css';
 
@@ -87,13 +91,12 @@ const scrollBoxDescriptionStyles = {
 };
 
 function PostDetails() {
-  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
-
   const { id } = useParams();
-
   const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
-
   const history = useHistory();
+
+  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
+  const [open, setOpen] = useState(false);
 
   const goToProfile = () => {
     history.push(`/profile/${post?.owner.id}`);
@@ -109,6 +112,30 @@ function PostDetails() {
     }
   };
 
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deletePost = () => {
+    api
+      .delete('/user/poster/my')
+      .then(() => {
+        toast('Anúncio deletado.');
+        history.push('/profile/me');
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
+  };
+
   return (
     <>
       {isLoading ? (
@@ -116,9 +143,11 @@ function PostDetails() {
       ) : (
         <>
           <div className="post-header" style={{ ...headerBackground }}>
-            <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
-              <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
-            </div>
+            {id === 'my' && (
+              <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
+                <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>
+              </div>
+            )}
           </div>
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
@@ -136,13 +165,30 @@ function PostDetails() {
               ]}
             </ScrollBox>
 
-            <div className="post-edit-info-icon">
-              <Tooltip title="editar informações">
-                <button type="button" className="post-icon-button">
-                  <IconEdit size="2x" />
-                </button>
-              </Tooltip>
-            </div>
+            {id === 'my' && (
+              <div className="post-edit-info-icon">
+                <Tooltip title="Editar informações">
+                  <button type="button" className="post-icon-button">
+                    <IconEdit size="2x" />
+                  </button>
+                </Tooltip>
+                <Tooltip title="Deletar anúncio">
+                  <button
+                    type="button"
+                    className="post-icon-button"
+                    style={{ marginLeft: '20px' }}
+                    onClick={handleOpen}
+                  >
+                    <IconTrash styles={{ color: '#FF7E67' }} size="2x" />
+                  </button>
+                </Tooltip>
+                <ConfirmationModal
+                  open={open}
+                  handleClose={handleClose}
+                  handleConfirm={deletePost}
+                />
+              </div>
+            )}
 
             <div className="post-title">
               <Text

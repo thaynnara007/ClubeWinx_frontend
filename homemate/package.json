@@ -49,8 +49,8 @@
   },
   "lint-staged": {
     "*.{js, jsx}": [
-      "npm run prettier",
-      "npm run lint",
+      "yarn prettier",
+      "yarn lint",
       "git add"
     ],
     "*.{json, css, md}": [

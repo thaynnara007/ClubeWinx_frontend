@@ -20,7 +20,7 @@ const isLoginPage = () => window.location.pathname !== '/';
 
 toast.configure();
 function App() {
-  const [showNavbar, setShowNavbar] = useState(isLoginPage());
+  const [showNavbar] = useState(isLoginPage());
 
   return (
     <>
@@ -29,7 +29,7 @@ function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              <Home showNavbar={setShowNavbar} />
+              <Home />
             </Route>
             <Route exact path="/createPost">
               <CreatePost />

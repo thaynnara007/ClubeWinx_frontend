@@ -8,9 +8,7 @@ import Flex from '../../components/flex';
 
 import './homepage.css';
 
-function Home({ showNavbar }) {
-  showNavbar(false);
-
+function Home() {
   const [choosedTab, setChoosedTab] = useState('CONECTE-SE');
   const [isFlipped, setIsFlipped] = useState(false);
 

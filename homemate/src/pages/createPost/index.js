@@ -1,5 +1,8 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
+import { useHistory } from 'react-router';
 
 import AddTag from '../../components/addTag';
 import TabBar from '../../components/tabBar';
@@ -8,7 +11,6 @@ import Flex from '../../components/flex';
 import IconArrowLeft from '../../components/icons/iconArrowLeft';
 
 import './createPost.css';
-import { useHistory } from 'react-router';
 
 function CreatePost() {
   const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
