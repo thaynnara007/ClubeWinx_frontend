@@ -21,9 +21,9 @@ const stylesValid = {
 };
 
 function ProfileEdit({data: profileData}) {
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState(profileData?.description ?? '');
   const [problemDescription, setProblemDescription] = useState(false);
-  const [socialMedia, setSocialMedia] = useState('');
+  const [socialMedia, setSocialMedia] = useState(profileData?.socialMedia ?? '');
   const [problemSocialMedia, setProblemSocialMedia] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -79,13 +79,13 @@ function ProfileEdit({data: profileData}) {
         <>
           <Input
             name="DESCRIÇÃO"
-            value={profileData?.description ?? description}
+            value={description}
             onChange={setDescription}
             styles={problemDescription}
           />
           <Input
             name="LINK DE REDE SOCIAL"
-            value={profileData?.socialMedia ?? socialMedia}
+            value={socialMedia}
             onChange={setSocialMedia}
             styles={problemSocialMedia}
           />
