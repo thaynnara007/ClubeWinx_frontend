@@ -172,7 +172,11 @@ function Profile() {
             {id === 'me' && (
               <div className="profile-edit-info-icon">
                 <Tooltip title="editar informações">
-                  <button onClick={() => history.push(`/editProfile`)} type="button" className="profile-icon-button">
+                  <button
+                    onClick={() => history.push(`/editProfile`)}
+                    type="button"
+                    className="profile-icon-button"
+                  >
                     <IconProfileEdit size="2x" />
                   </button>
                 </Tooltip>
