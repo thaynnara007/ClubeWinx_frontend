@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router';
 
 import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
-
-import { useHistory } from 'react-router';
 
 const stylesInvalid = {
   label: {
@@ -20,25 +19,34 @@ const stylesValid = {
   },
 };
 
-function ProfileEdit({data: profileData}) {
-  const [description, setDescription] = useState(profileData?.description ?? '');
-  const [problemDescription, setProblemDescription] = useState(false);
-  const [socialMedia, setSocialMedia] = useState(profileData?.socialMedia ?? '');
-  const [problemSocialMedia, setProblemSocialMedia] = useState(false);
-
+function ProfileEdit({ profile }) {
+  const [description, setDescription] = useState(profile?.description ?? '');
+  const [problemDescription, setProblemDescription] = useState({});
+  const [socialMedia, setSocialMedia] = useState(profile?.socialMedia ?? '');
+  const [problemSocialMedia, setProblemSocialMedia] = useState({});
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function updateState() {
+      setDescription(profile?.description);
+      setSocialMedia(profile?.socialMedia);
+    }
+
+    updateState();
+  }, [profile]);
 
   const history = useHistory();
 
   const validateDescription = () => {
     const validation = description === '' || description === null;
-    setProblemDescription(validation);
+    setProblemDescription(validation ? stylesInvalid : stylesValid);
+
     return !validation;
   };
 
   const validateSocialMedia = () => {
     const validation = socialMedia === '' || socialMedia === null;
-    setProblemSocialMedia(validation);
+    setProblemSocialMedia(validation ? stylesInvalid : stylesValid);
 
     return !validation;
   };
@@ -57,6 +65,7 @@ function ProfileEdit({data: profileData}) {
         .put(`/profile/me`, body)
         .then(() => {
           toast('Informações atualizadas com sucesso');
+          setLoading(false);
           history.push('/profile/me');
         })
         .catch((error) => {
@@ -64,6 +73,7 @@ function ProfileEdit({data: profileData}) {
           if (error.response) msg = error.response.data.error;
           else msg = 'Network failed';
 
+          setLoading(false);
           toast.error(msg);
         });
     }

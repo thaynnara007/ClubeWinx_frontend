@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router';
+import moment from 'moment';
 
 import api from '../../api';
-
-import useFetch from '../../hooks/useFetch';
-
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
-
-import { useHistory } from 'react-router';
+import { DATE_FORMAT } from '../../utils/constants';
 
 const stylesInvalid = {
   label: {
@@ -23,31 +21,40 @@ const stylesValid = {
   },
 };
 
-function EditRegister({data: registerData}) {
+function EditRegister({ data: registerData }) {
   const [name, setName] = useState(registerData?.name ?? '');
   const [labelNameStyle, setLabelNameStyle] = useState({});
+
   const [lastname, setLastname] = useState(registerData?.lastname ?? '');
   const [labelLastnameStyle, setLabelLastnameStyle] = useState({});
+
   const [birthday, setBirthday] = useState(registerData?.birthday ?? '');
   const [labelBirthdayStyle, setLabelBirthdayStyle] = useState({});
+
   const [gender, setGender] = useState(registerData?.gender ?? '');
   const [labelGenderStyle, setLabelGenderStyle] = useState({});
+
   const [phoneNumber, setPhoneNumber] = useState(registerData?.phoneNumber ?? '');
   const [labelPhoneNumberStyle, setLabelPhoneNumberStyle] = useState({});
-  const [email, setEmail] = useState(registerData?.email ?? '');
-  const [labelEmailStyle, setLabelEmailStyle] = useState({});
+
   const [street, setStreet] = useState(registerData?.address?.street ?? '');
   const [labelStreetStyle, setLabelStreetStyle] = useState({});
+
   const [number, setNumber] = useState(registerData?.address?.number ?? '');
   const [labelNumberStyle, setLabelNumberStyle] = useState({});
+
   const [complement, setComplement] = useState(registerData?.address?.complement ?? '');
   const [labelComplementStyle, setLabelComplementStyle] = useState({});
+
   const [zipCode, setZipCode] = useState(registerData?.address?.zipCode ?? '');
   const [labelZipCodeStyle, setLabelZipCodeStyle] = useState({});
+
   const [state, setState] = useState(registerData?.address?.state ?? '');
   const [labelStateStyle, setLabelStateStyle] = useState({});
+
   const [city, setCity] = useState(registerData?.address?.city ?? '');
   const [labelCityStyle, setLabelCityStyle] = useState({});
+
   const [district, setDistrict] = useState(registerData?.address?.district ?? '');
   const [labelDistrictStyle, setLabelDistrictStyle] = useState({});
 
@@ -55,31 +62,24 @@ function EditRegister({data: registerData}) {
 
   const [loading, setLoading] = useState(false);
 
-  /*const getAddress = () => {
-    api
-      .get('/address/me')
-      .then((response) => {
-        console.log(registerData?.name);
-        setName(registerData?.name);
-        setStreet(response.data.street);  
-        setState(response.data.state);
-        setNumber(response.data.number);
-        setComplement(response.data.complement);
-        console.log(response.data);    
-      })
-      .catch((error) => {
-        if (error.response) {
-          const { status } = error.response;
-          toast.error(error.response.data.error);
-        }
-        else toast.error('Network failed');
-      });
-  };
-
   useEffect(() => {
-    getAddress();
-  }, []);
-*/
+    function updateState() {
+      setName(registerData?.name);
+      setLastname(registerData?.lastname);
+      setBirthday(registerData?.birthday);
+      setGender(registerData?.gender);
+      setPhoneNumber(registerData?.phoneNumber);
+      setStreet(registerData?.address?.street);
+      setNumber(registerData?.address?.number);
+      setComplement(registerData?.address?.complement);
+      setZipCode(registerData?.address?.zipCode);
+      setDistrict(registerData?.address?.district);
+      setCity(registerData?.address?.city);
+      setState(registerData?.address?.state);
+    }
+
+    updateState();
+  }, [registerData]);
 
   const validateName = () => {
     const validation = name === '' || name === null;
@@ -94,7 +94,11 @@ function EditRegister({data: registerData}) {
   };
 
   const validateBirthday = () => {
-    const validation = birthday === '' || birthday === null;
+    const validation =
+      birthday === '' ||
+      birthday === null ||
+      !(moment(birthday, DATE_FORMAT).format(DATE_FORMAT) === birthday);
+
     setLabelBirthdayStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
@@ -108,12 +112,6 @@ function EditRegister({data: registerData}) {
   const validatePhoneNumber = () => {
     const validation = phoneNumber === '' || phoneNumber === null;
     setLabelPhoneNumberStyle(validation ? stylesInvalid : stylesValid);
-    return !validation;
-  };
-
-  const validateEmail = () => {
-    const validation = email === '' || email === null;
-    setLabelEmailStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
 
@@ -160,19 +158,18 @@ function EditRegister({data: registerData}) {
   };
 
   const validateInfo = () =>
-    validateName() ||
-    validateLastname() ||
-    validateBirthday() ||
-    validateGender() ||
-    validatePhoneNumber() ||
-    validateEmail() ||
-    validateStreet() ||
-    validateNumber() ||
-    validateComplement() ||
-    validateZipCode() ||
-    validateState() ||
-    validateCity() ||
-    validateDistrict();
+    validateName() &&
+    validateLastname() &&
+    validateBirthday() &&
+    (validateGender() ||
+      validatePhoneNumber() ||
+      validateStreet() ||
+      validateNumber() ||
+      validateComplement() ||
+      validateZipCode() ||
+      validateState() ||
+      validateCity() ||
+      validateDistrict());
 
   const edit = () => {
     if (validateInfo()) {
@@ -184,7 +181,6 @@ function EditRegister({data: registerData}) {
         birthday,
         gender,
         phoneNumber,
-        email,
         street,
         number,
         complement,
@@ -239,8 +235,8 @@ function EditRegister({data: registerData}) {
             onChange={setPhoneNumber}
             styles={labelPhoneNumberStyle}
           />
-          <Input name="E-MAIL" value={email} onChange={setEmail} styles={labelEmailStyle} />
           <Input name="RUA" value={street} onChange={setStreet} styles={labelStreetStyle} />
+          <Input name="NÚMERO" value={number} onChange={setNumber} styles={labelNumberStyle} />
           <Input
             name="COMPLEMENTO"
             value={complement}
