@@ -1,25 +1,18 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState  } from "react";
 import useFetch from '../../hooks/useFetch';
-import InputTag from '../inputTag';
-import { getTagColor } from '../../utils/functions';
 import Input from '../input';
 
 import "./autocomplete.css";
 
 function Autocomplete(props) {
-  const { tagsFormmated, setTagsFormmated, tags, setTags } = props
+  const { tags, setTags } = props
   const { data: suggestions } = useFetch('/tag');
 
-  const [activeSuggestion, setActiveSuggestion] = useState();
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
-  const [showSuggestions, setShowSuggestions] = useState(false);
   const [userInput, setUserInput] = useState('');
 
-  const [filterTags, setFiltertags] = useState([]);
 
-
-  const onChange = e => {
-    const input = e;
+  const onChange = input => {
     const filteredSuggestionsChange = input
       ?
       suggestions.filter(
@@ -29,74 +22,39 @@ function Autocomplete(props) {
       :
       [];
 
-    setActiveSuggestion(activeSuggestion);
     setFilteredSuggestions(filteredSuggestionsChange);
-    setShowSuggestions(showSuggestions);
     setUserInput(input);
   };
 
   const onClick = e => {
-    setActiveSuggestion(activeSuggestion);
     setFilteredSuggestions([]);
-    setShowSuggestions(false);
     setUserInput("");
     
     const tagId = e.currentTarget.value;
-    const tag = suggestions.find(e => e.id === tagId);
-    if(!filterTags.includes(tag)){
-      filterTags.push(tag);
-      setFiltertags(filterTags);
-      updateTagList();
+    const tag = suggestions.find(input => input.id === tagId); 
+
+    if(!tags.includes(tag)){
+      setTags((prev) => [...prev, tag])
     }
   };
 
-    const updateTagList = () => {
-      console.log(tags)
-      setTags(filterTags)
-      const att = filterTags && filterTags.length > 0 && filterTags.map(x => {
-        const tagColor = getTagColor(x.categoryId);
-        return(<InputTag styles={{ backgroundColor: `${tagColor}`}}>{x.name}</InputTag>);
-        })
-      setTagsFormmated(att)
-    }
     
   const suggestionsListComponent = (filteredSuggestions.length > 0)
     ?
     <ul class="suggestions">
       {filteredSuggestions.map((suggestion, index) => {
-        let className;
-        // Flag the active suggestion with a class
-        if (index === activeSuggestion) {
-          className = "suggestion-active";
-        }
+
         return (
-          <li value={suggestion.id} className={className} key={index} onClick={onClick}>
+          <li value={suggestion.id} key={index} onClick={onClick}>
             {suggestion.name}
           </li>
         );
       })}
     </ul>
     :
-    <div class="no-suggestions">
+    <div className="no-suggestions">
       <em>Top tags</em>
     </div>
-
-  // render() {
-  // const {
-  //   onChange,
-  //   onClick,
-  //   onKeyDown,
-  //   state: {
-  //     activeSuggestion,
-  //     filteredSuggestions,
-  //     showSuggestions,
-  //     userInput
-  //   }
-  // } = this;
-
-  if (showSuggestions && userInput) {
-    suggestionsListComponent
-  };
 
   return (
     <div>
