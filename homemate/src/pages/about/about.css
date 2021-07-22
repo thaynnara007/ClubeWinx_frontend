@@ -39,7 +39,7 @@ a:focus,
 a:hover,
 a:active {
   text-decoration: none;
-  color: #000;
+  color: #6983AA;
 }
 
 .about-text {
@@ -49,22 +49,7 @@ a:active {
   padding: 2em 2.4em;
   position: relative;
   transform: translateZ(0);
-  color: #000;
-}
-
-.about-text::before,
-.about-text::after {
-  border-radius: 3px;
-  content: ' ';
-  display: block;
-  position: absolute;
-  transform-origin: right;
-  transition: transform 500ms;
-  width: 105%;
-  height: 105%;
-  top: 0;
-  left: 0;
-  z-index: -1;
+  color: #6983AA;
 }
 
 .about-inner {
@@ -79,25 +64,12 @@ a:active {
   pointer-events: none;
   line-height: 1.75;
   text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff;
-  transition: background ease-out 800ms;
+  transition: background ease-out 1500ms;
 }
 
 .about-text:hover > .about-inner {
   background-size: calc(100% - 16px) 2px, 100% 100%;
   transition-duration: 200ms;
-}
-
-.about-text:hover::before {
-  transform: scaleX(0);
-  transition-duration: 800ms;
-  transition-timing-function: ease-in-out;
-}
-
-.about-text:hover::after {
-  transform: scaleX(1);
-  transition-duration: 1000ms;
-  transition-timing-function: ease-in-out;
-  transform-origin: left;
 }
 
 .members-side {
