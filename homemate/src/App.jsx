@@ -8,7 +8,7 @@ import Posts from './pages/posts';
 import PostDetails from './pages/postDetails';
 import Profile from './pages/profile';
 import Explore from './pages/Explore';
-import About from './pages/About';
+import About from './pages/about';
 import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
