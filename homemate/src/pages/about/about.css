@@ -9,11 +9,11 @@
 }
 
 .homemate-title {
-  margin: 30px;
-  font-size: 30px;
+  margin-top: 30px;
+  font-size: 40px;
   font-weight: bold;
   text-align: center;
-  color: #8566aa
+  color: #8566aa;
 }
 
 .flex-container {
@@ -27,52 +27,48 @@
 }
 
 .about-title {
-  margin: 30px;
+  margin: 0px 30px 30px 30px;
   font-size: 30px;
   font-weight: bold;
   text-align: center;
-  color: #8566aa
+  color: #8566aa;
 }
 
-a, a:focus, a:hover, a:active, a:visited {
-  color: inherit;
+a,
+a:focus,
+a:hover,
+a:active {
   text-decoration: none;
+  color: #000;
 }
 
 .about-text {
-  filter: drop-shadow(0 1em 1em rgba(#000, .16));
+  filter: drop-shadow(0 1em 1em rgba(#000, 0.16));
   font-size: 1rem;
   max-width: 25em;
   padding: 2em 2.4em;
   position: relative;
   transform: translateZ(0);
+  color: #000;
 }
 
 .about-text::before,
 .about-text::after {
-  background-color: #fff;
   border-radius: 3px;
   content: ' ';
   display: block;
   position: absolute;
   transform-origin: right;
   transition: transform 500ms;
-  width: 100%; height: 100%;
-  top: 0; left: 0;
+  width: 105%;
+  height: 105%;
+  top: 0;
+  left: 0;
   z-index: -1;
 }
 
-.about-text::after {
-  background-color: #444;
-  transform: scaleX(0);
-  transition-duration: 450ms;
-}
-
 .about-inner {
-  background-image:
-    linear-gradient(0deg, #ddd, #000),
-    linear-gradient(0deg, #fff, #fff),
-  ;
+  background-image: linear-gradient(0deg, #ddd, #000), linear-gradient(0deg, #f4f4f4, #f4f4f4);
   background-size: 0 2px, 0 100%;
   background-position: 8px calc(1em + 8px), 0 0;
   background-repeat: no-repeat;
@@ -81,9 +77,9 @@ a, a:focus, a:hover, a:active, a:visited {
   padding: 6px 8px;
   margin-left: -8px;
   pointer-events: none;
-  line-height: 1.75; 
+  line-height: 1.75;
   text-shadow: 1px 1px 0 #fff, -1px 1px 0 #fff;
-  transition: background ease-out 500ms;
+  transition: background ease-out 800ms;
 }
 
 .about-text:hover > .about-inner {
@@ -93,28 +89,27 @@ a, a:focus, a:hover, a:active, a:visited {
 
 .about-text:hover::before {
   transform: scaleX(0);
-  transition-duration: 450ms;
+  transition-duration: 800ms;
   transition-timing-function: ease-in-out;
 }
 
 .about-text:hover::after {
-  transform:  scaleX(1);
-  transition-duration: 700ms;
+  transform: scaleX(1);
+  transition-duration: 1000ms;
   transition-timing-function: ease-in-out;
   transform-origin: left;
 }
-
 
 .members-side {
   max-width: 50%;
 }
 
 .members-title {
-  margin: 30px;
+  margin: 0px 30px 30px 30px;
   font-size: 30px;
   font-weight: bold;
   text-align: center;
-  color: #8566aa
+  color: #8566aa;
 }
 
 .members-img {
@@ -123,6 +118,6 @@ a, a:focus, a:hover, a:active, a:visited {
   margin: 30px 50px;
 }
 
-.members-img img{
+.members-img img {
   margin: 10px 20px;
 }
