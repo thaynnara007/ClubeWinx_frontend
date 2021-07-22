@@ -13,6 +13,7 @@ import Logout from './pages/Logout';
 import Navbar from './components/navbar/Navbar';
 import NotFound from './pages/NotFound';
 import PasswordRecovery from './pages/passwordRecovery';
+import EditProfile from './pages/editProfile';
 import CreatePost from './pages/createPost';
 
 const isLoginPage = () => window.location.pathname !== '/';
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route path="/explore">
               <Explore />
+            </Route>
+            <Route path="/editProfile">
+              <EditProfile />
             </Route>
             <Route path="/about">
               <About />
