@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
@@ -23,6 +23,9 @@ import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
 import IconAddress from '../../components/icons/iconAddress';
 import IconProfileEdit from '../../components/icons/iconEditProfile';
+import IconInstagram from '../../components/icons/iconInstagram';
+import IconFacebook from '../../components/icons/iconFacebook';
+import IconTwitter from '../../components/icons/iconTwitter';
 
 import './profile.css';
 
@@ -140,6 +143,55 @@ function Profile() {
     return '';
   };
 
+  function open() {
+    window.location.href = userData?.socialMedia;
+  };
+
+  function socialMedia() {
+    let social = null;
+
+    if ((userData?.socialMedia).includes('instagram')) {
+      social = (
+        <Tooltip title="instagram">
+          <button onClick={open} className="profile-icon-button">
+            <IconInstagram size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } else if ((userData?.socialMedia).includes('facebook')) {
+      social = (
+        <Tooltip title="facebook">
+          <button onClick={open} className="profile-icon-button">
+            <IconFacebook size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } else if ((userData?.socialMedia).includes('twitter')) {
+      social = (
+        <Tooltip title="twitter">
+          <button onClick={open} className="profile-icon-button">
+            <IconTwitter size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } 
+    return social;
+  }
+
+  useEffect(() => {
+   /* api
+      .get(`/profile/${id}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        toast.error(msg);
+      });*/
+  }, []);
+
   return (
     <>
       {isLoading ? (
@@ -172,6 +224,7 @@ function Profile() {
           </div>
 
           <div className="profile-box">
+            <div className="profile-socialmedia-icons">{socialMedia()}</div>
             {id === 'me' && (
               <div className="profile-edit-info-icon">
                 <Tooltip title="editar informações">

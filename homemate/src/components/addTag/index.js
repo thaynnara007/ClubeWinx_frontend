@@ -9,7 +9,7 @@ function AddTag() {
   const [loading, setLoading] = useState(false);
 
   const tag = () => {
-    //corpo da requisição
+    // corpo da requisição
   };
 
   return (
