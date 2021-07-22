@@ -87,7 +87,10 @@ const tagsBoxStyle = {
 function Profile() {
   const { id } = useParams();
 
-  const { data: userData, isLoading } = useFetch(`/profile/${id}`, id);
+  //const { data: userData, isLoading } = useFetch(`/profile/${id}`, id);
+
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [avatarImage, setAvatarImage] = useState(userData?.picture);
@@ -145,7 +148,7 @@ function Profile() {
 
   function open() {
     window.location.href = userData?.socialMedia;
-  };
+  }
 
   function socialMedia() {
     let social = null;
@@ -174,23 +177,28 @@ function Profile() {
           </button>
         </Tooltip>
       );
-    } 
+    }
     return social;
   }
 
   useEffect(() => {
-   /* api
+    console.log(userData?.socialMedia);
+    api
       .get(`/profile/${id}`)
       .then((response) => {
-        setData(response.data);
+        setUserData(response.data);
+        console.log(response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
+        console.log("aaa");
         let msg = '';
         if (error.response) msg = error.response.data.error;
         else msg = 'Network failed';
+        setIsLoading(false);
         toast.error(msg);
-      });*/
-  }, []);
+      });
+  }, [userData]);
 
   return (
     <>
