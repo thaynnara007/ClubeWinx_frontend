@@ -20,6 +20,7 @@
   display: flex;
   justify-content: center;
   margin-top: 80px;
+  text-align: justify; 
 }
 
 .about-side {
