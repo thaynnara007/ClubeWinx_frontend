@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.profile-card {
+  margin: 50px 80px;
+  border: 3px solid #6983aa;
+  border-radius: 5px;
+}
+
+.card-header {
+  height: 80px;
+  background-color: #6983aa;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 8px;
+}
+
+#profile-location {
+  display: flex;
+  align-self: flex-end;
+  font-size: 15px;
+  margin: 15px 45px 15px 0px;
+  color: #6983aa;
+}
+
+.profile-address {
+  margin-left: 5px;
+}
+
+.profile-name {
+  margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #6983aa;
+}
+
+.profile-description {
+  margin-top: 15px;
+  text-align: center;
+  color: #6983aa;
+}
+
+.profile-tags {
+  margin: 15px 20px 10px 20px;
+  font-size: 15px;
+}
+
+.card-content button {
+  margin-top: 15px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  background-color: #6983aa;
+  color: #fff;
+  transition-property: transform, box-shadow;
+  transition-duration: 0.8s;
+}
+
+.card-content button:active {
+  transform: scale(0.5);
+  box-shadow: 0 3px 15px -2px;
+}
