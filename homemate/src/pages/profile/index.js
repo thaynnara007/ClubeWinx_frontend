@@ -235,7 +235,7 @@ function Profile() {
           </div>
 
           <div className="profile-box">
-            <div className="profile-socialmedia-icons">{socialMedia()}</div>
+            <div className="profile-socialmedia-icons">{userData.socialMedia !== null ? (socialMedia()) : (<></>)}</div>
             {id === 'me' && (
               <div className="profile-edit-info-icon">
                 <Tooltip title="editar informações">
