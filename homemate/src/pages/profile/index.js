@@ -9,7 +9,6 @@ import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
 import api from '../../api';
 import Text from '../../components/text';
-import useFetch from '../../hooks/useFetch';
 import Button from '../../components/button';
 import Loading from '../../components/loading';
 import InputTag from '../../components/inputTag';
@@ -88,8 +87,6 @@ const tagsBoxStyle = {
 function Profile() {
   const { id } = useParams();
 
-  //const { data: userData, isLoading } = useFetch(`/profile/${id}`, id);
-
   const [userData, setUserData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -157,7 +154,7 @@ function Profile() {
     if ((userData?.socialMedia).includes('instagram')) {
       social = (
         <Tooltip title="instagram">
-          <button onClick={open} className="profile-icon-button">
+          <button type="button" onClick={open} className="profile-icon-button">
             <IconInstagram size="3x" />
           </button>
         </Tooltip>
@@ -165,7 +162,7 @@ function Profile() {
     } else if ((userData?.socialMedia).includes('facebook')) {
       social = (
         <Tooltip title="facebook">
-          <button onClick={open} className="profile-icon-button">
+          <button type="button" onClick={open} className="profile-icon-button">
             <IconFacebook size="3x" />
           </button>
         </Tooltip>
@@ -173,7 +170,7 @@ function Profile() {
     } else if ((userData?.socialMedia).includes('twitter')) {
       social = (
         <Tooltip title="twitter">
-          <button onClick={open} className="profile-icon-button">
+          <button type="button" onClick={open} className="profile-icon-button">
             <IconTwitter size="3x" />
           </button>
         </Tooltip>
@@ -181,7 +178,7 @@ function Profile() {
     } else {
       social = (
         <Tooltip title="rede social">
-          <button onClick={open} className="profile-icon-button">
+          <button type="button" onClick={open} className="profile-icon-button">
             <IconUsers size="3x" />
           </button>
         </Tooltip>
