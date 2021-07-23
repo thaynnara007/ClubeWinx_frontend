@@ -10,13 +10,28 @@ import NewPost from '../../components/newPost';
 import Flex from '../../components/flex';
 import IconArrowLeft from '../../components/icons/iconArrowLeft';
 
+import useFetch from '../../hooks/useFetch';
+
 import './createPost.css';
 
 function CreatePost() {
   const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
   const [isFlipped, setIsFlipped] = useState(false);
 
+  const { data: post, isLoading2 } = useFetch('/user/poster/my');
+  const { data: address, isLoading } = useFetch('/address/me');
+
   const history = useHistory();
+
+  const postData = {
+    expense: post?.expense,
+    description: post?.description,
+    residents: post?.residents,
+    vacancies: post?.vacancies,
+    bathrooms: post?.bathrooms,
+    beds: post?.beds,
+    address: address ?? {},
+  };
 
   const handleClickCreatePost = () => {
     setIsFlipped(false);
@@ -65,7 +80,7 @@ function CreatePost() {
           containerStyle={{ width: '50%', marginTop: '100px' }}
         >
           <Flex styles={{ width: '100%' }}>
-            <NewPost />
+            <NewPost post={postData}/>
           </Flex>
 
           <Flex styles={{ width: '100%' }}>

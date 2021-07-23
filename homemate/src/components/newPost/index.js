@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -47,15 +47,15 @@ const tooltip = (
   </>
 );
 
-function NewPost() {
+function NewPost({post}) {
   const { data: address, isLoading } = useFetch('/address/me');
 
-  const [expense, setExpense] = useState('');
-  const [description, setDescription] = useState('');
-  const [residents, setResidents] = useState('');
-  const [vacancies, setVacancies] = useState('');
-  const [bathrooms, setBathrooms] = useState('');
-  const [beds, setBeds] = useState('');
+  const [expense, setExpense] = useState(post?.expense ?? '');
+  const [description, setDescription] = useState(post?.description ?? '');
+  const [residents, setResidents] = useState(post?.residents ?? '');
+  const [vacancies, setVacancies] = useState(post?.vacancies ?? '');
+  const [bathrooms, setBathrooms] = useState(post?.bathrooms ?? '');
+  const [beds, setBeds] = useState(post?.beds ?? '');
 
   const [labelExpenseStyle, setLabelExpenseStyle] = useState({});
   const [labelDescriptionStyle, setLabelDescriptionStyle] = useState({});
@@ -65,6 +65,19 @@ function NewPost() {
   const [labelBedsStyle, setLabelBedsStyle] = useState({});
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function updateState() {
+      setExpense(post?.expense);
+      setDescription(post?.description);
+      setResidents(post?.residents);
+      setVacancies(post?.vacancies);
+      setBathrooms(post?.bathrooms);
+      setBeds(post?.beds)
+    }
+
+    updateState();
+  }, [post]);
 
   const validateExpense = () => {
     const validation = expense === '' || expense === null;
@@ -155,6 +168,8 @@ function NewPost() {
         });
     }
   };
+
+  
 
   return (
     <>
