@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Avatar, makeStyles } from '@material-ui/core';
 import { getTagColor } from '../../utils/functions';
 import useFetch from '../../hooks/useFetch';
@@ -44,7 +45,9 @@ function ProfileCard({ id, name, description, tags, city, state }) {
               );
             })}
         </div>
-        <button type="button"> VER PERFIL</button>
+        <Link to={`/profile/${id}`}>
+          <button type="button"> VER PERFIL</button>
+        </Link>
       </div>
     </div>
   );
