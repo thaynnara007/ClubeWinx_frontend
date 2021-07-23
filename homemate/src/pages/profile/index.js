@@ -26,6 +26,7 @@ import IconProfileEdit from '../../components/icons/iconEditProfile';
 import IconInstagram from '../../components/icons/iconInstagram';
 import IconFacebook from '../../components/icons/iconFacebook';
 import IconTwitter from '../../components/icons/iconTwitter';
+import IconUsers from '../../components/icons/iconUsers';
 
 import './profile.css';
 
@@ -177,21 +178,26 @@ function Profile() {
           </button>
         </Tooltip>
       );
+    } else {
+      social = (
+        <Tooltip title="rede social">
+          <button onClick={open} className="profile-icon-button">
+            <IconUsers size="3x" />
+          </button>
+        </Tooltip>
+      );
     }
     return social;
   }
 
   useEffect(() => {
-    console.log(userData?.socialMedia);
     api
       .get(`/profile/${id}`)
       .then((response) => {
         setUserData(response.data);
-        console.log(response.data);
         setIsLoading(false);
       })
       .catch((error) => {
-        console.log("aaa");
         let msg = '';
         if (error.response) msg = error.response.data.error;
         else msg = 'Network failed';
