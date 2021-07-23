@@ -25,16 +25,16 @@ function Explore() {
     getProfile();
     getAnuncio();
     // attPtags();
-    attAtags();
+    // attAtags();
   }, []);
 
-  useEffect(() => {
-    // attPtags();
-  }, [profileTag]);
+  // useEffect(() => {
+  //   // attPtags();
+  // }, [profileTag]);
 
-  useEffect(() => {
-    attAtags();
-  }, [anuncioTag]);
+  // useEffect(() => {
+  //   attAtags();
+  // }, [anuncioTag]);
 
   const getProfile = () => {
     api
@@ -53,7 +53,8 @@ function Explore() {
     api
       .get('user/poster/my')
       .then((response) => {
-        setAnuncioTag(response.data.tags);
+        const tags = creatTags(response.data.tags)
+        setAnuncioTag(tags);
       })
       .catch((error) => {
         let msg = '';
@@ -146,6 +147,14 @@ function Explore() {
   //   });
   //   setPtags(atualizaTags);
   // }
+
+  function creatTags (lista) {
+    const tags = lista && lista.length > 0 && lista.map(x => {
+      const tagColor = getTagColor(x.categoryId);
+      return(<InputTag id={x.id} clickTag={removeTagsA} styles={{ backgroundColor: `${tagColor}`}}>{x.name}</InputTag>);
+      });
+      return tags
+  }
 
     const attAtags = () => {
       const atualizaTags = anuncioTag && anuncioTag.length > 0 && anuncioTag.map(x => {
