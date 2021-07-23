@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { Avatar, makeStyles } from '@material-ui/core';
 import { getTagColor } from '../../utils/functions';
+import useFetch from '../../hooks/useFetch';
 import InputTag from '../inputTag';
 import IconMap from '../icons/iconMap';
-import wesleyImg from '../../img/wesley.jpeg';
 import './profileCard.css';
 
 const useStyles = makeStyles(() => ({
@@ -16,13 +17,15 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ProfileCard({ name, description, tags, city, state }) {
+function ProfileCard({ id, name, description, tags, city, state }) {
+  const { data: userData } = useFetch(`/profile/${id}`);
+  const [avatarImage] = useState(userData?.picture);
   const styles = useStyles();
 
   return (
     <div className="profile-card">
       <div className="card-header">
-        <Avatar className={styles.avatar} src={wesleyImg} />
+        <Avatar className={styles.avatar} src={avatarImage ?? userData?.picture} />
       </div>
       <div className="card-content">
         <div id="profile-location">
