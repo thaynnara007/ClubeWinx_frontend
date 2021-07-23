@@ -8,6 +8,7 @@ import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
 import useFetch from '../../hooks/useFetch';
+import { useHistory } from 'react-router';
 
 const stylesInvalid = {
   label: {
@@ -47,8 +48,10 @@ const tooltip = (
   </>
 );
 
-function NewPost({post}) {
+function NewPost({ post }) {
   const { data: address, isLoading } = useFetch('/address/me');
+
+  const history = useHistory();
 
   const [expense, setExpense] = useState(post?.expense ?? '');
   const [description, setDescription] = useState(post?.description ?? '');
@@ -73,7 +76,7 @@ function NewPost({post}) {
       setResidents(post?.residents);
       setVacancies(post?.vacancies);
       setBathrooms(post?.bathrooms);
-      setBeds(post?.beds)
+      setBeds(post?.beds);
     }
 
     updateState();
@@ -154,7 +157,7 @@ function NewPost({post}) {
         .then((response) => {
           if (response) {
             setLoading(false);
-
+            history.push('/posts/my');
             toast('Anúncio criado com sucesso!');
           }
         })
@@ -169,7 +172,54 @@ function NewPost({post}) {
     }
   };
 
-  
+  const edit = () => {
+    if (validateInfo()) {
+      setLoading(true);
+
+      const body = {
+        expense,
+        description,
+        residents,
+        vacancies,
+        bathrooms,
+        beds,
+      };
+
+      api
+        .put('/user/poster/my', body)
+        .then((response) => {
+          if (response) {
+            setLoading(false);
+            history.push('/posts/my');
+            toast('Anúncio editado com sucesso!');
+          }
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          setLoading(false);
+          toast.error(msg);
+        });
+    }
+  };
+
+  const hasPost = () => {
+    if(post != null){
+      return (
+        <BaseButton onClick={edit} styles={buttonStyle}>
+          EDITAR
+        </BaseButton>
+      );
+    } else{
+      return (
+      <BaseButton onClick={register} styles={buttonStyle}>
+        CRIAR
+      </BaseButton>
+      );
+    }
+  };
 
   return (
     <>
@@ -226,9 +276,7 @@ function NewPost({post}) {
           <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           {validateAddress() ? (
-            <BaseButton onClick={register} styles={buttonStyle}>
-              CRIAR
-            </BaseButton>
+            hasPost()
           ) : (
             <HtmlTooltip title={tooltip} placement="right-end">
               <div style={{ width: '100%' }}>

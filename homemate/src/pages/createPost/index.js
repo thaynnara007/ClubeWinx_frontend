@@ -80,7 +80,7 @@ function CreatePost() {
           containerStyle={{ width: '50%', marginTop: '100px' }}
         >
           <Flex styles={{ width: '100%' }}>
-            <NewPost post={postData}/>
+            <NewPost post={postData} />
           </Flex>
 
           <Flex styles={{ width: '100%' }}>

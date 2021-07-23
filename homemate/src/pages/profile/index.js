@@ -236,7 +236,7 @@ function Profile() {
 
           <div className="profile-box">
             <div className="profile-socialmedia-icons">
-              {userData.socialMedia !== null ? (socialMedia()) : (<></>) }
+              {userData.socialMedia !== null ? socialMedia() : <></>}
             </div>
             {id === 'me' && (
               <div className="profile-edit-info-icon">
