@@ -6,9 +6,24 @@ import ProfileCard from '../../components/profileCard';
 import './explore.css';
 
 function Explore() {
+  const [myProfile, setMyProfile] = useState(null);
   const [profiles, setProfiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const loadingStyle = { marginTop: '400px' };
+
+  function getMyProfile() {
+    api
+      .get('/user/me')
+      .then((response) => {
+        setMyProfile(response.data);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        toast.error(msg);
+      });
+  }
 
   function getProfiles() {
     setIsLoading(true);
@@ -28,8 +43,15 @@ function Explore() {
   }
 
   useEffect(() => {
+    getMyProfile();
     getProfiles();
   }, []);
+
+  function itsNotMyProfile(profile) {
+    return profile.id !== myProfile.id;
+  }
+
+  const recommendedProfiles = profiles.filter(itsNotMyProfile);
 
   return (
     <>
@@ -37,9 +59,9 @@ function Explore() {
         <Loading style={loadingStyle} />
       ) : (
         <div className="explore-container">
-          {profiles &&
-            profiles.length > 0 &&
-            profiles.map((profile) => (
+          {recommendedProfiles &&
+            recommendedProfiles.length > 0 &&
+            recommendedProfiles.map((profile) => (
               <ProfileCard
                 key={profile.id}
                 id={profile.id}
