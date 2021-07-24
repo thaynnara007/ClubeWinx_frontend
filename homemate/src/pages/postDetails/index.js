@@ -1,7 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 
 import { useParams } from 'react-router-dom';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { Tooltip } from '@material-ui/core';
 import { toast } from 'react-toastify';
@@ -16,7 +16,6 @@ import { getTagColor } from '../../utils/functions';
 import IconDoor from '../../components/icons/iconDoor';
 import IconBed from '../../components/icons/iconBed';
 import IconBath from '../../components/icons/iconBath';
-import useFetch from '../../hooks/useFetch';
 import Loading from '../../components/loading';
 import InfoSpan from '../../components/infoSpan';
 import Picture from '../../components/picture';
@@ -92,11 +91,35 @@ const scrollBoxDescriptionStyles = {
 
 function PostDetails() {
   const { id } = useParams();
-  const { data: post, isLoading } = useFetch(`/user/poster/${id}`);
   const history = useHistory();
 
+  const [post, setPostData] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+
+    api
+      .get(`/user/poster/${id}`)
+      .then((response) => {
+        const { data } = response;
+
+        setPostData(data);
+        if (data?.imageHeader)
+          setHeaderBackground({ backgroundImage: `url('${data?.imageHeader?.pictureUrl}')` });
+
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        setIsLoading(false);
+        toast.error(msg);
+      });
+  }, []);
 
   const goToProfile = () => {
     history.push(`/profile/${post?.owner.id}`);
@@ -107,8 +130,28 @@ function PostDetails() {
   const handleHeaderUpload = (file) => {
     if (file) {
       const image = URL.createObjectURL(file);
+      const formData = new FormData();
+      const config = {
+        headers: {
+          'content-type': 'multipart/form-data',
+        },
+      };
 
+      formData.append('file', file);
       setHeaderBackground({ backgroundImage: `url('${image}')` });
+
+      api
+        .put('/user/poster/my/headerImage', formData, config)
+        .then(() => {
+          toast('Foto atualizada com sucesso');
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
     }
   };
 
@@ -201,7 +244,8 @@ function PostDetails() {
                 {`${post?.owner.address.street ?? ''},   
                 ${post?.owner.address.number ?? ''}, 
                 ${post?.owner.address.district ?? ''}, 
-                ${post?.owner.address.city ?? ''}`}
+                ${post?.owner.address.city ?? ''},
+                ${post?.owner.address.state ?? ''}`}
               </Text>
               <div style={{ margin: '0 auto', width: 'fit-content', height: 'fit-content' }}>
                 <Text styles={{ ...textStyle, fontSize: '28px' }}>
