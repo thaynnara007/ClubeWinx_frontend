@@ -4,9 +4,9 @@ import Loading from '../loading';
 import BaseButton from '../button';
 
 function AddTag() {
-  const [categoria, setCategoria] = useState('');
-  const [name, setName] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [categoria] = useState('');
+  const [name] = useState('');
+  const [loading] = useState(false);
 
   const tag = () => {
     // corpo da requisição
