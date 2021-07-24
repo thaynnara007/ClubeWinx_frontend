@@ -201,7 +201,7 @@ function Profile() {
         setIsLoading(false);
         toast.error(msg);
       });
-  }, [userData]);
+  }, [id]);
 
   return (
     <>
