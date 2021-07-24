@@ -2,14 +2,13 @@
 
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
 
 import api from '../../api';
 import Text from '../../components/text';
-import useFetch from '../../hooks/useFetch';
 import Button from '../../components/button';
 import Loading from '../../components/loading';
 import InputTag from '../../components/inputTag';
@@ -23,6 +22,10 @@ import IconEmail from '../../components/icons/iconEmail';
 import IconPeople from '../../components/icons/iconPeople';
 import IconAddress from '../../components/icons/iconAddress';
 import IconProfileEdit from '../../components/icons/iconEditProfile';
+import IconInstagram from '../../components/icons/iconInstagram';
+import IconFacebook from '../../components/icons/iconFacebook';
+import IconTwitter from '../../components/icons/iconTwitter';
+import IconUsers from '../../components/icons/iconUsers';
 
 import './profile.css';
 
@@ -84,7 +87,8 @@ const tagsBoxStyle = {
 function Profile() {
   const { id } = useParams();
 
-  const { data: userData, isLoading } = useFetch(`/profile/${id}`, id);
+  const [userData, setUserData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [avatarImage, setAvatarImage] = useState(userData?.picture);
@@ -140,6 +144,65 @@ function Profile() {
     return '';
   };
 
+  function open() {
+    window.open(`${userData?.socialMedia}`, '_blank')
+  }
+
+  function socialMedia() {
+    let social = null;
+
+    if ((userData?.socialMedia).includes('instagram')) {
+      social = (
+        <Tooltip title="instagram">
+          <button type="button" onClick={open} className="profile-icon-button">
+            <IconInstagram size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } else if ((userData?.socialMedia).includes('facebook')) {
+      social = (
+        <Tooltip title="facebook">
+          <button type="button" onClick={open} className="profile-icon-button">
+            <IconFacebook size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } else if ((userData?.socialMedia).includes('twitter')) {
+      social = (
+        <Tooltip title="twitter">
+          <button type="button" onClick={open} className="profile-icon-button">
+            <IconTwitter size="3x" />
+          </button>
+        </Tooltip>
+      );
+    } else {
+      social = (
+        <Tooltip title="rede social">
+          <button type="button" onClick={open} className="profile-icon-button">
+            <IconUsers size="3x" />
+          </button>
+        </Tooltip>
+      );
+    }
+    return social;
+  }
+
+  useEffect(() => {
+    api
+      .get(`/profile/${id}`)
+      .then((response) => {
+        setUserData(response.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        setIsLoading(false);
+        toast.error(msg);
+      });
+  }, [userData]);
+
   return (
     <>
       {isLoading ? (
@@ -172,6 +235,7 @@ function Profile() {
           </div>
 
           <div className="profile-box">
+            <div className="profile-socialmedia-icons">{userData?.socialMedia ? (socialMedia()) : (<></>)}</div>
             {id === 'me' && (
               <div className="profile-edit-info-icon">
                 <Tooltip title="editar informações">
