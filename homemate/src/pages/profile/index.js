@@ -133,7 +133,7 @@ function Profile() {
   };
 
   const seePost = () => history.push(`/posts/${id === 'me' ? 'my' : userData?.posterId}`);
-  const createPost = () => history.push(`/createPost`);
+  const createPost = () => history.push(`/post/create`);
 
   const getAge = (birthday) => {
     if (birthday) {

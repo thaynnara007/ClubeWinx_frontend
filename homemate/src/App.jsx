@@ -31,7 +31,10 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route exact path="/createPost">
+            <Route exact path="/post/create">
+              <CreatePost />
+            </Route>
+            <Route exact path="/post/edit">
               <CreatePost />
             </Route>
             <Route exact path="/posts">

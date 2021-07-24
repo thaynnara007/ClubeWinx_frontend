@@ -49,7 +49,7 @@ const tooltip = (
 );
 
 function NewPost({ post }) {
-  const { data: address, isLoading } = useFetch('/address/me');
+  //const { data: address, isLoading } = useFetch('/address/me');
 
   const history = useHistory();
 
@@ -59,6 +59,7 @@ function NewPost({ post }) {
   const [vacancies, setVacancies] = useState(post?.vacancies ?? '');
   const [bathrooms, setBathrooms] = useState(post?.bathrooms ?? '');
   const [beds, setBeds] = useState(post?.beds ?? '');
+  const [ address, setAddress ] = useState(post.address ?? {})
 
   const [labelExpenseStyle, setLabelExpenseStyle] = useState({});
   const [labelDescriptionStyle, setLabelDescriptionStyle] = useState({});
@@ -77,6 +78,7 @@ function NewPost({ post }) {
       setVacancies(post?.vacancies);
       setBathrooms(post?.bathrooms);
       setBeds(post?.beds);
+      setAddress(post?.address)
     }
 
     updateState();
@@ -223,7 +225,7 @@ function NewPost({ post }) {
 
   return (
     <>
-      {isLoading || loading ? (
+      { loading ? (
         <div style={{ marginTop: '400px' }}>
           <Loading />
         </div>
@@ -275,7 +277,7 @@ function NewPost({ post }) {
           <Input name="CEP" value={address?.zipCode ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
-          {validateAddress() ? (
+          { validateAddress() ? (
             hasPost()
           ) : (
             <HtmlTooltip title={tooltip} placement="right-end">
