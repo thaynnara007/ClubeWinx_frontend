@@ -145,7 +145,7 @@ function Profile() {
   };
 
   function open() {
-    window.location.href = userData?.socialMedia;
+    window.open(`${userData?.socialMedia}`, '_blank')
   }
 
   function socialMedia() {
