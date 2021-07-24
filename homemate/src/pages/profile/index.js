@@ -115,7 +115,6 @@ function Profile() {
   }, [id]);
 
   const upload = (file, url) => {
-    const image = URL.createObjectURL(file);
     const formData = new FormData();
     const config = {
       headers: {
@@ -124,7 +123,6 @@ function Profile() {
     };
 
     formData.append('file', file);
-    setAvatarImage(image);
 
     api
       .put(url, formData, config)
