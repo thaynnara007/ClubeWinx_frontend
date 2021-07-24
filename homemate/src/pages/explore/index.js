@@ -13,7 +13,7 @@ function Explore() {
   function getProfiles() {
     setIsLoading(true);
     api
-      .get('/profile')
+      .get('/profile/recomendation')
       .then((response) => {
         setProfiles(response.data);
         setIsLoading(false);
