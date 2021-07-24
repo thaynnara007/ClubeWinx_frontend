@@ -20,7 +20,7 @@ function InfoSpan({
           color: spanColor,
         }}
       >
-        {amountText}
+        {amountText ?? 0}
       </span>
       <div style={{ marginLeft: '0.3em' }}>
         {children}
