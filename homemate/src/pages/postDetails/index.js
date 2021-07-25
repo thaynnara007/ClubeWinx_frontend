@@ -171,7 +171,7 @@ function PostDetails() {
                   <button
                     type="button"
                     className="post-icon-button"
-                    onClick={() => history.push(`/createPost`)}
+                    onClick={() => history.push(`/post/edit`)}
                   >
                     <IconEdit size="2x" />
                   </button>

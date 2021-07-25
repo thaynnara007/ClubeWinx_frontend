@@ -48,7 +48,7 @@ const tooltip = (
   </>
 );
 
-function NewPost({ post }) {
+function NewPost({ post, isEdit}) {
   //const { data: address, isLoading } = useFetch('/address/me');
 
   const history = useHistory();
@@ -207,22 +207,6 @@ function NewPost({ post }) {
     }
   };
 
-  const hasPost = () => {
-    if(post != null){
-      return (
-        <BaseButton onClick={edit} styles={buttonStyle}>
-          EDITAR
-        </BaseButton>
-      );
-    } else{
-      return (
-      <BaseButton onClick={register} styles={buttonStyle}>
-        CRIAR
-      </BaseButton>
-      );
-    }
-  };
-
   return (
     <>
       { loading ? (
@@ -278,7 +262,8 @@ function NewPost({ post }) {
           <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           { validateAddress() ? (
-            hasPost()
+            isEdit ? <BaseButton onClick={edit} styles={buttonStyle}>EDITAR</BaseButton> : 
+            <BaseButton onClick={register} styles={buttonStyle}>CRIAR</BaseButton>
           ) : (
             <HtmlTooltip title={tooltip} placement="right-end">
               <div style={{ width: '100%' }}>

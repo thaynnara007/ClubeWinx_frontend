@@ -21,7 +21,7 @@ function CreatePost() {
   const history = useHistory();
   const { pathname } = useLocation();
 
-  const { data: post, isLoading2 } = useFetch('/user/poster/my');
+  const { data: post, isLoading2 } = (pathname === '/post/edit') ? useFetch('/user/poster/my') : '';
   const { data: address, isLoading } = useFetch('/address/me');
 
 
@@ -77,7 +77,7 @@ function CreatePost() {
             styles={{ top: '160px' }}
             actions={[() => {}, handleClickCreatePost, handleClickAddTag]}
           >
-            {[back, 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
+            {[back, pathname==="/post/edit" ? 'EDITAR ANÚNCIO' : 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
           </TabBar>
           <ReactCardFlip
             isFlipped={isFlipped}
@@ -85,7 +85,7 @@ function CreatePost() {
             containerStyle={{ width: '50%', marginTop: '100px' }}
           >
             <Flex styles={{ width: '100%' }}>
-              <NewPost post={postData} />
+              <NewPost post={postData} isEdit={pathname==="/post/edit"}/>
             </Flex>
 
             <Flex styles={{ width: '100%' }}>
