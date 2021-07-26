@@ -168,7 +168,11 @@ function PostDetails() {
             {id === 'my' && (
               <div className="post-edit-info-icon">
                 <Tooltip title="Editar informações">
-                  <button type="button" className="post-icon-button">
+                  <button
+                    type="button"
+                    className="post-icon-button"
+                    onClick={() => history.push(`/post/edit`)}
+                  >
                     <IconEdit size="2x" />
                   </button>
                 </Tooltip>
@@ -219,15 +223,15 @@ function PostDetails() {
                     <IconPeople />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="quartos" amountText="2">
+                  <InfoSpan description="quartos" amountText={post?.vacancies ?? ''}>
                     <IconDoor />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="camas" amountText="2">
+                  <InfoSpan description="camas" amountText={post?.beds ?? ''}>
                     <IconBed />
                   </InfoSpan>,
                   <div className="flip-card-back-vl" />,
-                  <InfoSpan description="banheiros" amountText="1">
+                  <InfoSpan description="banheiros" amountText={post?.bathrooms ?? ''}>
                     <IconBath />
                   </InfoSpan>,
                 ]}
