@@ -29,6 +29,13 @@
   margin-right: 20px;
 }
 
+.profile-socialmedia-icons {
+  height: fit-content;
+  width: fit-content;
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
 .profile-icon-button {
   border: none;
   background-color: transparent;
