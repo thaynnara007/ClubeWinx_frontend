@@ -20,7 +20,7 @@
   display: flex;
   justify-content: center;
   margin-top: 80px;
-  text-align: justify; 
+  text-align: justify;
 }
 
 .about-side {
@@ -40,7 +40,7 @@ a:focus,
 a:hover,
 a:active {
   text-decoration: none;
-  color: #6983AA;
+  color: #6983aa;
 }
 
 .about-text {
@@ -50,7 +50,7 @@ a:active {
   padding: 2em 2.4em;
   position: relative;
   transform: translateZ(0);
-  color: #6983AA;
+  color: #6983aa;
 }
 
 .about-inner {
