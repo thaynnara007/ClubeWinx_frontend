@@ -6,11 +6,8 @@ import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Autocomplete from '../autocomplete';
-import InputTag from '../inputTag';
-import ScrollBox from '../scrollBox';
 
 import Loading from '../loading';
-import { getTagColor } from '../../utils/functions';
 
 const stylesInvalid = {
   label: {
@@ -48,8 +45,10 @@ function ProfileEdit({ profile }) {
   const [problemSocialMedia, setProblemSocialMedia] = useState({});
   const [loading, setLoading] = useState(false);
 
-  const [tagsElement, setTagsElement] = useState([]);
+  const [tags, setTags] = useState(new Set());
+  const [tagsInit, setTagsInit] = useState(new Set());
   const [profileTag, setProfileTag] = useState([]);
+
   const addTagPerfilURL = '/profile/me/add/tags';
   const removeTagPerfilURL = '/profile/me/remove/tags';
   const createTag = '/profile//me/create/tags';
@@ -58,10 +57,19 @@ function ProfileEdit({ profile }) {
     function updateState() {
       setDescription(profile?.description);
       setSocialMedia(profile?.socialMedia);
+      setProfileTag(profile.tags);
+      console.log("edit", tags.size === 0)
+      if (tags.size === 0) {
+        let initSet = new Set();
+        let initSetTags = new Set();
+        profile && profile.tags && profile.tags !== undefined && profile.tags.map((tag) => initSet.add(tag.id) && initSetTags.add(tag.id));
+        setTags(initSetTags);
+        setTagsInit(initSet)
+      }
     }
-
     updateState();
   }, [profile]);
+
 
   const history = useHistory();
 
@@ -85,7 +93,7 @@ function ProfileEdit({ profile }) {
     const validated = validateInfo();
 
     if (validated) {
-      addTagP();
+      updateTags();
       const body = {
         description,
         socialMedia,
@@ -108,40 +116,72 @@ function ProfileEdit({ profile }) {
     }
   };
 
-  const addTagP = () => {
-    console.log("addTagas");
-    const add = tagsElement.filter((tag) => tag.id !== -1);
-    const createTags = tagsElement.filter((tag) => tag.id === -1);
-    create(createTags);
-    const tags = add.map((tag) => tag.id);
-    console.log("tagas q vao ser adicionadas no perfil ",tags);
-    const body = {
-      tags
-    }
-    api
-    .post(addTagPerfilURL, body)
-    .then((response) => {
-      setProfileTag(response.data.tags);
-      // attPtags();
+  const updateTags = () => {
+    let addTag = [];
+    let removeTag = [];
+
+    tags.forEach((tag) => {
+      if(!tagsInit.has(tag) && tag > 0) {
+        addTag.push(tag);
+      }
     })
-    .catch((error) => {
-      console.log('error'. error);
-      let msg = '';
-      if (error.response) msg = error.response.data.error;
-      else msg = 'Network failed add';
-    });
+
+    tagsInit.forEach((tag) => {
+      if(!tags.has(tag)) {
+        removeTag.push(tag);
+      }
+    })
+
+    if(tags.has(-1)) {
+      const createTags = profileTag.filter((tag) => tag.id < 0);
+      create(createTags);
+    }
+
+    if(addTag.length > 0) {
+      addTagP(addTag)
+    }
+
+    if(removeTag.length > 0) {
+      removeTagsP(removeTag)
+    }
   }
 
-  function removeTagsP (tagId) {
-    const tags = [tagId];
+  function addTagP (tags) {
+    console.log('add ',tags)
+    if(tags.length > 0) {
+      const body = {
+        tags
+      }
+      api
+      .post(addTagPerfilURL, body)
+      .then((response) => {
+        console.log("adicionou ",tags)
+      })
+      .catch((error) => {
+        console.log('error'. error);
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed add';
+      });
+    }
+  }
+
+  async function removeTagP (tag) {
+    tags.delete(tag);
+    setProfileTag((prev) => prev.filter(e => e.id !== tag));
+    console.log(tags)
+    console.log(profileTag)
+
+  }
+
+  function removeTagsP (tags) {
     const body = {
       tags
     }
     api
     .put(removeTagPerfilURL, body)
     .then((response) => {
-      setProfileTag(response.data.tags);
-      console.log(profileTag)
+      console.log("removeu ",tags)
     })
     .catch((error) => {
       let msg = '';
@@ -149,11 +189,10 @@ function ProfileEdit({ profile }) {
       else msg = 'Network failed remove';
     });
   }
-
+  
   const create = (tags) => {
     if (tags && tags.length > 0) {
       tags.forEach(element => {
-        console.log(element)
         const body = {
           'tags': [
             {
@@ -165,13 +204,8 @@ function ProfileEdit({ profile }) {
         api 
           .post(createTag, body)
           .then((response) => {
-            console.log(response)
-            setMyTags(response.data.tags);
-            setMyTagsList(response.data.tags);
-            toast('Anúncio criado com su  cesso');
-            toast('Edite seu anúncio: adicione algumas tags!');
-            setFlag(true);
-            setStateAnnouncement(ENTER_PAGE_MYANNOUNCEMENTT)
+            console.log('criou ', body);
+            toast('Tags criadas com sucesso');
           })
           .catch((error) => {
             let msg = '';
@@ -204,42 +238,11 @@ function ProfileEdit({ profile }) {
             onChange={setSocialMedia}
             styles={problemSocialMedia}
           />
-        {
-          profileTag && profileTag.length > 0 && profileTag.map(x => {
-            const tagColor = getTagColor(x.categoryId);
-            return(
-            <InputTag styles={{ backgroundColor: `${tagColor}`}}>{x.name}</InputTag>);
-          })
-        }
-          <Autocomplete creatTag={true} tags={tagsElement} setTags={setTagsElement} />
+
+          <Autocomplete profileTag={profileTag} setProfileTag={setProfileTag} deleteTag={removeTagP} creatTag={true} tags={tags} setTags={setTags} />
           <BaseButton onClick={editProfile} styles={{ width: '100%', fontWeight: 'bold' }}>
             SALVAR
           </BaseButton>
-          <ScrollBox styles={tagsBoxStyle}>
-              {profile?.tags
-                ? profile?.tags?.map((tag, index) => {
-                    const tagColor = getTagColor(tag?.categoryId);
-                    return (
-                      <InputTag
-                        key={index}
-                        styles={{ backgroundColor: `${tagColor}` }}
-                      >{`${tag?.name}`}</InputTag>
-                    );
-                  })
-                : []}
-                {tagsElement
-                ? tagsElement?.map((tag, index) => {
-                    const tagColor = getTagColor(tag?.categoryId);
-                    return (
-                      <InputTag
-                        key={index}
-                        styles={{ backgroundColor: `${tagColor}` }}
-                      >{`${tag?.name}`}</InputTag>
-                    );
-                  })
-                : []}
-            </ScrollBox>
-
         </>
       )}
     </>
