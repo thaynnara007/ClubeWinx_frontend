@@ -211,7 +211,11 @@ function PostDetails() {
             {id === 'my' && (
               <div className="post-edit-info-icon">
                 <Tooltip title="Editar informações">
-                  <button type="button" className="post-icon-button">
+                  <button
+                    type="button"
+                    className="post-icon-button"
+                    onClick={() => history.push(`/post/edit`)}
+                  >
                     <IconEdit size="2x" />
                   </button>
                 </Tooltip>

@@ -160,7 +160,7 @@ function Profile() {
   };
 
   const seePost = () => history.push(`/posts/${id === 'me' ? 'my' : userData?.posterId}`);
-  const createPost = () => history.push(`/createPost`);
+  const createPost = () => history.push(`/post/create`);
 
   const getAge = (birthday) => {
     if (birthday) {
@@ -328,7 +328,7 @@ function Profile() {
               <div style={iconStyle}>
                 <IconPhone size="2x" />
               </div>
-              <Text styles={infoTextStyle}>{`${userData?.phone ?? ''}`}</Text>
+              <Text styles={infoTextStyle}>{`${userData?.phoneNumber ?? ''}`}</Text>
 
               <div style={iconStyle}>
                 <IconAddress size="2x" />

@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router';
 
 import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
-import useFetch from '../../hooks/useFetch';
 
 const stylesInvalid = {
   label: {
@@ -47,15 +47,16 @@ const tooltip = (
   </>
 );
 
-function NewPost() {
-  const { data: address, isLoading } = useFetch('/address/me');
+function NewPost({ post, isEdit }) {
+  const history = useHistory();
 
-  const [expense, setExpense] = useState('');
-  const [description, setDescription] = useState('');
-  const [residents, setResidents] = useState('');
-  const [vacancies, setVacancies] = useState('');
-  const [bathrooms, setBathrooms] = useState('');
-  const [beds, setBeds] = useState('');
+  const [expense, setExpense] = useState(post?.expense ?? '');
+  const [description, setDescription] = useState(post?.description ?? '');
+  const [residents, setResidents] = useState(post?.residents ?? '');
+  const [vacancies, setVacancies] = useState(post?.vacancies ?? '');
+  const [bathrooms, setBathrooms] = useState(post?.bathrooms ?? '');
+  const [beds, setBeds] = useState(post?.beds ?? '');
+  const [address, setAddress] = useState(post.address ?? {});
 
   const [labelExpenseStyle, setLabelExpenseStyle] = useState({});
   const [labelDescriptionStyle, setLabelDescriptionStyle] = useState({});
@@ -65,6 +66,20 @@ function NewPost() {
   const [labelBedsStyle, setLabelBedsStyle] = useState({});
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    function updateState() {
+      setExpense(post?.expense);
+      setDescription(post?.description);
+      setResidents(post?.residents);
+      setVacancies(post?.vacancies);
+      setBathrooms(post?.bathrooms);
+      setBeds(post?.beds);
+      setAddress(post?.address);
+    }
+
+    updateState();
+  }, [post]);
 
   const validateExpense = () => {
     const validation = expense === '' || expense === null;
@@ -101,6 +116,7 @@ function NewPost() {
     setLabelBedsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
+
   const validateAddress = () => {
     if (
       address &&
@@ -141,8 +157,41 @@ function NewPost() {
         .then((response) => {
           if (response) {
             setLoading(false);
-
+            history.push('/posts/my');
             toast('Anúncio criado com sucesso!');
+          }
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          setLoading(false);
+          toast.error(msg);
+        });
+    }
+  };
+
+  const edit = () => {
+    if (validateInfo()) {
+      setLoading(true);
+
+      const body = {
+        expense,
+        description,
+        residents,
+        vacancies,
+        bathrooms,
+        beds,
+      };
+
+      api
+        .put('/user/poster/my', body)
+        .then((response) => {
+          if (response) {
+            setLoading(false);
+            history.push('/posts/my');
+            toast('Anúncio editado com sucesso!');
           }
         })
         .catch((error) => {
@@ -158,7 +207,7 @@ function NewPost() {
 
   return (
     <>
-      {isLoading || loading ? (
+      {loading ? (
         <div style={{ marginTop: '400px' }}>
           <Loading />
         </div>
@@ -211,9 +260,15 @@ function NewPost() {
           <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           {validateAddress() ? (
-            <BaseButton onClick={register} styles={buttonStyle}>
-              CRIAR
-            </BaseButton>
+            isEdit ? (
+              <BaseButton onClick={edit} styles={buttonStyle}>
+                EDITAR
+              </BaseButton>
+            ) : (
+              <BaseButton onClick={register} styles={buttonStyle}>
+                CRIAR
+              </BaseButton>
+            )
           ) : (
             <HtmlTooltip title={tooltip} placement="right-end">
               <div style={{ width: '100%' }}>
