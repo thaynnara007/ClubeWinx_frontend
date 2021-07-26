@@ -2,13 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { Tooltip } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
+import { useHistory } from 'react-router';
 
 import api from '../../api';
 import Input from '../input';
 import BaseButton from '../button';
 import Loading from '../loading';
-import useFetch from '../../hooks/useFetch';
-import { useHistory } from 'react-router';
 
 const stylesInvalid = {
   label: {
@@ -48,9 +47,7 @@ const tooltip = (
   </>
 );
 
-function NewPost({ post, isEdit}) {
-  //const { data: address, isLoading } = useFetch('/address/me');
-
+function NewPost({ post, isEdit }) {
   const history = useHistory();
 
   const [expense, setExpense] = useState(post?.expense ?? '');
@@ -59,7 +56,7 @@ function NewPost({ post, isEdit}) {
   const [vacancies, setVacancies] = useState(post?.vacancies ?? '');
   const [bathrooms, setBathrooms] = useState(post?.bathrooms ?? '');
   const [beds, setBeds] = useState(post?.beds ?? '');
-  const [ address, setAddress ] = useState(post.address ?? {})
+  const [address, setAddress] = useState(post.address ?? {});
 
   const [labelExpenseStyle, setLabelExpenseStyle] = useState({});
   const [labelDescriptionStyle, setLabelDescriptionStyle] = useState({});
@@ -78,7 +75,7 @@ function NewPost({ post, isEdit}) {
       setVacancies(post?.vacancies);
       setBathrooms(post?.bathrooms);
       setBeds(post?.beds);
-      setAddress(post?.address)
+      setAddress(post?.address);
     }
 
     updateState();
@@ -119,6 +116,7 @@ function NewPost({ post, isEdit}) {
     setLabelBedsStyle(validation ? stylesInvalid : stylesValid);
     return !validation;
   };
+
   const validateAddress = () => {
     if (
       address &&
@@ -209,7 +207,7 @@ function NewPost({ post, isEdit}) {
 
   return (
     <>
-      { loading ? (
+      {loading ? (
         <div style={{ marginTop: '400px' }}>
           <Loading />
         </div>
@@ -261,9 +259,16 @@ function NewPost({ post, isEdit}) {
           <Input name="CEP" value={address?.zipCode ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="CIDADE" value={address?.city ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
           <Input name="ESTADO" value={address?.state ?? UPDATE_YOUR_ADDRESS} onChange={() => {}} />
-          { validateAddress() ? (
-            isEdit ? <BaseButton onClick={edit} styles={buttonStyle}>EDITAR</BaseButton> : 
-            <BaseButton onClick={register} styles={buttonStyle}>CRIAR</BaseButton>
+          {validateAddress() ? (
+            isEdit ? (
+              <BaseButton onClick={edit} styles={buttonStyle}>
+                EDITAR
+              </BaseButton>
+            ) : (
+              <BaseButton onClick={register} styles={buttonStyle}>
+                CRIAR
+              </BaseButton>
+            )
           ) : (
             <HtmlTooltip title={tooltip} placement="right-end">
               <div style={{ width: '100%' }}>

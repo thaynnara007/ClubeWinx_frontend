@@ -15,15 +15,16 @@ import useFetch from '../../hooks/useFetch';
 import './createPost.css';
 
 function CreatePost() {
-  const [choosedTab, setChoosedTab] = useState('CRIAR ANÚNCIO');
-  const [isFlipped, setIsFlipped] = useState(false);
-
   const history = useHistory();
   const { pathname } = useLocation();
+  const tabTitle = pathname === '/post/edit' ? 'EDITAR ANÚNCIO' : 'CRIAR ANÚNCIO';
 
-  const { data: post, isLoading2 } = (pathname === '/post/edit') ? useFetch('/user/poster/my') : '';
+  const [choosedTab, setChoosedTab] = useState(tabTitle);
+  const [isFlipped, setIsFlipped] = useState(false);
+
+  const { data: post, isLoading2 } =
+    pathname === '/post/edit' ? useFetch('/user/poster/my') : { data: {}, isLoading: false };
   const { data: address, isLoading } = useFetch('/address/me');
-
 
   const postData = {
     expense: post?.expense,
@@ -37,7 +38,7 @@ function CreatePost() {
 
   const handleClickCreatePost = () => {
     setIsFlipped(false);
-    setChoosedTab('CRIAR ANÚNCIO');
+    setChoosedTab(tabTitle);
   };
 
   const handleClickAddTag = () => {
@@ -53,7 +54,9 @@ function CreatePost() {
     <button
       type="button"
       className="arrow-left-icon-button"
-      onClick={() => history.push('/profile/me')}
+      onClick={() =>
+        pathname === '/post/edit' ? history.push('/posts/my') : history.push('/profile/me')
+      }
     >
       <IconArrowLeft styles={{ color: '#FFFFFF' }} />
     </button>
@@ -61,9 +64,9 @@ function CreatePost() {
 
   return (
     <div className="homepage-background createPost-background">
-      {
-        (isLoading || isLoading2) ? 
-        <Loading /> :
+      {isLoading || isLoading2 ? (
+        <Loading />
+      ) : (
         <Flex styles={{ width: '50%', margin: '0 auto' }}>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/homemate-55271.appspot.com/o/homemate.png?alt=media&token=d17bf811-1be1-4aa3-8ddd-a366e0326d90"
@@ -77,7 +80,7 @@ function CreatePost() {
             styles={{ top: '160px' }}
             actions={[() => {}, handleClickCreatePost, handleClickAddTag]}
           >
-            {[back, pathname==="/post/edit" ? 'EDITAR ANÚNCIO' : 'CRIAR ANÚNCIO', 'ADICIONAR TAGS']}
+            {[back, tabTitle, 'ADICIONAR TAGS']}
           </TabBar>
           <ReactCardFlip
             isFlipped={isFlipped}
@@ -85,15 +88,15 @@ function CreatePost() {
             containerStyle={{ width: '50%', marginTop: '100px' }}
           >
             <Flex styles={{ width: '100%' }}>
-              <NewPost post={postData} isEdit={pathname==="/post/edit"}/>
+              <NewPost post={postData} isEdit={pathname === '/post/edit'} />
             </Flex>
 
             <Flex styles={{ width: '100%' }}>
               <AddTag />
             </Flex>
           </ReactCardFlip>
-        </Flex> 
-      }
+        </Flex>
+      )}
     </div>
   );
 }
