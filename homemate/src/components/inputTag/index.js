@@ -16,7 +16,7 @@ function InputTag(props) {
 
   useEffect(() => {
     function updateState() {
-      setTagValue(children)
+      setTagValue(truncateTag(children))
     }
     updateState();
   }, [children]);
