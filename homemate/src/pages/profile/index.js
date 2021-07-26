@@ -2,7 +2,7 @@
 
 import moment from 'moment';
 import { toast } from 'react-toastify';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { makeStyles, Avatar, Tooltip } from '@material-ui/core';
@@ -86,49 +86,76 @@ const tagsBoxStyle = {
 
 function Profile() {
   const { id } = useParams();
-
-  const [userData, setUserData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-
+  const [userData, setUserData] = useState(undefined);
+  const [isLoading, setIsLoading] = useState(false);
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
   const [avatarImage, setAvatarImage] = useState(userData?.picture);
 
   const history = useHistory();
   const styles = useStyles();
 
+  useEffect(() => {
+    setIsLoading(true);
+
+    api
+      .get(`/profile/${id}`)
+      .then((response) => {
+        const { data } = response;
+
+        setUserData(data);
+        if (data?.imageHeader)
+          setHeaderBackground({ backgroundImage: `url('${data?.imageHeader}')` });
+
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        setIsLoading(false);
+        toast.error(msg);
+      });
+  }, [id]);
+
+  const upload = (file, url) => {
+    const formData = new FormData();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
+
+    formData.append('file', file);
+
+    api
+      .put(url, formData, config)
+      .then(() => {
+        toast('Foto atualizada com sucesso');
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
+        toast.error(msg);
+      });
+  };
+
   const handleHeaderUpload = (file) => {
     if (file) {
-      const image = URL.createObjectURL(file);
+      upload(file, '/profile/me/headerImage');
 
+      const image = URL.createObjectURL(file);
       setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
   };
 
   const handleAvatarUpload = (file) => {
     if (file) {
+      upload(file, '/profile/me/picture');
+
       const image = URL.createObjectURL(file);
-      const formData = new FormData();
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      };
-
-      formData.append('file', file);
       setAvatarImage(image);
-
-      api
-        .put('/profile/me/picture', formData, config)
-        .then(() => {
-          toast('Foto atualizada com sucesso');
-        })
-        .catch((error) => {
-          let msg = '';
-          if (error.response) msg = error.response.data.error;
-          else msg = 'Network failed';
-
-          toast.error(msg);
-        });
     }
   };
 
@@ -209,7 +236,7 @@ function Profile() {
         <Loading />
       ) : (
         <>
-          <div className="profile-header" style={{ ...headerBackground }}>
+          <div className="profile-header" style={headerBackground}>
             {id === 'me' && (
               <div style={{ position: 'absolute', right: '5%', top: '16%' }}>
                 <FileUploader handleUpload={handleHeaderUpload}>EDITAR</FileUploader>

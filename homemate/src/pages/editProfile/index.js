@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import ReactCardFlip from 'react-card-flip';
 import { useHistory } from 'react-router';
