@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -9,17 +9,8 @@ import FileUploader from '../fileUploader';
 import IconPlus from '../icons/iconPlus';
 import './picture.css';
 
-function Picture({ listPost, showAddPicture = false }) {
-  const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
+function Picture({ listPost, showAddPicture = false, handleUpload }) {
   const size = listPost?.length;
-
-  const handleHeaderUpload = (file) => {
-    if (file) {
-      const image = URL.createObjectURL(file);
-
-      setHeaderBackground({ backgroundImage: `url('${image}')` });
-    }
-  };
 
   const getPosts = () => {
     const carrossel = [];
@@ -34,12 +25,12 @@ function Picture({ listPost, showAddPicture = false }) {
               <img alt="" src={post.pictureUrl} />
             </div>
           );
-        } else if (showAddPicture && size < 6) {
+        } else if (showAddPicture && size < 5) {
           carrossel.push(
-            <div key={index} className="background-carrossel" style={{ ...headerBackground }}>
+            <div key={index} className="background-carrossel">
               <FlipCardButton
-                buttonName={
-                  <FileUploader icon handleUpload={handleHeaderUpload}>
+                button={
+                  <FileUploader icon handleUpload={handleUpload}>
                     <IconPlus size="3x" styles={{ color: '#F4F4F4' }} />
                   </FileUploader>
                 }

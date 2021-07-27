@@ -127,23 +127,34 @@ function PostDetails() {
     return true;
   };
 
-  const handleHeaderUpload = (file) => {
-    if (file) {
-      const image = URL.createObjectURL(file);
-      const formData = new FormData();
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      };
+  const upload = (file, type = 'put', url, succesfulMsg) => {
+    const formData = new FormData();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
 
-      formData.append('file', file);
-      setHeaderBackground({ backgroundImage: `url('${image}')` });
+    formData.append('file', file);
 
+    if (type === 'put') {
       api
-        .put('/user/poster/my/headerImage', formData, config)
+        .put(url, formData, config)
         .then(() => {
-          toast('Foto atualizada com sucesso');
+          toast(succesfulMsg);
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+    } else {
+      api
+        .post(url, formData, config)
+        .then(() => {
+          toast(succesfulMsg);
         })
         .catch((error) => {
           let msg = '';
@@ -153,6 +164,19 @@ function PostDetails() {
           toast.error(msg);
         });
     }
+  };
+
+  const handleHeaderUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+
+      upload(file, 'put', '/user/poster/my/headerImage', 'Imagem atualizada com sucesso.');
+      setHeaderBackground({ backgroundImage: `url('${image}')` });
+    }
+  };
+
+  const handlePostPictureUpload = (file) => {
+    if (file) upload(file, 'post', '/user/poster/me/picture', 'Imagem adicionada com sucesso.');
   };
 
   const handleOpen = () => {
@@ -195,7 +219,11 @@ function PostDetails() {
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
             <div className="post-carousel">
-              <Picture listPost={post?.posterPictures} showAddPicture={id === 'my'} />
+              <Picture
+                listPost={post?.posterPictures}
+                showAddPicture={id === 'my'}
+                handleUpload={handlePostPictureUpload}
+              />
             </div>
           </div>
 
