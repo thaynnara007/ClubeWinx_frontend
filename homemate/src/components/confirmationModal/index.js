@@ -30,18 +30,26 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function ConfirmationModal({ open, handleClose, handleConfirm }) {
+const defaultTitle = 'Deletar anúncio';
+const defaultDescription =
+  'Após apagar o anúncio o mesmo não poderá mais ser recuperado. Você tem certeza que quer deletar esse anúncio?';
+
+function ConfirmationModal({
+  open,
+  handleClose,
+  handleConfirm,
+  title = defaultTitle,
+  description = defaultDescription,
+  confirmButtonName = 'Deletar',
+}) {
   const [modalStyle] = React.useState(getModalStyle);
   const classes = useStyles();
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
-      <h2 id="simple-modal-title">Deletar anúncio</h2>
+      <h2 id="simple-modal-title">{title}</h2>
       <hr />
-      <p id="simple-modal-description">
-        Após apagar o anúncio o mesmo não poderá mais ser recuperado. Você tem certeza que quer
-        deletar esse anúncio?
-      </p>
+      <p id="simple-modal-description">{description}</p>
       <br />
       <div style={{ width: '100%', display: 'flex', flexDirection: 'row-reverse' }}>
         <button
@@ -50,7 +58,7 @@ function ConfirmationModal({ open, handleClose, handleConfirm }) {
           className={classes.button}
           style={{ backgroundColor: '#FF7E67', marginLeft: '10px' }}
         >
-          Deletar
+          {confirmButtonName}
         </button>
         <button
           type="button"

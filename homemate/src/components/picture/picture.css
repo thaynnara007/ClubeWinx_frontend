@@ -11,3 +11,12 @@
   backface-visibility: hidden;
   overflow: hidden;
 }
+
+.picture-close-button {
+  position: absolute;
+  top: 2%;
+  left: 85%;
+  z-index: 4;
+  border: none;
+  background-color: transparent;
+}

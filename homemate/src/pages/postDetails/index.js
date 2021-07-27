@@ -221,7 +221,7 @@ function PostDetails() {
             <div className="post-carousel">
               <Picture
                 listPost={post?.posterPictures}
-                showAddPicture={id === 'my'}
+                isOwner={id === 'my'}
                 handleUpload={handlePostPictureUpload}
               />
             </div>
