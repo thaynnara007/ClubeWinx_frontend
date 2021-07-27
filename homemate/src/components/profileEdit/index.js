@@ -44,6 +44,11 @@ function ProfileEdit({ profile }) {
   const [socialMedia, setSocialMedia] = useState(profile?.socialMedia ?? '');
   const [problemSocialMedia, setProblemSocialMedia] = useState({});
   const [loading, setLoading] = useState(false);
+  const [loadingCreate, setLoadingCreate] = useState(false);
+  const [loadingAdd, setLoadingAdd] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+
+
 
   const [tags, setTags] = useState(new Set());
   const [tagsInit, setTagsInit] = useState(new Set());
@@ -58,7 +63,6 @@ function ProfileEdit({ profile }) {
       setDescription(profile?.description);
       setSocialMedia(profile?.socialMedia);
       setProfileTag(profile.tags);
-      console.log("edit", tags.size === 0)
       if (tags.size === 0) {
         let initSet = new Set();
         let initSetTags = new Set();
@@ -93,6 +97,7 @@ function ProfileEdit({ profile }) {
     const validated = validateInfo();
 
     if (validated) {
+      setLoading(true);
       updateTags();
       const body = {
         description,
@@ -117,80 +122,80 @@ function ProfileEdit({ profile }) {
   };
 
   const updateTags = () => {
-    let addTag = [];
-    let removeTag = [];
+    let addTag = new Set([...tags].filter(i => !tagsInit.has(i) && i > 0));
+    let removeTag = new Set([...tagsInit].filter(i => !tags.has(i)));
 
-    tags.forEach((tag) => {
-      if(!tagsInit.has(tag) && tag > 0) {
-        addTag.push(tag);
-      }
-    })
+    // tags.forEach((tag) => {
+    //   if(!tagsInit.has(tag) && tag > 0) {
+    //     addTag.push(tag);
+    //   }
+    // })
 
-    tagsInit.forEach((tag) => {
-      if(!tags.has(tag)) {
-        removeTag.push(tag);
-      }
-    })
+    // tagsInit.forEach((tag) => {
+    //   if(!tags.has(tag)) {
+    //     removeTag.push(tag);
+    //   }
+    // })
 
     if(tags.has(-1)) {
       const createTags = profileTag.filter((tag) => tag.id < 0);
       create(createTags);
     }
 
-    if(addTag.length > 0) {
+    if(addTag.size > 0) {
       addTagP(addTag)
     }
 
-    if(removeTag.length > 0) {
+    if(removeTag.size > 0) {
       removeTagsP(removeTag)
     }
   }
 
-  function addTagP (tags) {
-    console.log('add ',tags)
-    if(tags.length > 0) {
-      const body = {
-        tags
-      }
-      api
+  function addTagP(tagsAdd) {
+    setLoadingAdd(true);
+    const tags = Array.from(tagsAdd)
+    const body = {
+      tags
+    }
+    api
       .post(addTagPerfilURL, body)
       .then((response) => {
-        console.log("adicionou ",tags)
+        setLoadingAdd(false);
       })
       .catch((error) => {
-        console.log('error'. error);
         let msg = '';
         if (error.response) msg = error.response.data.error;
         else msg = 'Network failed add';
+        setLoadingAdd(false);
       });
-    }
   }
 
   async function removeTagP (tag) {
     tags.delete(tag);
     setProfileTag((prev) => prev.filter(e => e.id !== tag));
-    console.log(tags)
-    console.log(profileTag)
-
   }
 
-  function removeTagsP (tags) {
+  function removeTagsP (tagsRemove) {
+    setLoadingDelete(true);
+    const tags = Array.from(tagsRemove)
     const body = {
       tags
     }
     api
     .put(removeTagPerfilURL, body)
     .then((response) => {
-      console.log("removeu ",tags)
+      setLoadingDelete(false);
     })
     .catch((error) => {
       let msg = '';
       if (error.response) msg = error.response.data.error;
       else msg = 'Network failed remove';
+      setLoadingDelete(false);
     });
   }
-  
+
   const create = (tags) => {
+    setLoadingCreate(true);
     if (tags && tags.length > 0) {
       tags.forEach(element => {
         const body = {
@@ -204,14 +209,15 @@ function ProfileEdit({ profile }) {
         api 
           .post(createTag, body)
           .then((response) => {
-            console.log('criou ', body);
             toast('Tags criadas com sucesso');
+            setLoadingCreate(false);
           })
           .catch((error) => {
             let msg = '';
             if (error.response) msg = error.response.data.error;
             else msg = 'Network failed';
             toast.error(msg);
+            setLoadingCreate(false);
           });
         
       });
@@ -220,7 +226,7 @@ function ProfileEdit({ profile }) {
 
   return (
     <>
-      {loading ? (
+      {loading || loadingCreate || loadingAdd || loadingDelete ? (
         <div style={{ marginTop: '400px' }}>
           <Loading />
         </div>

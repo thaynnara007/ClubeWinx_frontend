@@ -87,7 +87,6 @@ function Autocomplete(props) {
       name: inputName,
       categoryId: category
     }
-    console.log(tag)
     if(tag) {
       setProfileTag((prev) => [...prev, tag]);
       tags.add(newTag);
