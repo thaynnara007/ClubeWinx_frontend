@@ -21,23 +21,6 @@ const stylesValid = {
   },
 };
 
-
-const tagsBoxStyle = {
-  display: {
-    gridColumn: '1 / 3',
-    gridRow: '5 / 7',
-    width: '100%',
-    height: '100%',
-    border: '2px solid #cbdae5',
-    borderRadius: '8px',
-    justifySelf: 'center',
-    marginTop: '40px',
-  },
-  item: {
-    height: 'fit-content',
-  },
-};
-
 function ProfileEdit({ profile }) {
   const [description, setDescription] = useState(profile?.description ?? '');
   const [problemDescription, setProblemDescription] = useState({});
@@ -48,9 +31,7 @@ function ProfileEdit({ profile }) {
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [loadingDelete, setLoadingDelete] = useState(false);
 
-
-
-  const [tags, setTags] = useState(new Set());
+  const [tagsSet, setTagsSet] = useState(new Set());
   const [tagsInit, setTagsInit] = useState(new Set());
   const [profileTag, setProfileTag] = useState([]);
 
@@ -63,35 +44,138 @@ function ProfileEdit({ profile }) {
       setDescription(profile?.description);
       setSocialMedia(profile?.socialMedia);
       setProfileTag(profile.tags);
-      if (tags.size === 0) {
-        let initSet = new Set();
-        let initSetTags = new Set();
-        profile && profile.tags && profile.tags !== undefined && profile.tags.map((tag) => initSet.add(tag.id) && initSetTags.add(tag.id));
-        setTags(initSetTags);
-        setTagsInit(initSet)
+      if (tagsSet.size === 0) {
+        const initSet = new Set();
+        const initSetTags = new Set();
+        if (profile && profile.tags) {
+          profile.tags.forEach((tag) => initSet.add(tag.id) && initSetTags.add(tag.id));
+        }
+        setTagsSet(initSetTags);
+        setTagsInit(initSet);
       }
     }
     updateState();
   }, [profile]);
-
 
   const history = useHistory();
 
   const validateDescription = () => {
     const validation = description === '' || description === null;
     setProblemDescription(validation ? stylesInvalid : stylesValid);
-
     return !validation;
   };
 
   const validateSocialMedia = () => {
     const validation = socialMedia === '' || socialMedia === null;
     setProblemSocialMedia(validation ? stylesInvalid : stylesValid);
-
     return !validation;
   };
 
   const validateInfo = () => validateDescription() || validateSocialMedia();
+
+  function addTagP(tagsAdd) {
+    setLoadingAdd(true);
+    const tags = Array.from(tagsAdd);
+    const body = {
+      tags,
+    };
+    api
+      .post(addTagPerfilURL, body)
+      .then(() => {
+        setLoadingAdd(false);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed add tags';
+        toast.error(msg);
+        setLoadingAdd(false);
+      });
+  }
+
+  async function removeTagP(tag) {
+    tagsSet.delete(tag);
+    setProfileTag((prev) => prev.filter((e) => e.id !== tag));
+  }
+
+  function removeTagsP(tagsRemove) {
+    setLoadingDelete(true);
+    const tags = Array.from(tagsRemove);
+    const body = {
+      tags,
+    };
+    api
+      .put(removeTagPerfilURL, body)
+      .then(() => {
+        setLoadingDelete(false);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed remove tags';
+        toast.error(msg);
+        setLoadingDelete(false);
+      });
+  }
+
+  const create = (tags) => {
+    setLoadingCreate(true);
+    if (tags && tags.length > 0) {
+      tags.forEach((element) => {
+        const body = {
+          tags: [
+            {
+              categoryId: element.categoryId,
+              name: element.name,
+            },
+          ],
+        };
+        api
+          .post(createTag, body)
+          .then(() => {
+            toast('Tags criadas com sucesso');
+            setLoadingCreate(false);
+          })
+          .catch((error) => {
+            let msg = '';
+            if (error.response) msg = error.response.data.error;
+            else msg = 'Network failed';
+            toast.error(msg);
+            setLoadingCreate(false);
+          });
+      });
+    }
+  };
+
+  const updateTags = () => {
+    const addTag = new Set([...tagsSet].filter((i) => !tagsInit.has(i) && i > 0));
+    const removeTag = new Set([...tagsInit].filter((i) => !tagsSet.has(i)));
+
+    // tags.forEach((tag) => {
+    //   if(!tagsInit.has(tag) && tag > 0) {
+    //     addTag.push(tag);
+    //   }
+    // })
+
+    // tagsInit.forEach((tag) => {
+    //   if(!tags.has(tag)) {
+    //     removeTag.push(tag);
+    //   }
+    // })
+
+    if (tagsSet.has(-1)) {
+      const createTags = profileTag.filter((tag) => tag.id < 0);
+      create(createTags);
+    }
+
+    if (addTag.size > 0) {
+      addTagP(addTag);
+    }
+
+    if (removeTag.size > 0) {
+      removeTagsP(removeTag);
+    }
+  };
 
   const editProfile = () => {
     const validated = validateInfo();
@@ -121,109 +205,6 @@ function ProfileEdit({ profile }) {
     }
   };
 
-  const updateTags = () => {
-    let addTag = new Set([...tags].filter(i => !tagsInit.has(i) && i > 0));
-    let removeTag = new Set([...tagsInit].filter(i => !tags.has(i)));
-
-    // tags.forEach((tag) => {
-    //   if(!tagsInit.has(tag) && tag > 0) {
-    //     addTag.push(tag);
-    //   }
-    // })
-
-    // tagsInit.forEach((tag) => {
-    //   if(!tags.has(tag)) {
-    //     removeTag.push(tag);
-    //   }
-    // })
-
-    if(tags.has(-1)) {
-      const createTags = profileTag.filter((tag) => tag.id < 0);
-      create(createTags);
-    }
-
-    if(addTag.size > 0) {
-      addTagP(addTag)
-    }
-
-    if(removeTag.size > 0) {
-      removeTagsP(removeTag)
-    }
-  }
-
-  function addTagP(tagsAdd) {
-    setLoadingAdd(true);
-    const tags = Array.from(tagsAdd)
-    const body = {
-      tags
-    }
-    api
-      .post(addTagPerfilURL, body)
-      .then((response) => {
-        setLoadingAdd(false);
-      })
-      .catch((error) => {
-        let msg = '';
-        if (error.response) msg = error.response.data.error;
-        else msg = 'Network failed add';
-        setLoadingAdd(false);
-      });
-  }
-
-  async function removeTagP (tag) {
-    tags.delete(tag);
-    setProfileTag((prev) => prev.filter(e => e.id !== tag));
-  }
-
-  function removeTagsP (tagsRemove) {
-    setLoadingDelete(true);
-    const tags = Array.from(tagsRemove)
-    const body = {
-      tags
-    }
-    api
-    .put(removeTagPerfilURL, body)
-    .then((response) => {
-      setLoadingDelete(false);
-    })
-    .catch((error) => {
-      let msg = '';
-      if (error.response) msg = error.response.data.error;
-      else msg = 'Network failed remove';
-      setLoadingDelete(false);
-    });
-  }
-
-  const create = (tags) => {
-    setLoadingCreate(true);
-    if (tags && tags.length > 0) {
-      tags.forEach(element => {
-        const body = {
-          'tags': [
-            {
-              'categoryId': element.categoryId,
-              'name': element.name
-            }
-          ]
-        };
-        api 
-          .post(createTag, body)
-          .then((response) => {
-            toast('Tags criadas com sucesso');
-            setLoadingCreate(false);
-          })
-          .catch((error) => {
-            let msg = '';
-            if (error.response) msg = error.response.data.error;
-            else msg = 'Network failed';
-            toast.error(msg);
-            setLoadingCreate(false);
-          });
-        
-      });
-    }
-  }
-
   return (
     <>
       {loading || loadingCreate || loadingAdd || loadingDelete ? (
@@ -245,7 +226,14 @@ function ProfileEdit({ profile }) {
             styles={problemSocialMedia}
           />
 
-          <Autocomplete profileTag={profileTag} setProfileTag={setProfileTag} deleteTag={removeTagP} creatTag={true} tags={tags} setTags={setTags} />
+          <Autocomplete
+            profileTag={profileTag}
+            setProfileTag={setProfileTag}
+            deleteTag={removeTagP}
+            creatTag
+            tags={tagsSet}
+            setTags={setTagsSet}
+          />
           <BaseButton onClick={editProfile} styles={{ width: '100%', fontWeight: 'bold' }}>
             SALVAR
           </BaseButton>

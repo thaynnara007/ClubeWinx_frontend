@@ -16,11 +16,11 @@ function InputTag(props) {
 
   useEffect(() => {
     function updateState() {
-      setTagValue(truncateTag(children))
+      setTagValue(truncateTag(children));
     }
     updateState();
   }, [children]);
-  
+
   const changeTag = (tag) => {
     setTruncate(true);
     if (tag !== children) {

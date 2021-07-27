@@ -1,4 +1,4 @@
-import React, { Fragment, useState  } from "react";
+import React, { Fragment, useState } from 'react';
 import { getTagColor } from '../../utils/functions';
 import useFetch from '../../hooks/useFetch';
 import Input from '../input';
@@ -6,7 +6,7 @@ import Button from '../button';
 import ScrollBox from '../scrollBox';
 import InputTag from '../inputTag';
 
-import "./autocomplete.css";
+import './autocomplete.css';
 
 const tagsBoxStyle = {
   display: {
@@ -25,7 +25,7 @@ const tagsBoxStyle = {
 };
 
 function Autocomplete(props) {
-  const { tags, setTags, creatTag, deleteTag, profileTag, setProfileTag} = props
+  const { tags, setTags, creatTag, deleteTag, profileTag, setProfileTag } = props;
   const { data: suggestions } = useFetch('/tag');
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
@@ -33,72 +33,68 @@ function Autocomplete(props) {
   const [category, setCategory] = useState(1);
   const [newTag, setNewTag] = useState(-1);
 
-  const onChange = input => {
+  const onChange = (input) => {
     const filteredSuggestionsChange = input
-    ?
-    suggestions.filter(
-      suggestion =>
-      suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 && suggestion.categoryId == category
-      )
-      :
-      [];
-      
+      ? suggestions.filter(
+          (suggestion) =>
+            suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
+            suggestion.categoryId === category
+        )
+      : [];
+
     setFilteredSuggestions(filteredSuggestionsChange);
     setUserInput(input);
   };
 
-  const onClick = e => {
+  const onClick = (e) => {
     setFilteredSuggestions([]);
-    setUserInput("");
-    
-    const tagId = e.currentTarget.value;
-    const tag = suggestions.find(input => input.id === tagId);
+    setUserInput('');
 
-    if(!tags.has(tag.id)){
-      setProfileTag((prev) => [...prev,tag]);
+    const tagId = e.currentTarget.value;
+    const tag = suggestions.find((input) => input.id === tagId);
+
+    if (!tags.has(tag.id)) {
+      setProfileTag((prev) => [...prev, tag]);
       tags.add(tag.id);
       setTags(tags);
     }
   };
 
-  const changeCategory = e => {
+  const changeCategory = (e) => {
     setCategory(e.currentTarget.value);
   };
 
-  const suggestionsListComponent = (filteredSuggestions.length > 0)
-    ?
-    <ul class="suggestions">
-      {filteredSuggestions.map((suggestion, index) => {
-
-        return (
-          <li value={suggestion.id} key={index} onClick={onClick}>
+  const suggestionsListComponent =
+    filteredSuggestions.length > 0 ? (
+      <ul className="suggestions">
+        {filteredSuggestions.map((suggestion) => (
+          <li onClick={onClick} value={suggestion.id}>
             {suggestion.name}
           </li>
-        );
-      })}
-    </ul>
-    :
-    []
+        ))}
+      </ul>
+    ) : (
+      []
+    );
 
   const createTag = () => {
     const inputName = userInput;
     const tag = {
       id: newTag,
       name: inputName,
-      categoryId: category
-    }
-    if(tag) {
+      categoryId: category,
+    };
+    if (tag) {
       setProfileTag((prev) => [...prev, tag]);
       tags.add(newTag);
-      setNewTag(newTag-1);
+      setNewTag(newTag - 1);
     }
     setFilteredSuggestions([]);
-    setUserInput("");
+    setUserInput('');
   };
 
   return (
     <>
-
       <select onChange={changeCategory} value={category.toString()}>
         <option value="1">Moradia</option>
         <option value="2">Saúde</option>
@@ -108,38 +104,31 @@ function Autocomplete(props) {
         <option value="6">Minorias</option>
         <option value="7">Sobre você</option>
       </select>
-      <Fragment>
-      <Input
-        name="Buscar tags"
-        value={userInput}
-        onChange={onChange}
-      />
-        {suggestionsListComponent}
-      </Fragment>
-      <ScrollBox styles={tagsBoxStyle}>
-              {profileTag
-                && profileTag.length > 0 ? profileTag.map((tag, index) => {
-                    const tagColor = getTagColor(tag?.categoryId);
-                    return (
-                      <InputTag
-                        key={index}
-                        styles={{ backgroundColor: `${tagColor}` }}
-                        id={tag.id}
-                        clickTag={deleteTag}
-                      >{`${tag?.name}`}</InputTag>
-                    );
-                  })
-                : []}
-      </ScrollBox>
-      {creatTag 
-      ?
       <>
-      <Button onClick={createTag}>Criar Tag</Button>
+        <Input name="Buscar tags" value={userInput} onChange={onChange} />
+        {suggestionsListComponent}
       </>
-      :
-      []
-      }
-
+      <ScrollBox styles={tagsBoxStyle}>
+        {profileTag && profileTag.length > 0
+          ? profileTag.map((tag) => {
+              const tagColor = getTagColor(tag?.categoryId);
+              return (
+                <InputTag
+                  styles={{ backgroundColor: `${tagColor}` }}
+                  id={tag.id}
+                  clickTag={deleteTag}
+                >{`${tag?.name}`}</InputTag>
+              );
+            })
+          : []}
+      </ScrollBox>
+      {creatTag ? (
+        <>
+          <Button onClick={createTag}>Criar Tag</Button>
+        </>
+      ) : (
+        []
+      )}
     </>
   );
 }
