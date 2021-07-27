@@ -30,7 +30,7 @@ function Autocomplete(props) {
 
   const [filteredSuggestions, setFilteredSuggestions] = useState([]);
   const [userInput, setUserInput] = useState('');
-  const [category, setCategory] = useState(1);
+  const [category, setCategory] = useState('1');
   const [newTag, setNewTag] = useState(-1);
 
   const onChange = (input) => {
@@ -38,10 +38,9 @@ function Autocomplete(props) {
       ? suggestions.filter(
           (suggestion) =>
             suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
-            suggestion.categoryId === category
+            suggestion.categoryId === parseInt(category, 10)
         )
       : [];
-
     setFilteredSuggestions(filteredSuggestionsChange);
     setUserInput(input);
   };
@@ -68,7 +67,7 @@ function Autocomplete(props) {
     filteredSuggestions.length > 0 ? (
       <ul className="suggestions">
         {filteredSuggestions.map((suggestion) => (
-          <li onClick={onClick} value={suggestion.id}>
+          <li value={suggestion.id} onClick={onClick}>
             {suggestion.name}
           </li>
         ))}
