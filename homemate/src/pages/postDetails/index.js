@@ -195,7 +195,7 @@ function PostDetails() {
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
             <div className="post-carousel">
-              <Picture listPost={post?.posterPictures} />
+              <Picture listPost={post?.posterPictures} showAddPicture={id === 'my'} />
             </div>
           </div>
 

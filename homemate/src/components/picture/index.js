@@ -9,8 +9,9 @@ import FileUploader from '../fileUploader';
 import IconPlus from '../icons/iconPlus';
 import './picture.css';
 
-function Picture({ listPost }) {
+function Picture({ listPost, showAddPicture = false }) {
   const [headerBackground, setHeaderBackground] = useState({ backgroundColor: '#D9D4DF' });
+  const size = listPost?.length;
 
   const handleHeaderUpload = (file) => {
     if (file) {
@@ -20,16 +21,21 @@ function Picture({ listPost }) {
     }
   };
 
-  return (
-    <Carousel showArrows infiniteLoop showStatus={false} showThumbs={false}>
-      {listPost &&
-        listPost.length > 0 &&
-        listPost.map((post, index) =>
-          post.id !== -1 ? (
+  const getPosts = () => {
+    const carrossel = [];
+
+    if (listPost) {
+      for (let index = 0; index <= size; index += 1) {
+        if (index !== size) {
+          const post = listPost[index];
+
+          carrossel.push(
             <div key={index}>
               <img alt="" src={post.pictureUrl} />
             </div>
-          ) : (
+          );
+        } else if (showAddPicture && size < 6) {
+          carrossel.push(
             <div key={index} className="background-carrossel" style={{ ...headerBackground }}>
               <FlipCardButton
                 buttonName={
@@ -39,8 +45,17 @@ function Picture({ listPost }) {
                 }
               />
             </div>
-          )
-        )}
+          );
+        }
+      }
+    }
+
+    return carrossel;
+  };
+
+  return (
+    <Carousel showArrows infiniteLoop showStatus={false} showThumbs={false}>
+      {getPosts()}
     </Carousel>
   );
 }
