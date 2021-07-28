@@ -172,7 +172,7 @@ function Profile() {
   };
 
   function open() {
-    window.open(`${userData?.socialMedia}`, '_blank')
+    window.open(`${userData?.socialMedia}`, '_blank');
   }
 
   function socialMedia() {
@@ -262,7 +262,9 @@ function Profile() {
           </div>
 
           <div className="profile-box">
-            <div className="profile-socialmedia-icons">{userData?.socialMedia ? (socialMedia()) : (<></>)}</div>
+            <div className="profile-socialmedia-icons">
+              {userData?.socialMedia ? socialMedia() : <></>}
+            </div>
             {id === 'me' && (
               <div className="profile-edit-info-icon">
                 <Tooltip title="editar informações">

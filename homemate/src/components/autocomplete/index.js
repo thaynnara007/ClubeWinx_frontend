@@ -1,4 +1,6 @@
-import React, { Fragment, useState } from 'react';
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
+import React, { useState } from 'react';
 import { getTagColor } from '../../utils/functions';
 import useFetch from '../../hooks/useFetch';
 import Input from '../input';
@@ -10,8 +12,6 @@ import './autocomplete.css';
 
 const tagsBoxStyle = {
   display: {
-    gridColumn: '1 / 3',
-    gridRow: '5 / 7',
     width: '100%',
     height: '100%',
     border: '2px solid #cbdae5',

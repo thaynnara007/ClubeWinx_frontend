@@ -92,7 +92,7 @@ function CreatePost() {
             </Flex>
 
             <Flex styles={{ width: '100%' }}>
-              <AddTag post={post}/>
+              <AddTag post={post} />
             </Flex>
           </ReactCardFlip>
         </Flex>

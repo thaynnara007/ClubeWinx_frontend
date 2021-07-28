@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-boolean-value */
+
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
@@ -7,7 +9,6 @@ import BaseButton from '../button';
 import Autocomplete from '../autocomplete';
 
 import Loading from '../loading';
-
 
 function AddTag(props) {
   const { post } = props;
@@ -109,7 +110,7 @@ function AddTag(props) {
 
   const updateTags = () => {
     const addTag = new Set([...tagsSet].filter((i) => !tagsInit.has(i) && i > 0));
-    const removeTag = new Set([...tagsInit].filter((i) => !tagsSet.has(i)));
+    const removedTag = new Set([...tagsInit].filter((i) => !tagsSet.has(i)));
 
     // tags.forEach((tag) => {
     //   if(!tagsInit.has(tag) && tag > 0) {
@@ -132,9 +133,10 @@ function AddTag(props) {
       addTags(addTag);
     }
 
-    if (removeTag.size > 0) {
-      removeTags(removeTag);
+    if (removedTag.size > 0) {
+      removeTags(removedTag);
     }
+
     toast('Informações atualizadas com sucesso');
     history.push('/posts/my');
   };
@@ -143,15 +145,18 @@ function AddTag(props) {
     tagsSet.delete(tag);
     setPostTag((prev) => prev.filter((e) => e.id !== tag));
   }
-  
+
   return (
     <>
-      {loadingCreate, loadingAdd, loadingRemove? (
-        <div style={{ marginTop: '400px' }}>
-          <Loading />
-        </div>
-      ) : (
-        <>
+      {
+        (loadingCreate,
+        loadingAdd,
+        loadingRemove ? (
+          <div style={{ marginTop: '400px' }}>
+            <Loading />
+          </div>
+        ) : (
+          <>
             <Autocomplete
               profileTag={postTag}
               setProfileTag={setPostTag}
@@ -161,10 +166,11 @@ function AddTag(props) {
               setTags={setTagsSet}
             />
             <BaseButton onClick={updateTags} styles={{ width: '100%', fontWeight: 'bold' }}>
-            SALVAR
-          </BaseButton>
-        </>
-      )}
+              SALVAR
+            </BaseButton>
+          </>
+        ))
+      }
     </>
   );
 }

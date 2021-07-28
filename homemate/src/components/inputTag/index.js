@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './inputTag.css';
 
+import IconDoubleArrowLeft from '../icons/iconDoubleArrowLeft';
+import IconDoubleArrowRight from '../icons/iconDoubleArrowRight';
+
+const expand = <IconDoubleArrowRight styles={{ color: '#F4F4F4' }} />;
+const contract = <IconDoubleArrowLeft styles={{ color: '#F4F4F4' }} />;
+
 function InputTag(props) {
   const truncateTag = (tag) => {
     if (tag.length > 10) {
@@ -11,7 +17,7 @@ function InputTag(props) {
 
   const { children, clickTag = () => '', styles, id } = props;
   const [tagValue, setTagValue] = useState(truncateTag(children));
-  const [expanseTag, setExpanseTag] = useState('(...)');
+  const [expanseTag, setExpanseTag] = useState(expand);
   const [truncate, setTruncate] = useState(false);
 
   useEffect(() => {
@@ -25,10 +31,10 @@ function InputTag(props) {
     setTruncate(true);
     if (tag !== children) {
       setTagValue(children);
-      setExpanseTag('<<<');
+      setExpanseTag(contract);
     } else {
       setTagValue(children.slice(0, 9));
-      setExpanseTag('(...)');
+      setExpanseTag(expand);
     }
   };
 
@@ -39,7 +45,9 @@ function InputTag(props) {
         {tagValue}
       </span>
       {truncate || children !== tagValue ? (
-        <span onClick={() => changeTag(tagValue)}>{expanseTag}</span>
+        <span style={{ marginLeft: '5px' }} onClick={() => changeTag(tagValue)}>
+          {expanseTag}
+        </span>
       ) : (
         ''
       )}

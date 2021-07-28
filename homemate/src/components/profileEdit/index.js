@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-boolean-value */
+
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router';
