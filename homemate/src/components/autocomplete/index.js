@@ -104,7 +104,7 @@ function Autocomplete(props) {
         <option value="7">Sobre você</option>
       </select>
       <>
-        <Input name="Buscar tags" value={userInput} onChange={onChange} />
+        <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} />
         {suggestionsListComponent}
       </>
       <ScrollBox styles={tagsBoxStyle}>
