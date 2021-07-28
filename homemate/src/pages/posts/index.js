@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import FlipCard from '../../components/flipCard';
+import Filter from '../../components/filter';
 import Loading from '../../components/loading';
 import api from '../../api';
 import imgLoading from '../../img/loading.gif';
@@ -66,7 +67,8 @@ function Posts() {
       {isLoading && currentPage === 1 ? (
         <Loading style={loadingStyle} />
       ) : (
-        <>
+        <div id='container'>
+          <Filter />
           <div className="posts-container">
             {posts &&
               posts.length > 0 &&
@@ -96,7 +98,7 @@ function Posts() {
               <img style={imgLoadingStyle} alt="loading" src={imgLoading} />
             )}
           </div>
-        </>
+        </div>
       )}
     </>
   );

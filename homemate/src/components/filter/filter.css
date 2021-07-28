@@ -1,0 +1,11 @@
+#filter-container {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  padding: 2rem;
+  margin-top: 20px;
+  width: 200px;
+  flex-basis: 0;
+  flex-grow: 1;
+}

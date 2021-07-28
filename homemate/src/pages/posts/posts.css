@@ -9,4 +9,11 @@
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
+  flex-basis: 0;
+  flex-grow: 4;
+}
+
+#container {
+  display: flex;
+  flex-direction: row;
 }
