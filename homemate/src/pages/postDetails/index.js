@@ -127,7 +127,7 @@ function PostDetails() {
     return true;
   };
 
-  const upload = (file, type = 'put', url, succesfulMsg) => {
+  const upload = (file, type = 'put', url, succesfulMsg, callback = () => {}) => {
     const formData = new FormData();
     const config = {
       headers: {
@@ -140,7 +140,8 @@ function PostDetails() {
     if (type === 'put') {
       api
         .put(url, formData, config)
-        .then(() => {
+        .then((response) => {
+          callback(response.data);
           toast(succesfulMsg);
         })
         .catch((error) => {
@@ -153,7 +154,8 @@ function PostDetails() {
     } else {
       api
         .post(url, formData, config)
-        .then(() => {
+        .then((response) => {
+          callback(response.data);
           toast(succesfulMsg);
         })
         .catch((error) => {
@@ -173,10 +175,6 @@ function PostDetails() {
       upload(file, 'put', '/user/poster/my/headerImage', 'Imagem atualizada com sucesso.');
       setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
-  };
-
-  const handlePostPictureUpload = (file) => {
-    if (file) upload(file, 'post', '/user/poster/me/picture', 'Imagem adicionada com sucesso.');
   };
 
   const handleOpen = () => {
@@ -219,11 +217,7 @@ function PostDetails() {
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
             <div className="post-carousel">
-              <Picture
-                listPost={post?.posterPictures}
-                isOwner={id === 'my'}
-                handleUpload={handlePostPictureUpload}
-              />
+              <Picture listPost={post?.posterPictures} isOwner={id === 'my'} upload={upload} />
             </div>
           </div>
 

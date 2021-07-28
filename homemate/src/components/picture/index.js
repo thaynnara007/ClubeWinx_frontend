@@ -1,6 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { toast } from 'react-toastify';
@@ -14,21 +14,35 @@ import api from '../../api';
 
 import './picture.css';
 
-function Picture({ listPost, isOwner = false, handleUpload }) {
+function Picture({ listPost, isOwner = false, upload }) {
+  const [pictures, setPictures] = useState(listPost);
   const [open, setOpen] = useState(false);
   const [clickedPostId, setClickPostId] = useState(undefined);
 
-  const size = listPost?.length;
+  useEffect(() => {
+    setPictures(listPost);
+  }, [listPost]);
+
+  const size = pictures?.length;
 
   const clickX = (pictureId) => {
     setClickPostId(pictureId);
     setOpen(true);
   };
 
+  const handlePostPictureUpload = (file) => {
+    if (file) {
+      upload(file, 'post', '/user/poster/me/picture', 'Imagem adicionada com sucesso.', (data) => {
+        setPictures((previos) => [{ pictureUrl: data.picture }, ...previos]);
+      });
+    }
+  };
+
   const deletePicture = () => {
     api
       .delete(`/user/poster/me/picture/${clickedPostId}`)
       .then(() => {
+        setPictures((previos) => previos.filter((picture) => picture.id !== clickedPostId));
         toast('Foto deletada com sucesso.');
         setOpen(false);
       })
@@ -44,10 +58,10 @@ function Picture({ listPost, isOwner = false, handleUpload }) {
   const getPosts = () => {
     const carrossel = [];
 
-    if (listPost) {
+    if (pictures) {
       for (let index = 0; index <= size; index += 1) {
         if (index !== size) {
-          const picture = listPost[index];
+          const picture = pictures[index];
 
           carrossel.push(
             <div key={index}>
@@ -68,7 +82,7 @@ function Picture({ listPost, isOwner = false, handleUpload }) {
             <div key={index} className="background-carrossel">
               <FlipCardButton
                 button={
-                  <FileUploader icon handleUpload={handleUpload}>
+                  <FileUploader icon handleUpload={handlePostPictureUpload}>
                     <IconPlus size="3x" styles={{ color: '#F4F4F4' }} />
                   </FileUploader>
                 }
