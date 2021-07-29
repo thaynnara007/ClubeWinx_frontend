@@ -16,18 +16,28 @@
 
 .suggestions li {
   padding: 0.5rem;
-  color: #F4F4F4;
+  color: #f4f4f4;
   font-size: 18px;
 }
 
 .suggestion-active,
 .suggestions li:hover {
-  background-color: #8EC6C5;
-  color: #F4F4F4;
+  background-color: #8ec6c5;
+  color: #f4f4f4;
   cursor: pointer;
   font-weight: bold;
 }
 
 .suggestions li:not(:last-of-type) {
-  border-bottom: 1px solid #F4F4F4;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+.autocomplete-select {
+  padding: 10px 20px;
+  font-size: 17px;
+  font-weight: bold;
+  color: #f4f4f4;
+  background-color: #6983aa;
+  border-radius: 8px;
+  text-align: center;
 }

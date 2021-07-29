@@ -1,12 +1,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 
 import React, { useState } from 'react';
+
 import { getTagColor } from '../../utils/functions';
 import useFetch from '../../hooks/useFetch';
 import Input from '../input';
-import Button from '../button';
 import ScrollBox from '../scrollBox';
 import InputTag from '../inputTag';
+import IconAdd from '../icons/iconAdd';
 
 import './autocomplete.css';
 
@@ -94,8 +95,10 @@ function Autocomplete(props) {
 
   return (
     <>
-      <select onChange={changeCategory} value={category.toString()}>
-        <option value="1">Moradia</option>
+      <select onChange={changeCategory} value={category.toString()} className="autocomplete-select">
+        <option value="1" className="autocomplete-select-option">
+          Moradia
+        </option>
         <option value="2">Saúde</option>
         <option value="3">Estudante</option>
         <option value="4">Curso</option>
@@ -104,7 +107,9 @@ function Autocomplete(props) {
         <option value="7">Sobre você</option>
       </select>
       <>
-        <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} />
+        <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} onClick={createTag}>
+          {creatTag && <IconAdd />}
+        </Input>
         {suggestionsListComponent}
       </>
       <ScrollBox styles={tagsBoxStyle}>
@@ -121,13 +126,6 @@ function Autocomplete(props) {
             })
           : []}
       </ScrollBox>
-      {creatTag ? (
-        <>
-          <Button onClick={createTag}>Criar Tag</Button>
-        </>
-      ) : (
-        []
-      )}
     </>
   );
 }
