@@ -68,7 +68,7 @@ function Autocomplete(props) {
     filteredSuggestions.length > 0 ? (
       <ul className="suggestions">
         {filteredSuggestions.map((suggestion) => (
-          <li value={suggestion.id} onClick={onClick}>
+          <li value={suggestion.id} onClick={onClick} key={suggestion.id}>
             {suggestion.name}
           </li>
         ))}
@@ -79,18 +79,22 @@ function Autocomplete(props) {
 
   const createTag = () => {
     const inputName = userInput;
-    const tag = {
-      id: newTag,
-      name: inputName,
-      categoryId: category,
-    };
-    if (tag) {
-      setProfileTag((prev) => [...prev, tag]);
-      tags.add(newTag);
-      setNewTag(newTag - 1);
+
+    if (inputName && inputName !== '') {
+      const tag = {
+        id: newTag,
+        name: inputName,
+        categoryId: category,
+      };
+
+      if (tag) {
+        setProfileTag((prev) => [...prev, tag]);
+        tags.add(newTag);
+        setNewTag(newTag - 1);
+      }
+      setFilteredSuggestions([]);
+      setUserInput('');
     }
-    setFilteredSuggestions([]);
-    setUserInput('');
   };
 
   return (
@@ -115,7 +119,7 @@ function Autocomplete(props) {
       <ScrollBox styles={tagsBoxStyle}>
         {profileTag && profileTag.length > 0
           ? profileTag.map((tag) => {
-              const tagColor = getTagColor(tag?.categoryId);
+              const tagColor = getTagColor(parseInt(tag?.categoryId, 10));
               return (
                 <InputTag
                   styles={{ backgroundColor: `${tagColor}` }}
