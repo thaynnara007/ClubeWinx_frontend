@@ -13,7 +13,7 @@ const tagsBoxStyle = {
     gridColumn: '1 / 3',
     gridRow: '5 / 7',
     width: '100%',
-    height: '100%',
+    // height: '100%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
     justifySelf: 'center',
@@ -33,12 +33,15 @@ function Autocomplete(props) {
   const [newTag, setNewTag] = useState(-1);
 
   const onChange = (input) => {
+    let categories = creatTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
+    console.log(categories.includes(1))
     const filteredSuggestionsChange = input
-      ? suggestions.filter(
-          (suggestion) =>
-            suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
-            suggestion.categoryId === parseInt(category, 10)
-        )
+      ?
+      suggestions.filter(
+        (suggestion) =>
+          suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
+          categories.includes(suggestion.categoryId)
+      )
       : [];
     setFilteredSuggestions(filteredSuggestionsChange);
     setUserInput(input);
@@ -93,15 +96,18 @@ function Autocomplete(props) {
 
   return (
     <>
-      <select onChange={changeCategory} value={category.toString()}>
-        <option value="1">Moradia</option>
-        <option value="2">Saúde</option>
-        <option value="3">Estudante</option>
-        <option value="4">Curso</option>
-        <option value="5">Animais</option>
-        <option value="6">Minorias</option>
-        <option value="7">Sobre você</option>
-      </select>
+      {creatTag ? (
+        <select onChange={changeCategory} value={category.toString()}>
+          <option value="1">Moradia</option>
+          <option value="2">Saúde</option>
+          <option value="3">Estudante</option>
+          <option value="4">Curso</option>
+          <option value="5">Animais</option>
+          <option value="6">Minorias</option>
+          <option value="7">Sobre você</option>
+        </select>) : (
+        []
+      )}
       <>
         <Input
           styles={{ label: { color: 'black' } }}
@@ -114,16 +120,16 @@ function Autocomplete(props) {
       <ScrollBox styles={tagsBoxStyle}>
         {profileTag && profileTag.length > 0
           ? profileTag.map((tag) => {
-              const tagColor = getTagColor(tag?.categoryId);
-              return (
-                <InputTag
-                  key={tag.id}
-                  styles={{ backgroundColor: `${tagColor}` }}
-                  id={tag.id}
-                  clickTag={deleteTag}
-                >{`${tag?.name}`}</InputTag>
-              );
-            })
+            const tagColor = getTagColor(tag?.categoryId);
+            return (
+              <InputTag
+                key={tag.id}
+                styles={{ backgroundColor: `${tagColor}` }}
+                id={tag.id}
+                clickTag={deleteTag}
+              >{`${tag?.name}`}</InputTag>
+            );
+          })
           : []}
       </ScrollBox>
       {creatTag ? (
