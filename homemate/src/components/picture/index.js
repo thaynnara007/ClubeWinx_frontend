@@ -39,20 +39,22 @@ function Picture({ listPost, isOwner = false, upload }) {
   };
 
   const deletePicture = () => {
-    api
-      .delete(`/user/poster/me/picture/${clickedPostId}`)
-      .then(() => {
-        setPictures((previos) => previos.filter((picture) => picture.id !== clickedPostId));
-        toast('Foto deletada com sucesso.');
-        setOpen(false);
-      })
-      .catch((error) => {
-        let msg = '';
-        if (error.response) msg = error.response.data.error;
-        else msg = 'Network failed';
+    if (clickedPostId) {
+      api
+        .delete(`/user/poster/me/picture/${clickedPostId}`)
+        .then(() => {
+          setPictures((previos) => previos.filter((picture) => picture.id !== clickedPostId));
+          toast('Foto deletada com sucesso.');
+          setOpen(false);
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
 
-        toast.error(msg);
-      });
+          toast.error(msg);
+        });
+    } else toast.error('Foto selecionada já foi apagada');
   };
 
   const getPosts = () => {
@@ -64,7 +66,7 @@ function Picture({ listPost, isOwner = false, upload }) {
           const picture = pictures[index];
 
           carrossel.push(
-            <div key={index}>
+            <div key={index} style={{ maxWidth: '100%', height: '400px' }}>
               <img alt="" src={picture.pictureUrl} />
               {isOwner && (
                 <button
