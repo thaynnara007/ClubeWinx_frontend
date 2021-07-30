@@ -79,7 +79,7 @@ function filter(props) {
     if (containerRef.current) {
       const position = containerRef.current.getBoundingClientRect().top;
       console.log(position, window.innerHeight);
-      setAutocompletePosition(window.innerHeight - position + 100);
+      //setAutocompletePosition(window.innerHeight - position + 100);
     }
   }, [containerRef]);
 
