@@ -127,23 +127,22 @@ function PostDetails() {
     return true;
   };
 
-  const handleHeaderUpload = (file) => {
-    if (file) {
-      const image = URL.createObjectURL(file);
-      const formData = new FormData();
-      const config = {
-        headers: {
-          'content-type': 'multipart/form-data',
-        },
-      };
+  const upload = (file, type = 'put', url, succesfulMsg, callback = () => {}) => {
+    const formData = new FormData();
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data',
+      },
+    };
 
-      formData.append('file', file);
-      setHeaderBackground({ backgroundImage: `url('${image}')` });
+    formData.append('file', file);
 
+    if (type === 'put') {
       api
-        .put('/user/poster/my/headerImage', formData, config)
-        .then(() => {
-          toast('Foto atualizada com sucesso');
+        .put(url, formData, config)
+        .then((response) => {
+          callback(response.data);
+          toast(succesfulMsg);
         })
         .catch((error) => {
           let msg = '';
@@ -152,6 +151,29 @@ function PostDetails() {
 
           toast.error(msg);
         });
+    } else {
+      api
+        .post(url, formData, config)
+        .then((response) => {
+          callback(response.data);
+          toast(succesfulMsg);
+        })
+        .catch((error) => {
+          let msg = '';
+          if (error.response) msg = error.response.data.error;
+          else msg = 'Network failed';
+
+          toast.error(msg);
+        });
+    }
+  };
+
+  const handleHeaderUpload = (file) => {
+    if (file) {
+      const image = URL.createObjectURL(file);
+
+      upload(file, 'put', '/user/poster/my/headerImage', 'Imagem atualizada com sucesso.');
+      setHeaderBackground({ backgroundImage: `url('${image}')` });
     }
   };
 
@@ -195,7 +217,7 @@ function PostDetails() {
 
           <div style={{ position: 'absolute', left: '38%', top: '12%', zIndex: 3 }}>
             <div className="post-carousel">
-              <Picture listPost={post?.posterPictures} />
+              <Picture listPost={post?.posterPictures} isOwner={id === 'my'} upload={upload} />
             </div>
           </div>
 
