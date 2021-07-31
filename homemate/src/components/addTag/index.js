@@ -9,33 +9,41 @@ import Autocomplete from '../autocomplete';
 
 import Loading from '../loading';
 
-function AddTag(props) {
-  const { post } = props;
+const addTagAnuncioURL = 'user/poster/me/add/tags';
+const removeTagAnuncioURL = 'user/poster/me/remove/tags/';
+const createTag = 'user/poster/me/create/tags';
+
+function AddTag({
+  data,
+  execute = () => {},
+  addTagUrl = addTagAnuncioURL,
+  removeTagUrl = removeTagAnuncioURL,
+  createTagUrl = createTag,
+  backUrl = '/posts/my',
+}) {
   const [tagsSet, setTagsSet] = useState(new Set());
   const [tagsInit, setTagsInit] = useState(new Set());
   const [postTag, setPostTag] = useState([]);
   const [loadingCreate, setLoadingCreate] = useState(false);
   const [loadingAdd, setLoadingAdd] = useState(false);
   const [loadingRemove, setLoadingRemove] = useState(false);
-  const addTagAnuncioURL = 'user/poster/me/add/tags';
-  const removeTagAnuncioURL = 'user/poster/me/remove/tags/';
-  const createTag = 'user/poster/me/create/tags';
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     function updateState() {
       if (tagsSet.size === 0) {
         const initSet = new Set();
         const initSetTags = new Set();
-        if (post && post.tags) {
-          setPostTag(post.tags);
-          post.tags.forEach((tag) => initSet.add(tag.id) && initSetTags.add(tag.id));
+        if (data && data.tags) {
+          setPostTag(data.tags);
+          data.tags.forEach((tag) => initSet.add(tag.id) && initSetTags.add(tag.id));
         }
         setTagsSet(initSetTags);
         setTagsInit(initSet);
       }
     }
     updateState();
-  }, [post]);
+  }, [data]);
 
   function addTags(tagsAdd) {
     setLoadingAdd(true);
@@ -44,7 +52,7 @@ function AddTag(props) {
       tags,
     };
     api
-      .post(addTagAnuncioURL, body)
+      .post(addTagUrl, body)
       .then(() => {
         setLoadingAdd(false);
       })
@@ -64,7 +72,7 @@ function AddTag(props) {
       tags,
     };
     api
-      .put(removeTagAnuncioURL, body)
+      .put(removeTagUrl, body)
       .then(() => {
         setLoadingRemove(false);
       })
@@ -91,7 +99,7 @@ function AddTag(props) {
         };
 
         api
-          .post(createTag, body)
+          .post(createTagUrl, body)
           .then(() => {
             setLoadingCreate(false);
           })
@@ -125,10 +133,13 @@ function AddTag(props) {
   };
 
   const update = async () => {
+    setLoading(true);
     await updateTags();
+    await execute();
 
+    setLoading(false);
     toast('Informações atualizadas com sucesso');
-    window.location.replace('/posts/my');
+    window.location.replace(backUrl);
   };
 
   function removeTag(tag) {
@@ -138,29 +149,25 @@ function AddTag(props) {
 
   return (
     <>
-      {
-        (loadingCreate,
-        loadingAdd,
-        loadingRemove ? (
-          <div style={{ marginTop: '400px' }}>
-            <Loading />
-          </div>
-        ) : (
-          <>
-            <Autocomplete
-              profileTag={postTag}
-              setProfileTag={setPostTag}
-              deleteTag={removeTag}
-              creatTag={true}
-              tags={tagsSet}
-              setTags={setTagsSet}
-            />
-            <BaseButton onClick={update} styles={{ width: '100%', fontWeight: 'bold' }}>
-              SALVAR
-            </BaseButton>
-          </>
-        ))
-      }
+      {loadingCreate || loadingAdd || loadingRemove || loading ? (
+        <div style={{ marginTop: '400px' }}>
+          <Loading />
+        </div>
+      ) : (
+        <>
+          <Autocomplete
+            profileTag={postTag}
+            setProfileTag={setPostTag}
+            deleteTag={removeTag}
+            creatTag={true}
+            tags={tagsSet}
+            setTags={setTagsSet}
+          />
+          <BaseButton onClick={update} styles={{ width: '100%', fontWeight: 'bold' }}>
+            SALVAR
+          </BaseButton>
+        </>
+      )}
     </>
   );
 }

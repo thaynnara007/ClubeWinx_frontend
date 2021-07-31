@@ -121,11 +121,13 @@ function Autocomplete(props) {
           ? profileTag.map((tag) => {
               const tagColor = getTagColor(parseInt(tag?.categoryId, 10));
               return (
-                <InputTag
-                  styles={{ backgroundColor: `${tagColor}` }}
-                  id={tag.id}
-                  clickTag={deleteTag}
-                >{`${tag?.name}`}</InputTag>
+                <div style={{ width: 'fit-content', height: 'fit-content' }} key={tag?.id}>
+                  <InputTag
+                    styles={{ backgroundColor: `${tagColor}` }}
+                    id={tag.id}
+                    clickTag={deleteTag}
+                  >{`${tag?.name}`}</InputTag>
+                </div>
               );
             })
           : []}
