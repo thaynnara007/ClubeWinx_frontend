@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useHistory } from 'react-router';
 
 import api from '../../api';
 import BaseButton from '../button';
@@ -21,7 +20,6 @@ function AddTag(props) {
   const addTagAnuncioURL = 'user/poster/me/add/tags';
   const removeTagAnuncioURL = 'user/poster/me/remove/tags/';
   const createTag = 'user/poster/me/create/tags';
-  const history = useHistory();
 
   useEffect(() => {
     function updateState() {
@@ -91,10 +89,10 @@ function AddTag(props) {
             },
           ],
         };
+
         api
           .post(createTag, body)
           .then(() => {
-            toast('Tags criadas com sucesso');
             setLoadingCreate(false);
           })
           .catch((error) => {
@@ -112,18 +110,6 @@ function AddTag(props) {
     const addTag = new Set([...tagsSet].filter((i) => !tagsInit.has(i) && i > 0));
     const removedTag = new Set([...tagsInit].filter((i) => !tagsSet.has(i)));
 
-    // tags.forEach((tag) => {
-    //   if(!tagsInit.has(tag) && tag > 0) {
-    //     addTag.push(tag);
-    //   }
-    // })
-
-    // tagsInit.forEach((tag) => {
-    //   if(!tags.has(tag)) {
-    //     removeTag.push(tag);
-    //   }
-    // })
-
     if (tagsSet.has(-1)) {
       const newTags = postTag.filter((tag) => tag.id < 0);
       createTags(newTags);
@@ -136,9 +122,13 @@ function AddTag(props) {
     if (removedTag.size > 0) {
       removeTags(removedTag);
     }
+  };
+
+  const update = async () => {
+    await updateTags();
 
     toast('Informações atualizadas com sucesso');
-    history.push('/posts/my');
+    window.location.replace('/posts/my');
   };
 
   function removeTag(tag) {
@@ -165,7 +155,7 @@ function AddTag(props) {
               tags={tagsSet}
               setTags={setTagsSet}
             />
-            <BaseButton onClick={updateTags} styles={{ width: '100%', fontWeight: 'bold' }}>
+            <BaseButton onClick={update} styles={{ width: '100%', fontWeight: 'bold' }}>
               SALVAR
             </BaseButton>
           </>
