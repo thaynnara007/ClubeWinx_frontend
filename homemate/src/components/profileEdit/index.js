@@ -63,7 +63,6 @@ function ProfileEdit({ profile }) {
         addTagUrl={addTagPerfilURL}
         removeTagUrl={removeTagPerfilURL}
         createTagUrl={createTag}
-        backUrl="/profile/me"
       />
     </>
   );

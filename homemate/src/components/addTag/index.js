@@ -9,9 +9,9 @@ import Autocomplete from '../autocomplete';
 
 import Loading from '../loading';
 
-const addTagAnuncioURL = 'user/poster/me/add/tags';
-const removeTagAnuncioURL = 'user/poster/me/remove/tags/';
-const createTag = 'user/poster/me/create/tags';
+const addTagAnuncioURL = '/user/poster/me/add/tags';
+const removeTagAnuncioURL = '/user/poster/me/remove/tags/';
+const createTag = '/user/poster/me/create/tags';
 
 function AddTag({
   data,
@@ -19,7 +19,6 @@ function AddTag({
   addTagUrl = addTagAnuncioURL,
   removeTagUrl = removeTagAnuncioURL,
   createTagUrl = createTag,
-  backUrl = '/posts/my',
 }) {
   const [tagsSet, setTagsSet] = useState(new Set());
   const [tagsInit, setTagsInit] = useState(new Set());
@@ -136,10 +135,21 @@ function AddTag({
     setLoading(true);
     await updateTags();
     await execute();
+  };
 
-    setLoading(false);
-    toast('Informações atualizadas com sucesso');
-    window.location.replace(backUrl);
+  const updateAndRedirect = () => {
+    update()
+      .then(() => {
+        setLoading(false);
+        toast('Informações atualizadas com sucesso');
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+        toast.error(msg);
+        setLoadingCreate(false);
+      });
   };
 
   function removeTag(tag) {
@@ -163,7 +173,7 @@ function AddTag({
             tags={tagsSet}
             setTags={setTagsSet}
           />
-          <BaseButton onClick={update} styles={{ width: '100%', fontWeight: 'bold' }}>
+          <BaseButton onClick={updateAndRedirect} styles={{ width: '100%', fontWeight: 'bold' }}>
             SALVAR
           </BaseButton>
         </>
