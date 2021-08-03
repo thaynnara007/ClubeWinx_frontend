@@ -24,7 +24,7 @@ const getTagColor = (categoryId) => {
       color = '#766161';
       break;
     default:
-      color = '#E1F1DD';
+      color = '#DE8971';
   }
 
   return color;

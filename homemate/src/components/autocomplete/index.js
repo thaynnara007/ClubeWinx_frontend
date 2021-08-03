@@ -1,22 +1,24 @@
-import React, { Fragment, useState } from 'react';
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+
+import React, { useState } from 'react';
+
 import { getTagColor } from '../../utils/functions';
 import useFetch from '../../hooks/useFetch';
 import Input from '../input';
-import Button from '../button';
 import ScrollBox from '../scrollBox';
 import InputTag from '../inputTag';
+import IconAdd from '../icons/iconAdd';
 
 import './autocomplete.css';
 
 const tagsBoxStyle = {
   display: {
-    gridColumn: '1 / 3',
-    gridRow: '5 / 7',
     width: '100%',
-    // height: '100%',
+    height: '100%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
     justifySelf: 'center',
+    marginTop: '40px',
   },
   item: {
     height: 'fit-content',
@@ -34,7 +36,6 @@ function Autocomplete(props) {
 
   const onChange = (input) => {
     let categories = creatTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
-    console.log(categories.includes(1))
     const filteredSuggestionsChange = input
       ?
       suggestions.filter(
@@ -69,7 +70,7 @@ function Autocomplete(props) {
     filteredSuggestions.length > 0 ? (
       <ul className="suggestions">
         {filteredSuggestions.map((suggestion) => (
-          <li key={suggestions.id} value={suggestion.id} onClick={onClick}>
+          <li value={suggestion.id} onClick={onClick} key={suggestion.id}>
             {suggestion.name}
           </li>
         ))}
@@ -80,18 +81,22 @@ function Autocomplete(props) {
 
   const createTag = () => {
     const inputName = userInput;
-    const tag = {
-      id: newTag,
-      name: inputName,
-      categoryId: category,
-    };
-    if (tag) {
-      setProfileTag((prev) => [...prev, tag]);
-      tags.add(newTag);
-      setNewTag(newTag - 1);
+
+    if (inputName && inputName !== '') {
+      const tag = {
+        id: newTag,
+        name: inputName,
+        categoryId: category,
+      };
+
+      if (tag) {
+        setProfileTag((prev) => [...prev, tag]);
+        tags.add(newTag);
+        setNewTag(newTag - 1);
+      }
+      setFilteredSuggestions([]);
+      setUserInput('');
     }
-    setFilteredSuggestions([]);
-    setUserInput('');
   };
 
   return (
@@ -109,36 +114,27 @@ function Autocomplete(props) {
         []
       )}
       <>
-        <Input
-          styles={{ label: { color: 'black' } }}
-          name="Buscar tags"
-          value={userInput}
-          onChange={onChange}
-        />
+        <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} onClick={createTag}>
+          {creatTag && <IconAdd />}
+        </Input>
         {suggestionsListComponent}
       </>
       <ScrollBox styles={tagsBoxStyle}>
         {profileTag && profileTag.length > 0
           ? profileTag.map((tag) => {
-            const tagColor = getTagColor(tag?.categoryId);
+            const tagColor = getTagColor(parseInt(tag?.categoryId, 10));
             return (
-              <InputTag
-                key={tag.id}
-                styles={{ backgroundColor: `${tagColor}` }}
-                id={tag.id}
-                clickTag={deleteTag}
-              >{`${tag?.name}`}</InputTag>
+              <div style={{ width: 'fit-content', height: 'fit-content' }} key={tag?.id}>
+                <InputTag
+                  styles={{ backgroundColor: `${tagColor}` }}
+                  id={tag.id}
+                  clickTag={deleteTag}
+                >{`${tag?.name}`}</InputTag>
+              </div>
             );
           })
           : []}
       </ScrollBox>
-      {creatTag ? (
-        <>
-          <Button onClick={createTag}>Criar Tag</Button>
-        </>
-      ) : (
-        []
-      )}
     </>
   );
 }
