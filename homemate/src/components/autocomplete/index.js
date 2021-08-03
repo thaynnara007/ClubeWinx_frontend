@@ -14,7 +14,7 @@ import './autocomplete.css';
 const tagsBoxStyle = {
   display: {
     width: '100%',
-    height: '100%',
+    //height: '100%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
     justifySelf: 'center',
@@ -102,8 +102,10 @@ function Autocomplete(props) {
   return (
     <>
       {creatTag ? (
-        <select onChange={changeCategory} value={category.toString()}>
-          <option value="1">Moradia</option>
+        <select onChange={changeCategory} value={category.toString()} className="autocomplete-select">
+          <option value="1" className="autocomplete-select-option">
+            Moradia
+          </option>
           <option value="2">Saúde</option>
           <option value="3">Estudante</option>
           <option value="4">Curso</option>
