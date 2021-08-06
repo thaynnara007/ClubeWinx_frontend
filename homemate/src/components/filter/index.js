@@ -3,7 +3,6 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import { withStyles } from '@material-ui/core/styles';
 
 import Autocomplete from '../autocomplete';
@@ -22,7 +21,7 @@ const PurpleRadio = withStyles({
 })((props) => <Radio color="default" {...props} />);
 
 function filter(props) {
-  const { query, setQuery, filterPost } = props;
+  const { setQuery, filterPost } = props;
 
   const [tagsSet, setTagsSet] = useState(new Set());
   const [profileTag, setProfileTag] = useState([]);
@@ -40,45 +39,37 @@ function filter(props) {
   const [beds, setBeds] = useState();
   const [bedsOp, setBedsOp] = useState('min');
 
-  const [autocompletePosition, setAutocompletePosition] = useState();
+  const [autocompletePosition] = useState();
   const containerRef = useRef(null);
 
   function updateQuery() {
     let newQuery = '';
+
     if (tagsSet) {
       tagsSet.forEach((tag) => {
-        newQuery = `${newQuery}'&tags='${tag}`
+        newQuery = `${newQuery}'&tags='${tag}`;
       });
     }
-    if (city) {
-      newQuery += '&city=' + city;
-    }
-    if (state) {
-      newQuery += '&state=' + state;
-    }
-    if (district) {
-      newQuery += '&district=' + district;
-    }
-    if (city) {
-      newQuery += '&city=' + city;
-    }
-    if (expense) {
-      newQuery += '&expense=' + expense + '&expenseOp=' + expenseOp;
-    }
-    if (residents) {
-      newQuery += '&residents=' + residents + '&residentsOp=' + residentsOp;
-    }
-    if (vacancies) {
-      newQuery += '&vacancies=' + vacancies + '&vacanciesOp=' + vacanciesOp;
-    }
-    if (bathrooms) {
-      newQuery += '&bathrooms=' + expense + '&bathroomsOp=' + bathroomsOp;
-    }
-    if (beds) {
-      newQuery += '&beds=' + expense + '&bedsOp=' + bedsOp;
-    }
+
+    if (city) newQuery += `&city=${city}`;
+
+    if (state) newQuery += `&state=${state}`;
+
+    if (district) newQuery += `&district=${district}`;
+
+    if (city) newQuery += `&city=${city}`;
+
+    if (expense) newQuery += `&expense=${expense}&expenseOp=${expenseOp}`;
+
+    if (residents) newQuery += `&residents=${residents}&residentsOp=${residentsOp}`;
+
+    if (vacancies) newQuery += `&vacancies=${vacancies}&vacanciesOp=${vacanciesOp}`;
+
+    if (bathrooms) newQuery += `&bathrooms=${expense}&bathroomsOp=${bathroomsOp}`;
+
+    if (beds) newQuery += `&beds=${expense}&bedsOp={bedsOp}`;
+
     setQuery(newQuery);
-    console.log('newQuery', newQuery);
     filterPost(newQuery);
   }
 
