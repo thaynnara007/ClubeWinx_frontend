@@ -37,12 +37,11 @@ function Autocomplete(props) {
   const onChange = (input) => {
     let categories = creatTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
     const filteredSuggestionsChange = input
-      ?
-      suggestions.filter(
-        (suggestion) =>
-          suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
-          categories.includes(suggestion.categoryId)
-      )
+      ? suggestions.filter(
+          (suggestion) =>
+            suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
+            categories.includes(suggestion.categoryId)
+        )
       : [];
     setFilteredSuggestions(filteredSuggestionsChange);
     setUserInput(input);
@@ -102,7 +101,11 @@ function Autocomplete(props) {
   return (
     <>
       {creatTag ? (
-        <select onChange={changeCategory} value={category.toString()} className="autocomplete-select">
+        <select
+          onChange={changeCategory}
+          value={category.toString()}
+          className="autocomplete-select"
+        >
           <option value="1" className="autocomplete-select-option">
             Moradia
           </option>
@@ -112,7 +115,8 @@ function Autocomplete(props) {
           <option value="5">Animais</option>
           <option value="6">Minorias</option>
           <option value="7">Sobre você</option>
-        </select>) : (
+        </select>
+      ) : (
         []
       )}
       <>
@@ -124,17 +128,17 @@ function Autocomplete(props) {
       <ScrollBox styles={tagsBoxStyle}>
         {profileTag && profileTag.length > 0
           ? profileTag.map((tag) => {
-            const tagColor = getTagColor(parseInt(tag?.categoryId, 10));
-            return (
-              <div style={{ width: 'fit-content', height: 'fit-content' }} key={tag?.id}>
-                <InputTag
-                  styles={{ backgroundColor: `${tagColor}` }}
-                  id={tag.id}
-                  clickTag={deleteTag}
-                >{`${tag?.name}`}</InputTag>
-              </div>
-            );
-          })
+              const tagColor = getTagColor(parseInt(tag?.categoryId, 10));
+              return (
+                <div style={{ width: 'fit-content', height: 'fit-content' }} key={tag?.id}>
+                  <InputTag
+                    styles={{ backgroundColor: `${tagColor}` }}
+                    id={tag.id}
+                    clickTag={deleteTag}
+                  >{`${tag?.name}`}</InputTag>
+                </div>
+              );
+            })
           : []}
       </ScrollBox>
     </>

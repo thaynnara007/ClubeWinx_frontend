@@ -27,7 +27,7 @@ function Posts() {
   function handleScroll() {
     if (
       window.innerHeight + document.documentElement.scrollTop <
-      document.documentElement.offsetHeight ||
+        document.documentElement.offsetHeight ||
       currentPage === totalPages ||
       isLoading
     ) {
@@ -57,7 +57,7 @@ function Posts() {
 
   function filter(query) {
     // setIsLoading(true);
-    console.log(`/user/poster?page=1&pageSize=${postsPerPage}${query}`)
+    console.log(`/user/poster?page=1&pageSize=${postsPerPage}${query}`);
     api
       .get(`/user/poster?page=1&pageSize=${postsPerPage}${query}`)
       .then((response) => {
@@ -88,7 +88,7 @@ function Posts() {
       {isLoading && currentPage === 1 ? (
         <Loading style={loadingStyle} />
       ) : (
-        <div id='container'>
+        <div id="container">
           <Filter filterPost={filter} query={query} setQuery={setQuery} />
           <div className="posts-container">
             {posts &&
