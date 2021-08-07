@@ -45,10 +45,18 @@ function FlipCardFront({ flip, imageUrl, mainText, subText, buttonName = 'detalh
         <div className="flip-card-front-backgroud" style={imageStyles}>
           <div className="flip-card-front-info">
             <ScrollBox styles={scrollBox1Style}>
-              {[<p className="flip-card-front-main-text">{mainText}</p>]}
+              {[
+                <p key="flipCardFrontKey1" className="flip-card-front-main-text">
+                  {mainText}
+                </p>,
+              ]}
             </ScrollBox>
             <ScrollBox styles={scrollBox2Style}>
-              {[<p className="flip-card-front-sub-text">{subText}</p>]}
+              {[
+                <p key="flipCardFrontKey2" className="flip-card-front-sub-text">
+                  {subText}
+                </p>,
+              ]}
             </ScrollBox>
             <button onClick={flip} className="flip-card-front-button">
               {buttonName}

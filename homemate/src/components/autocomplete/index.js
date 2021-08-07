@@ -34,12 +34,12 @@ function Autocomplete(props) {
   const [category, setCategory] = useState('1');
   const [newTag, setNewTag] = useState(-1);
 
-  const shouldCreateTag = !!creatTag
-  const styleText = shouldCreateTag ? 'suggestions' : 'suggestions suggestions-type-2'
+  const shouldCreateTag = !!creatTag;
+  const styleText = shouldCreateTag ? 'suggestions' : 'suggestions suggestions-type-2';
 
   const onChange = (input) => {
-    let categories = shouldCreateTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
-    
+    const categories = shouldCreateTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
+
     const filteredSuggestionsChange = input
       ? suggestions.filter(
           (suggestion) =>

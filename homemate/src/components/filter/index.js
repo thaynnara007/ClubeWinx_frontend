@@ -11,6 +11,13 @@ import Input from '../input';
 
 import './filter.css';
 
+const styleInput = {
+  label: {
+    color: '#716F81',
+    fontWeight: 'bold',
+  },
+};
+
 const PurpleRadio = withStyles({
   root: {
     '&$checked': {
@@ -42,12 +49,12 @@ function filter(props) {
   const [autocompletePosition] = useState();
   const containerRef = useRef(null);
 
-  function updateQuery() {
+  const updateQuery = () => {
     let newQuery = '';
 
     if (tagsSet) {
       tagsSet.forEach((tag) => {
-        newQuery = `${newQuery}'&tags='${tag}`;
+        newQuery = `${newQuery}'&tags=${tag}`;
       });
     }
 
@@ -67,11 +74,11 @@ function filter(props) {
 
     if (bathrooms) newQuery += `&bathrooms=${expense}&bathroomsOp=${bathroomsOp}`;
 
-    if (beds) newQuery += `&beds=${expense}&bedsOp={bedsOp}`;
+    if (beds) newQuery += `&beds=${expense}&bedsOp=${bedsOp}`;
 
     setQuery(newQuery);
     filterPost(newQuery);
-  }
+  };
 
   // useEffect(() => {
   //   updateQuery()
@@ -85,10 +92,10 @@ function filter(props) {
     }
   }, [containerRef]); */
 
-  function removeTag(tag) {
+  const removeTag = (tag) => {
     tagsSet.delete(tag);
     setProfileTag((prev) => prev.filter((e) => e.id !== tag));
-  }
+  };
 
   const expenseOpChange = (event) => {
     setExpenseOp(event.target.value);
@@ -110,6 +117,16 @@ function filter(props) {
     setBedsOp(event.target.value);
   };
 
+  const renderFilterField = (name, value, onChange, radioValue, radioOnChange) => (
+    <div className="teste">
+      <Input styles={styleInput} name={name} value={value} onChange={onChange} />
+      <RadioGroup value={radioValue} onChange={radioOnChange}>
+        <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
+        <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
+      </RadioGroup>
+    </div>
+  );
+
   return (
     <div ref={containerRef} id="filter-container" style={{ height: autocompletePosition }}>
       <Autocomplete
@@ -121,7 +138,7 @@ function filter(props) {
         setTags={setTagsSet}
       />
       <FormControl component="fieldset">
-        <div class="teste">
+        <div className="teste">
           <Input
             styles={{ label: { color: 'black' } }}
             name="Cidade"
@@ -141,87 +158,14 @@ function filter(props) {
           value={district}
           onChange={setDistrict}
         />
-        <div class="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Custo"
-            value={expense}
-            onChange={setExpense}
-          />
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            value={expenseOp}
-            onChange={expenseOpChange}
-          >
-            <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
-            <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
-          </RadioGroup>
-        </div>
-        <div class="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Residentes"
-            value={residents}
-            onChange={setResidents}
-          />
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            value={residentsOp}
-            onChange={residentsOpChange}
-          >
-            <FormControlLabel value="min" control={<PurpleRadio color="#8566AA" />} label="min" />
-            <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
-          </RadioGroup>
-        </div>
-        <div class="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Quartos"
-            value={vacancies}
-            onChange={setVacancies}
-          />
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            value={vacanciesOp}
-            onChange={vacanciesOpChange}
-          >
-            <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
-            <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
-          </RadioGroup>
-        </div>
-        <div class="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Banheiros"
-            value={bathrooms}
-            onChange={setBathrooms}
-          />
-          <RadioGroup
-            aria-label="gender"
-            name="gender1"
-            value={bathroomsOp}
-            onChange={bathroomsOpChange}
-          >
-            <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
-            <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
-          </RadioGroup>
-        </div>
-        <div class="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Camas"
-            value={beds}
-            onChange={setBeds}
-          />
-          <RadioGroup aria-label="gender" name="gender1" value={bedsOp} onChange={bedsOpChange}>
-            <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
-            <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
-          </RadioGroup>
-        </div>
-        <Button onClick={updateQuery} styles={{ fontWeight: 'bold' }}>FILTRAR</Button>
+        {renderFilterField('Custo', expense, setExpense, expenseOp, expenseOpChange)}
+        {renderFilterField('Residentes', residents, setResidents, residentsOp, residentsOpChange)}
+        {renderFilterField('Quartos', vacancies, setVacancies, vacanciesOp, vacanciesOpChange)}
+        {renderFilterField('Banheiros', bathrooms, setBathrooms, bathroomsOp, bathroomsOpChange)}
+        {renderFilterField('Camas', beds, setBeds, bedsOp, bedsOpChange)}
+        <Button onClick={updateQuery} styles={{ fontWeight: 'bold' }}>
+          FILTRAR
+        </Button>
       </FormControl>
     </div>
   );
