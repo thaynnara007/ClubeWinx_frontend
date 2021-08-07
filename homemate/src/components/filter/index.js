@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -46,12 +46,9 @@ function filter(props) {
   const [beds, setBeds] = useState('');
   const [bedsOp, setBedsOp] = useState('min');
 
-  const [autocompletePosition] = useState();
   const containerRef = useRef(null);
 
-  const validateValue = (value) => {
-    return value && value !== '' && value.trim() !== '';
-  };
+  const validateValue = (value) => value && value !== '' && value.trim() !== '';
 
   const updateQuery = () => {
     let newQuery = '';
@@ -77,23 +74,10 @@ function filter(props) {
     if (validateValue(bathrooms)) newQuery += `&bathrooms=${bathrooms}&bathroomsOp=${bathroomsOp}`;
 
     if (validateValue(beds)) newQuery += `&beds=${beds}&bedsOp=${bedsOp}`;
-    //  console.log('newQuery')
-    //  console.log(newQuery)
-    //  setQuery(newQuery);
+
+    setQuery(newQuery);
     filterPost(newQuery);
   };
-
-  // useEffect(() => {
-  //   updateQuery()
-  // }, [tagsSet]);
-  /*
-  useEffect(() => {
-    if (containerRef.current) {
-      const position = containerRef.current.getBoundingClientRect().top;
-      console.log(position, window.innerHeight);
-      //setAutocompletePosition(window.innerHeight - position + 100);
-    }
-  }, [containerRef]); */
 
   const removeTag = (tag) => {
     tagsSet.delete(tag);
@@ -121,7 +105,7 @@ function filter(props) {
   };
 
   const renderFilterField = (name, value, onChange, radioValue, radioOnChange) => (
-    <div className="teste">
+    <div className="filter-field">
       <Input styles={styleInput} name={name} value={value} onChange={onChange} />
       <RadioGroup value={radioValue} onChange={radioOnChange}>
         <FormControlLabel value="min" control={<PurpleRadio />} label="min" />
@@ -131,7 +115,7 @@ function filter(props) {
   );
 
   return (
-    <div ref={containerRef} id="filter-container" style={{ height: autocompletePosition }}>
+    <div ref={containerRef} id="filter-container">
       <Autocomplete
         profileTag={profileTag}
         setProfileTag={setProfileTag}

@@ -9,7 +9,7 @@
   flex-grow: 1;
 }
 
-.teste {
+.filter-field {
   display: flex;
   flex-direction: row;
   width: 100%;

@@ -56,20 +56,17 @@ function Posts() {
   }
 
   function filter(query2) {
-    console.log(`/user/poster?page=1&pageSize=${postsPerPage}${query2}`);
-    // setIsLoading(true);
     api
       .get(`/user/poster?page=1&pageSize=${postsPerPage}${query2}`)
       .then((response) => {
         setTotalPages(response.data.pages);
         setPosts(response.data.rows);
-        // setIsLoading(false);
       })
       .catch((error) => {
         let msg = '';
         if (error.response) msg = error.response.data.error;
         else msg = 'Network failed';
-        // setIsLoading(false);
+
         toast.error(msg);
       });
   }
