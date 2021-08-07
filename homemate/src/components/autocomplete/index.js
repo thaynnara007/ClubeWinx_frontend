@@ -14,7 +14,7 @@ import './autocomplete.css';
 const tagsBoxStyle = {
   display: {
     width: '100%',
-    //height: '100%',
+    height: '100%',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
     justifySelf: 'center',
@@ -36,6 +36,7 @@ function Autocomplete(props) {
 
   const onChange = (input) => {
     let categories = creatTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
+    
     const filteredSuggestionsChange = input
       ? suggestions.filter(
           (suggestion) =>
@@ -100,7 +101,7 @@ function Autocomplete(props) {
 
   return (
     <>
-      {creatTag ? (
+      {creatTag && (
         <select
           onChange={changeCategory}
           value={category.toString()}
@@ -116,8 +117,6 @@ function Autocomplete(props) {
           <option value="6">Minorias</option>
           <option value="7">Sobre você</option>
         </select>
-      ) : (
-        []
       )}
       <>
         <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} onClick={createTag}>

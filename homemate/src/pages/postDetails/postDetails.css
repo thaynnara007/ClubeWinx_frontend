@@ -37,7 +37,7 @@
 
 .post-carousel {
   width: 400px;
-  height: 200px;
+  max-height: 400px;
 }
 
 .post-title {
