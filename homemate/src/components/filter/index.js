@@ -221,7 +221,7 @@ function filter(props) {
             <FormControlLabel value="max" control={<PurpleRadio />} label="max" />
           </RadioGroup>
         </div>
-        <Button onClick={updateQuery}>Filtrar</Button>
+        <Button onClick={updateQuery} styles={{ fontWeight: 'bold' }}>FILTRAR</Button>
       </FormControl>
     </div>
   );
