@@ -32,22 +32,26 @@ function filter(props) {
 
   const [tagsSet, setTagsSet] = useState(new Set());
   const [profileTag, setProfileTag] = useState([]);
-  const [city, setCity] = useState();
-  const [state, setState] = useState();
-  const [district, setDistrict] = useState();
-  const [expense, setExpense] = useState();
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [district, setDistrict] = useState('');
+  const [expense, setExpense] = useState('');
   const [expenseOp, setExpenseOp] = useState('min');
-  const [residents, setResidents] = useState();
+  const [residents, setResidents] = useState('');
   const [residentsOp, setResidentsOp] = useState('min');
-  const [vacancies, setVacancies] = useState();
+  const [vacancies, setVacancies] = useState('');
   const [vacanciesOp, setVacanciesOp] = useState('min');
-  const [bathrooms, setBathrooms] = useState();
+  const [bathrooms, setBathrooms] = useState('');
   const [bathroomsOp, setBathroomsOp] = useState('min');
-  const [beds, setBeds] = useState();
+  const [beds, setBeds] = useState('');
   const [bedsOp, setBedsOp] = useState('min');
 
   const [autocompletePosition] = useState();
   const containerRef = useRef(null);
+
+  const validateValue = (value) => {
+    return value && value !== '' && value.trim() !== '';
+  };
 
   const updateQuery = () => {
     let newQuery = '';
@@ -58,25 +62,24 @@ function filter(props) {
       });
     }
 
-    if (city) newQuery += `&city=${city}`;
+    if (validateValue(city)) newQuery += `&city=${city}`;
 
-    if (state) newQuery += `&state=${state}`;
+    if (validateValue(state)) newQuery += `&state=${state}`;
 
-    if (district) newQuery += `&district=${district}`;
+    if (validateValue(district)) newQuery += `&district=${district}`;
 
-    if (city) newQuery += `&city=${city}`;
+    if (validateValue(expense)) newQuery += `&expense=${expense}&expenseOp=${expenseOp}`;
 
-    if (expense) newQuery += `&expense=${expense}&expenseOp=${expenseOp}`;
+    if (validateValue(residents)) newQuery += `&residents=${residents}&residentsOp=${residentsOp}`;
 
-    if (residents) newQuery += `&residents=${residents}&residentsOp=${residentsOp}`;
+    if (validateValue(vacancies)) newQuery += `&vacancies=${vacancies}&vacanciesOp=${vacanciesOp}`;
 
-    if (vacancies) newQuery += `&vacancies=${vacancies}&vacanciesOp=${vacanciesOp}`;
+    if (validateValue(bathrooms)) newQuery += `&bathrooms=${bathrooms}&bathroomsOp=${bathroomsOp}`;
 
-    if (bathrooms) newQuery += `&bathrooms=${expense}&bathroomsOp=${bathroomsOp}`;
-
-    if (beds) newQuery += `&beds=${expense}&bedsOp=${bedsOp}`;
-
-    setQuery(newQuery);
+    if (validateValue(beds)) newQuery += `&beds=${beds}&bedsOp=${bedsOp}`;
+    //  console.log('newQuery')
+    //  console.log(newQuery)
+    //  setQuery(newQuery);
     filterPost(newQuery);
   };
 
@@ -139,25 +142,10 @@ function filter(props) {
       />
       <FormControl component="fieldset">
         <div className="teste">
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Cidade"
-            value={city}
-            onChange={setCity}
-          />
-          <Input
-            styles={{ label: { color: 'black' } }}
-            name="Estado"
-            value={state}
-            onChange={setState}
-          />
+          <Input styles={styleInput} name="Cidade" value={city} onChange={setCity} />
+          <Input styles={styleInput} name="Estado" value={state} onChange={setState} />
         </div>
-        <Input
-          styles={{ label: { color: 'black' } }}
-          name="Bairro"
-          value={district}
-          onChange={setDistrict}
-        />
+        <Input styles={styleInput} name="Bairro" value={district} onChange={setDistrict} />
         {renderFilterField('Custo', expense, setExpense, expenseOp, expenseOpChange)}
         {renderFilterField('Residentes', residents, setResidents, residentsOp, residentsOpChange)}
         {renderFilterField('Quartos', vacancies, setVacancies, vacanciesOp, vacanciesOpChange)}

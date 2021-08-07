@@ -38,7 +38,6 @@ function Posts() {
   }
 
   function getPosts() {
-    console.log(`/user/poster?page=1&pageSize=${postsPerPage}${query}`);
     setIsLoading(true);
     api
       .get(`/user/poster?page=${currentPage}&pageSize=${postsPerPage}${query}`)
@@ -57,9 +56,10 @@ function Posts() {
   }
 
   function filter(query2) {
+    console.log(`/user/poster?page=1&pageSize=${postsPerPage}${query2}`);
     // setIsLoading(true);
     api
-      .get(`/user/poster?page=1&pageSize=${postsPerPage}${query}`)
+      .get(`/user/poster?page=1&pageSize=${postsPerPage}${query2}`)
       .then((response) => {
         setTotalPages(response.data.pages);
         setPosts(response.data.rows);
@@ -89,7 +89,7 @@ function Posts() {
         <Loading style={loadingStyle} />
       ) : (
         <div id="container">
-          <Filter filterPost={getPosts} query={query} setQuery={setQuery} />
+          <Filter filterPost={filter} query={query} setQuery={setQuery} />
           <div className="posts-container">
             {posts &&
               posts.length > 0 &&
