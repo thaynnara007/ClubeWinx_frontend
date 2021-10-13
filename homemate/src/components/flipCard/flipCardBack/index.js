@@ -93,29 +93,37 @@ function FlipCardBack({
       <div className="flip-card-back-content">
         <ScrollBox styles={scrollBoxAddressStyles}>
           {[
-            <p className="flip-card-back-font" style={{ marginBottom: '10px' }}>
+            <p
+              key="flipCardBackKeyP1"
+              className="flip-card-back-font"
+              style={{ marginBottom: '10px' }}
+            >
               {address}
             </p>,
           ]}
         </ScrollBox>
         <ScrollBox styles={scrollBoxPriceStyles}>
-          {[<span className="flip-card-back-font">{`${price ?? ''}R$`}</span>]}
+          {[
+            <span key="flipCardBackKeySpan1" className="flip-card-back-font">{`${
+              price ?? ''
+            }R$`}</span>,
+          ]}
         </ScrollBox>
         <ScrollBox styles={scrollBoxIconsStyles}>
           {[
-            <InfoSpan description="pessoas" amountText={people}>
+            <InfoSpan description="pessoas" amountText={people} key="flipCardBackKeyInfoSpan1">
               <IconPeople />
             </InfoSpan>,
-            <div className="flip-card-back-vl" />,
-            <InfoSpan description="quartos" amountText={rooms}>
+            <div className="flip-card-back-vl" key="flipCardBackKeyVl1" />,
+            <InfoSpan description="quartos" amountText={rooms} key="flipCardBackKeyInfoSpan2">
               <IconDoor />
             </InfoSpan>,
-            <div className="flip-card-back-vl" />,
-            <InfoSpan description="camas" amountText={beds}>
+            <div className="flip-card-back-vl" key="flipCardBackKeyVl2" />,
+            <InfoSpan description="camas" amountText={beds} key="flipCardBackKeyInfoSpan3">
               <IconBed />
             </InfoSpan>,
-            <div className="flip-card-back-vl" />,
-            <InfoSpan description="banheiros" amountText={bathrooms}>
+            <div className="flip-card-back-vl" key="flipCardBackKeyVl3" />,
+            <InfoSpan description="banheiros" amountText={bathrooms} key="flipCardBackKeyInfoSpan4">
               <IconBath />
             </InfoSpan>,
           ]}

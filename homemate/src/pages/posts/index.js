@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import FlipCard from '../../components/flipCard';
+import Filter from '../../components/filter';
 import Loading from '../../components/loading';
 import api from '../../api';
 import imgLoading from '../../img/loading.gif';
@@ -12,6 +13,8 @@ function Posts() {
   const [totalPages, setTotalPages] = useState(1);
   const [postsPerPage] = useState(6);
   const [isLoading, setIsLoading] = useState(true);
+  const [query, setQuery] = useState('');
+
   const loadingStyle = { marginTop: '400px' };
   const imgLoadingStyle = {
     position: 'fixed',
@@ -37,7 +40,7 @@ function Posts() {
   function getPosts() {
     setIsLoading(true);
     api
-      .get(`/user/poster?page=${currentPage}&pageSize=${postsPerPage}`)
+      .get(`/user/poster?page=${currentPage}&pageSize=${postsPerPage}${query}`)
       .then((response) => {
         setTotalPages(response.data.pages);
         setPosts([...posts, ...response.data.rows]);
@@ -48,6 +51,22 @@ function Posts() {
         if (error.response) msg = error.response.data.error;
         else msg = 'Network failed';
         setIsLoading(false);
+        toast.error(msg);
+      });
+  }
+
+  function filter(query2) {
+    api
+      .get(`/user/poster?page=1&pageSize=${postsPerPage}${query2}`)
+      .then((response) => {
+        setTotalPages(response.data.pages);
+        setPosts(response.data.rows);
+      })
+      .catch((error) => {
+        let msg = '';
+        if (error.response) msg = error.response.data.error;
+        else msg = 'Network failed';
+
         toast.error(msg);
       });
   }
@@ -66,7 +85,8 @@ function Posts() {
       {isLoading && currentPage === 1 ? (
         <Loading style={loadingStyle} />
       ) : (
-        <>
+        <div id="container">
+          <Filter filterPost={filter} query={query} setQuery={setQuery} />
           <div className="posts-container">
             {posts &&
               posts.length > 0 &&
@@ -96,7 +116,7 @@ function Posts() {
               <img style={imgLoadingStyle} alt="loading" src={imgLoading} />
             )}
           </div>
-        </>
+        </div>
       )}
     </>
   );

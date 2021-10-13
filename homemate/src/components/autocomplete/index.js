@@ -14,7 +14,7 @@ import './autocomplete.css';
 const tagsBoxStyle = {
   display: {
     width: '100%',
-    height: '100%',
+    height: '150px',
     border: '2px solid #cbdae5',
     borderRadius: '8px',
     justifySelf: 'center',
@@ -34,12 +34,17 @@ function Autocomplete(props) {
   const [category, setCategory] = useState('1');
   const [newTag, setNewTag] = useState(-1);
 
+  const shouldCreateTag = !!creatTag;
+  const styleText = shouldCreateTag ? 'suggestions' : 'suggestions suggestions-type-2';
+
   const onChange = (input) => {
+    const categories = shouldCreateTag ? [parseInt(category, 10)] : [1, 2, 3, 4, 5, 6, 7];
+
     const filteredSuggestionsChange = input
       ? suggestions.filter(
           (suggestion) =>
             suggestion.name.toLowerCase().indexOf(input.toLowerCase()) > -1 &&
-            suggestion.categoryId === parseInt(category, 10)
+            categories.includes(suggestion.categoryId)
         )
       : [];
     setFilteredSuggestions(filteredSuggestionsChange);
@@ -66,7 +71,7 @@ function Autocomplete(props) {
 
   const suggestionsListComponent =
     filteredSuggestions.length > 0 ? (
-      <ul className="suggestions">
+      <ul className={styleText}>
         {filteredSuggestions.map((suggestion) => (
           <li value={suggestion.id} onClick={onClick} key={suggestion.id}>
             {suggestion.name}
@@ -99,20 +104,26 @@ function Autocomplete(props) {
 
   return (
     <>
-      <select onChange={changeCategory} value={category.toString()} className="autocomplete-select">
-        <option value="1" className="autocomplete-select-option">
-          Moradia
-        </option>
-        <option value="2">Saúde</option>
-        <option value="3">Estudante</option>
-        <option value="4">Curso</option>
-        <option value="5">Animais</option>
-        <option value="6">Minorias</option>
-        <option value="7">Sobre você</option>
-      </select>
+      {shouldCreateTag && (
+        <select
+          onChange={changeCategory}
+          value={category.toString()}
+          className="autocomplete-select"
+        >
+          <option value="1" className="autocomplete-select-option">
+            Moradia
+          </option>
+          <option value="2">Saúde</option>
+          <option value="3">Estudante</option>
+          <option value="4">Curso</option>
+          <option value="5">Animais</option>
+          <option value="6">Minorias</option>
+          <option value="7">Sobre você</option>
+        </select>
+      )}
       <>
         <Input name="BUSCAR TAGS" value={userInput} onChange={onChange} onClick={createTag}>
-          {creatTag && <IconAdd />}
+          {shouldCreateTag && <IconAdd />}
         </Input>
         {suggestionsListComponent}
       </>

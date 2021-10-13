@@ -32,6 +32,14 @@
   border-bottom: 1px solid #f4f4f4;
 }
 
+.suggestions-type-2 li {
+  color: #716f81;
+}
+
+.suggestions-type-2 li:not(:last-of-type) {
+  border-bottom: 1px solid #716f81;
+}
+
 .autocomplete-select {
   padding: 10px 20px;
   font-size: 17px;

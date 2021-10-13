@@ -57,6 +57,7 @@ function ProfileEdit({ profile }) {
         onChange={setSocialMedia}
         styles={problemSocialMedia}
       />
+      <br />
       <AddTag
         data={profile}
         execute={editProfile}
